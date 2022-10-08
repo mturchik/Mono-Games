@@ -5,12 +5,8 @@ public abstract partial class GameState : DrawableGameComponent
 {
     #region Fields and Properties
 
-    private List<GameComponent> _childComponents;
-    public List<GameComponent> Components => _childComponents;
-
-    private GameState _tag;
-    public GameState Tag => _tag;
-
+    public List<GameComponent> Components { get; }
+    public GameState Tag { get; }
     protected GameStateManager StateManager;
 
     #endregion
@@ -20,8 +16,8 @@ public abstract partial class GameState : DrawableGameComponent
     public GameState(Game game, GameStateManager stateManager) : base(game)
     {
         StateManager = stateManager;
-        _childComponents = new();
-        _tag = this;
+        Components = new();
+        Tag = this;
     }
 
     #endregion
@@ -35,28 +31,59 @@ public abstract partial class GameState : DrawableGameComponent
 
     public override void Update(GameTime gameTime)
     {
-        _childComponents.ForEach(c =>
+        Components.ForEach(c =>
         {
-            if (c.Enabled) c.Update(gameTime);
+            if (c.Enabled)
+                c.Update(gameTime);
         });
         base.Update(gameTime);
     }
 
     public override void Draw(GameTime gameTime)
     {
-        DrawableGameComponent drawComponent;
-
-        _childComponents.ForEach(c =>
+        Components.ForEach(c =>
         {
-            if (c is DrawableGameComponent)
-            {
-                drawComponent = c as DrawableGameComponent;
-                if (drawComponent.Visible) drawComponent.Draw(gameTime);
-            }
+            if (c is DrawableGameComponent component && component.Visible)
+                component.Draw(gameTime);
         });
         base.Draw(gameTime);
     }
 
     #endregion
 
+    #region GameState Methods
+
+    internal protected virtual void StateChange(object? sender, EventArgs e)
+    {
+        if (StateManager.CurrentState == Tag)
+            Show();
+        else
+            Hide();
+    }
+
+    protected virtual void Show()
+    {
+        Visible = true;
+        Enabled = true;
+        Components.ForEach(c =>
+        {
+            c.Enabled = true;
+            if (c is DrawableGameComponent component)
+                component.Visible = true;
+        });
+    }
+
+    protected virtual void Hide()
+    {
+        Visible = false;
+        Enabled = false;
+        Components.ForEach(c =>
+        {
+            c.Enabled = false;
+            if (c is DrawableGameComponent component)
+                component.Visible = false;
+        });
+    }
+
+    #endregion
 }

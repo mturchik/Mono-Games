@@ -8,12 +8,18 @@ public class Game1 : Game
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
+    private GameStateManager _gameStateManager;
 
     public Game1()
     {
         _graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
+        IsMouseVisible = true;
+
         Components.Add(new InputHandler(this));
+
+        _gameStateManager = new GameStateManager(this);
+        Components.Add(_gameStateManager);
     }
 
     protected override void Initialize()
