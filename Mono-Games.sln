@@ -5,6 +5,10 @@ VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EyesOfTheDragon", "EyesOfTheDragon\EyesOfTheDragon.csproj", "{EE2DDA42-3192-4198-BB2A-A09FCB9343D6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MGRpgLibrary", "MGRpgLibrary\MGRpgLibrary.csproj", "{BCCC27B5-339E-4DDB-BFF1-81708C41742D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RpgLibrary", "RpgLibrary\RpgLibrary.csproj", "{D93903D5-BC94-4A9A-BC8D-76A5E3A962FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{EE2DDA42-3192-4198-BB2A-A09FCB9343D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE2DDA42-3192-4198-BB2A-A09FCB9343D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE2DDA42-3192-4198-BB2A-A09FCB9343D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCCC27B5-339E-4DDB-BFF1-81708C41742D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCCC27B5-339E-4DDB-BFF1-81708C41742D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCCC27B5-339E-4DDB-BFF1-81708C41742D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCCC27B5-339E-4DDB-BFF1-81708C41742D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D93903D5-BC94-4A9A-BC8D-76A5E3A962FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D93903D5-BC94-4A9A-BC8D-76A5E3A962FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D93903D5-BC94-4A9A-BC8D-76A5E3A962FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D93903D5-BC94-4A9A-BC8D-76A5E3A962FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
