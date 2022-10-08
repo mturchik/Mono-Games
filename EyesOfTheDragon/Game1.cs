@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using MGRpgLibrary;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -12,7 +13,7 @@ public class Game1 : Game
     {
         _graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
-        IsMouseVisible = true;
+        Components.Add(new InputHandler(this));
     }
 
     protected override void Initialize()
