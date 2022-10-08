@@ -1,14 +1,14 @@
-﻿using MGRpgLibrary;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-
-namespace EyesOfTheDragon;
+﻿namespace EyesOfTheDragon;
 public class Game1 : Game
 {
-    private GraphicsDeviceManager _graphics;
-    private SpriteBatch _spriteBatch;
-    private GameStateManager _gameStateManager;
+    private readonly GraphicsDeviceManager _graphics;
+    private readonly GameStateManager _gameStateManager;
+    public SpriteBatch SpriteBatch { get; private set; }
+    public TitleScreen TitleScreen { get; private set; }
+
+    public const int ScreenWidth = 1280;
+    public const int ScreenHeight = 720;
+    public readonly Rectangle ScreenRectangle = new(0, 0, ScreenWidth, ScreenHeight);
 
     public Game1()
     {
@@ -20,20 +20,24 @@ public class Game1 : Game
 
         _gameStateManager = new GameStateManager(this);
         Components.Add(_gameStateManager);
+
+        TitleScreen = new TitleScreen(this, _gameStateManager);
+
+        _gameStateManager.ChangeState(TitleScreen);
     }
 
     protected override void Initialize()
     {
-        // TODO: Add your initialization logic here
+        _graphics.PreferredBackBufferWidth = ScreenWidth;
+        _graphics.PreferredBackBufferHeight = ScreenHeight;
+        _graphics.ApplyChanges();
 
         base.Initialize();
     }
 
     protected override void LoadContent()
     {
-        _spriteBatch = new SpriteBatch(GraphicsDevice);
-
-        // TODO: use this.Content to load your game content here
+        SpriteBatch = new SpriteBatch(GraphicsDevice);
     }
 
     protected override void Update(GameTime gameTime)
@@ -41,16 +45,12 @@ public class Game1 : Game
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
-        // TODO: Add your update logic here
-
         base.Update(gameTime);
     }
 
     protected override void Draw(GameTime gameTime)
     {
         GraphicsDevice.Clear(Color.CornflowerBlue);
-
-        // TODO: Add your drawing code here
 
         base.Draw(gameTime);
     }
