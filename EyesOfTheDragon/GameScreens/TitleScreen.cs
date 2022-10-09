@@ -1,9 +1,12 @@
-﻿namespace EyesOfTheDragon.GameScreens;
+﻿using MGRpgLibrary.Controls;
+
+namespace EyesOfTheDragon.GameScreens;
 public class TitleScreen : BaseGameState
 {
     #region Fields and Properties
 
     private Texture2D? _backgroundImage;
+    private LinkLabel? _startLabel;
 
     #endregion
 
@@ -19,10 +22,23 @@ public class TitleScreen : BaseGameState
     {
         _backgroundImage = GameRef.Content.Load<Texture2D>(@"Backgrounds\titlescreen");
         base.LoadContent();
+
+        _startLabel = new LinkLabel
+        {
+            Position = new Vector2(350, 600),
+            Text = "Press ENTER to begin",
+            Color = Color.White,
+            TabStop = true,
+            HasFocus = true
+        };
+        _startLabel.Selected += new EventHandler(OnStarLabelSelected);
+
+        ControlManager.Add(_startLabel);
     }
 
     public override void Update(GameTime gameTime)
     {
+        ControlManager.Update(gameTime, PlayerIndex.One);
         base.Update(gameTime);
     }
 
@@ -37,8 +53,16 @@ public class TitleScreen : BaseGameState
             Color.White
         );
 
+        ControlManager.Draw(GameRef.SpriteBatch);
+
         GameRef.SpriteBatch.End();
     }
+
+    #endregion
+
+    #region TitleScreen Methods
+
+    private void OnStarLabelSelected(object? sender, EventArgs e) => StateManager.PushState(GameRef.StartMenuScreen);
 
     #endregion
 }

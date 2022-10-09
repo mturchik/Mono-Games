@@ -5,6 +5,7 @@ public class Game1 : Game
     private readonly GameStateManager _gameStateManager;
     public SpriteBatch SpriteBatch { get; private set; }
     public TitleScreen TitleScreen { get; private set; }
+    public StartMenuScreen StartMenuScreen { get; private set; }
 
     public const int ScreenWidth = 1280;
     public const int ScreenHeight = 720;
@@ -22,6 +23,7 @@ public class Game1 : Game
         Components.Add(_gameStateManager);
 
         TitleScreen = new TitleScreen(this, _gameStateManager);
+        StartMenuScreen = new StartMenuScreen(this, _gameStateManager);
 
         _gameStateManager.ChangeState(TitleScreen);
     }

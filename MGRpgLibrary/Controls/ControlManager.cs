@@ -4,7 +4,7 @@ public class ControlManager : List<Control>
     #region Fields and Properties
 
     private int _selectedControl = 0;
-    public static SpriteFont? SpriteFont { get; private set; }
+    public static SpriteFont SpriteFont { get; private set; }
 
     #endregion
 

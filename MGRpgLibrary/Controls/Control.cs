@@ -104,10 +104,10 @@ public abstract class Control
 
     public Control()
     {
-        Color = Color.White;
-        Enabled = true;
-        Visible = true;
-        SpriteFont = ControlManager.SpriteFont;
+        _color = Color.White;
+        _enabled = true;
+        _visible = true;
+        _spriteFont = ControlManager.SpriteFont;
     }
 
     #endregion

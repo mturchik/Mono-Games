@@ -11,6 +11,7 @@ public class LinkLabel : Control
 
     public LinkLabel()
     {
+        SelectedColor = Color.Red;
         TabStop = true;
         HasFocus = false;
         Position = Vector2.Zero;
