@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-
-namespace MGRpgLibrary;
+﻿namespace MGRpgLibrary;
 public class GameStateManager : GameComponent
 {
     #region Events

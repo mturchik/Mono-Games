@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-
-namespace MGRpgLibrary;
+﻿namespace MGRpgLibrary;
 public abstract partial class GameState : DrawableGameComponent
 {
     #region Fields and Properties

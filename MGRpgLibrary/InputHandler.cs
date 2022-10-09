@@ -1,7 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
-
-namespace MGRpgLibrary;
+﻿namespace MGRpgLibrary;
 public enum MouseButton { Left, Middle, Right }
 public class InputHandler : GameComponent
 {
