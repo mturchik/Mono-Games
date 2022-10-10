@@ -1,11 +1,12 @@
 ﻿namespace EyesOfTheDragon;
-public class Game1 : Game
+internal class Game1 : Game
 {
     private readonly GraphicsDeviceManager _graphics;
     private readonly GameStateManager _gameStateManager;
-    public SpriteBatch SpriteBatch { get; private set; }
+    public SpriteBatch SpriteBatch { get; private set; } = null!;
     public TitleScreen TitleScreen { get; private set; }
     public StartMenuScreen StartMenuScreen { get; private set; }
+    public GamePlayScreen GamePlayScreen { get; private set; }
 
     public const int ScreenWidth = 1280;
     public const int ScreenHeight = 720;
@@ -24,6 +25,7 @@ public class Game1 : Game
 
         TitleScreen = new TitleScreen(this, _gameStateManager);
         StartMenuScreen = new StartMenuScreen(this, _gameStateManager);
+        GamePlayScreen = new GamePlayScreen(this, _gameStateManager);
 
         _gameStateManager.ChangeState(TitleScreen);
     }

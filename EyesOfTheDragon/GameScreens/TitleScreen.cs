@@ -1,7 +1,5 @@
-﻿using MGRpgLibrary.Controls;
-
-namespace EyesOfTheDragon.GameScreens;
-public class TitleScreen : BaseGameState
+﻿namespace EyesOfTheDragon.GameScreens;
+internal class TitleScreen : BaseGameState
 {
     #region Fields and Properties
 

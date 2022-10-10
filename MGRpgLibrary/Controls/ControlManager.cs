@@ -1,10 +1,16 @@
 ﻿namespace MGRpgLibrary.Controls;
 public class ControlManager : List<Control>
 {
+    #region Events
+
+    public event EventHandler? FocusChanged;
+
+    #endregion
+
     #region Fields and Properties
 
     private int _selectedControl = 0;
-    public static SpriteFont SpriteFont { get; private set; }
+    public static SpriteFont SpriteFont { get; private set; } = null!;
 
     #endregion
 
@@ -73,8 +79,10 @@ public class ControlManager : List<Control>
                 _selectedControl = 0;
 
             if (this[_selectedControl].TabStop && this[_selectedControl].Enabled)
+            {
+                FocusChanged?.Invoke(this[_selectedControl], EventArgs.Empty);
                 break;
-
+            }
         } while (currentControl != _selectedControl);
 
         this[_selectedControl].HasFocus = true;
@@ -95,8 +103,10 @@ public class ControlManager : List<Control>
                 _selectedControl = Count - 1;
 
             if (this[_selectedControl].TabStop && this[_selectedControl].Enabled)
+            {
+                FocusChanged?.Invoke(this[_selectedControl], EventArgs.Empty);
                 break;
-
+            }
         } while (currentControl != _selectedControl);
 
         this[_selectedControl].HasFocus = true;

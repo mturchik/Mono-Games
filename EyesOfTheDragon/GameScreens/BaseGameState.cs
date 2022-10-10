@@ -1,12 +1,10 @@
-﻿using MGRpgLibrary.Controls;
-
-namespace EyesOfTheDragon.GameScreens;
-public abstract partial class BaseGameState : GameState
+﻿namespace EyesOfTheDragon.GameScreens;
+internal abstract partial class BaseGameState : GameState
 {
     #region Fields and Properties
 
     protected Game1 GameRef;
-    protected ControlManager ControlManager;
+    protected ControlManager ControlManager = null!;
     protected PlayerIndex PlayerIndexInControl;
 
     #endregion
