@@ -7,6 +7,7 @@ internal class Game1 : Game
     public TitleScreen TitleScreen { get; private set; }
     public StartMenuScreen StartMenuScreen { get; private set; }
     public GamePlayScreen GamePlayScreen { get; private set; }
+    public CharacterGeneratorScreen CharacterGeneratorScreen { get; private set; }
 
     public const int ScreenWidth = 1280;
     public const int ScreenHeight = 720;
@@ -26,6 +27,7 @@ internal class Game1 : Game
         TitleScreen = new TitleScreen(this, _gameStateManager);
         StartMenuScreen = new StartMenuScreen(this, _gameStateManager);
         GamePlayScreen = new GamePlayScreen(this, _gameStateManager);
+        CharacterGeneratorScreen = new CharacterGeneratorScreen(this, _gameStateManager);
 
         _gameStateManager.ChangeState(TitleScreen);
     }

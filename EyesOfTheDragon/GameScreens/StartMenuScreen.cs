@@ -91,7 +91,7 @@ internal class StartMenuScreen : BaseGameState
 
     private void OnMenuItemSelected(object? sender, EventArgs e)
     {
-        if (sender == _startGame) StateManager.PushState(GameRef.GamePlayScreen);
+        if (sender == _startGame) StateManager.PushState(GameRef.CharacterGeneratorScreen);
 
         if (sender == _loadGame) StateManager.PushState(GameRef.GamePlayScreen);
 
