@@ -59,7 +59,7 @@ public class AnimatedSprite
     {
         spriteBatch.Draw(
             _texture,
-            Position - camera.Position,
+            Position,
             _animations[CurrentAnimation].CurrentFrameRect,
             Color.White
         );

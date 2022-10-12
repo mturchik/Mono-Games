@@ -93,7 +93,7 @@ internal class StartMenuScreen : BaseGameState
     {
         if (sender == _startGame) StateManager.PushState(GameRef.CharacterGeneratorScreen);
 
-        if (sender == _loadGame) StateManager.PushState(GameRef.GamePlayScreen);
+        //if (sender == _loadGame) StateManager.PushState(GameRef.GamePlayScreen);
 
         if (sender == _exitGame) GameRef.Exit();
     }

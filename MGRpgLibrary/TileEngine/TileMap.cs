@@ -47,13 +47,13 @@ public class TileMap
         foreach (var layer in _layers)
             for (int y = 0; y < layer.Height; y++)
             {
-                destination.Y = y * Engine.TileHeight - (int)camera.Position.Y;
+                destination.Y = y * Engine.TileHeight;
                 for (int x = 0; x < layer.Width; x++)
                 {
                     tile = layer.GetTile(x, y);
                     if (tile.TileIndex == -1 || tile.Tileset == -1) continue;
 
-                    destination.X = x * Engine.TileWidth - (int)camera.Position.X;
+                    destination.X = x * Engine.TileWidth;
                     spriteBatch.Draw(
                         _tilesets[tile.Tileset].Texture,
                         destination,

@@ -1,6 +1,4 @@
-﻿using MGRpgLibrary.SpriteClasses;
-
-namespace EyesOfTheDragon.GameScreens;
+﻿namespace EyesOfTheDragon.GameScreens;
 internal class GamePlayScreen : BaseGameState
 {
     #region Fields and Properties
@@ -30,7 +28,11 @@ internal class GamePlayScreen : BaseGameState
 
     protected override void LoadContent()
     {
-        var spriteSheet = Game.Content.Load<Texture2D>(@"PlayerSprites\malefighter");
+        var spriteSheet = Game.Content.Load<Texture2D>(
+            @"PlayerSprites\" +
+            GameRef.CharacterGeneratorScreen.SelectedGender +
+            GameRef.CharacterGeneratorScreen.SelectedClass
+        );
         var animations = new Dictionary<AnimationKey, Animation>
         {
             { AnimationKey.Down,  new Animation(3, 32, 32, 0, 0) },
@@ -46,17 +48,17 @@ internal class GamePlayScreen : BaseGameState
         var tileset2 = new Tileset(Game.Content.Load<Texture2D>(@"Tilesets\tileset2"), 8, 8, 32, 32);
         var tilesets = new List<Tileset>() { tileset1, tileset2 };
 
-        var world = new MapLayer(40, 40);
+        var world = new MapLayer(100, 100);
         for (int y = 0; y < world.Height; y++)
             for (int x = 0; x < world.Width; x++)
                 world.SetTile(x, y, new(1, 0));
 
-        var splatter = new MapLayer(40, 40);
+        var splatter = new MapLayer(100, 100);
         var random = new Random();
-        for (int i = 0; i < 80; i++)
+        for (int i = 0; i < 100; i++)
         {
-            int x = random.Next(0, 40);
-            int y = random.Next(0, 40);
+            int x = random.Next(0, 100);
+            int y = random.Next(0, 100);
             int index = random.Next(2, 14);
             splatter.SetTile(x, y, new(index, 0));
         }
@@ -66,13 +68,26 @@ internal class GamePlayScreen : BaseGameState
 
         var layers = new List<MapLayer>() { world, splatter };
 
-        _map = new(tilesets, layers);
+        _map = new TileMap(tilesets, layers);
     }
 
     public override void Update(GameTime gameTime)
     {
         _player.Update(gameTime);
         _sprite.Update(gameTime);
+
+        if (InputHandler.KeyReleased(Keys.PageUp) || InputHandler.ButtonReleased(Buttons.LeftShoulder, PlayerIndex.One))
+        {
+            _player.Camera.ZoomIn();
+            if (_player.Camera.CameraMode == CameraMode.Follow)
+                _player.Camera.LockToSprite(_sprite);
+        }
+        else if (InputHandler.KeyReleased(Keys.PageDown) || InputHandler.ButtonReleased(Buttons.RightShoulder, PlayerIndex.One))
+        {
+            _player.Camera.ZoomOut();
+            if (_player.Camera.CameraMode == CameraMode.Follow)
+                _player.Camera.LockToSprite(_sprite);
+        }
 
         var motion = new Vector2();
 
@@ -133,7 +148,7 @@ internal class GamePlayScreen : BaseGameState
 
     public override void Draw(GameTime gameTime)
     {
-        GameRef.SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, transformMatrix: Matrix.Identity);
+        GameRef.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, transformMatrix: _player.Camera.Transformation);
 
         _map.Draw(GameRef.SpriteBatch, _player.Camera);
         _sprite.Draw(gameTime, GameRef.SpriteBatch, _player.Camera);
