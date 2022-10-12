@@ -1,5 +1,4 @@
-﻿
-using MGRpgLibrary.SpriteClasses;
+﻿using MGRpgLibrary.SpriteClasses;
 
 namespace EyesOfTheDragon.GameScreens;
 internal class GamePlayScreen : BaseGameState
@@ -74,6 +73,61 @@ internal class GamePlayScreen : BaseGameState
     {
         _player.Update(gameTime);
         _sprite.Update(gameTime);
+
+        var motion = new Vector2();
+
+        if (InputHandler.KeyDown(Keys.W) || InputHandler.ButtonDown(Buttons.LeftThumbstickUp, PlayerIndex.One))
+        {
+            _sprite.CurrentAnimation = AnimationKey.Up;
+            motion.Y = -1;
+        }
+        else if (InputHandler.KeyDown(Keys.S) || InputHandler.ButtonDown(Buttons.LeftThumbstickDown, PlayerIndex.One))
+        {
+            _sprite.CurrentAnimation = AnimationKey.Down;
+            motion.Y = 1;
+        }
+
+        if (InputHandler.KeyDown(Keys.A) || InputHandler.ButtonDown(Buttons.LeftThumbstickLeft, PlayerIndex.One))
+        {
+            _sprite.CurrentAnimation = AnimationKey.Left;
+            motion.X = -1;
+        }
+        else if (InputHandler.KeyDown(Keys.D) || InputHandler.ButtonDown(Buttons.LeftThumbstickRight, PlayerIndex.One))
+        {
+            _sprite.CurrentAnimation = AnimationKey.Right;
+            motion.X = 1;
+        }
+
+        if (motion != Vector2.Zero)
+        {
+            _sprite.IsAnimating = true;
+            motion.Normalize();
+            _sprite.Position += motion * _sprite.Speed;
+            _sprite.LockToMap();
+
+            if (_player.Camera.CameraMode == CameraMode.Follow)
+                _player.Camera.LockToSprite(_sprite);
+        }
+        else
+        {
+            _sprite.IsAnimating = false;
+        }
+
+        if (InputHandler.KeyReleased(Keys.F) || InputHandler.ButtonReleased(Buttons.RightStick, PlayerIndex.One))
+        {
+            _player.Camera.ToggleCameraMode();
+            if (_player.Camera.CameraMode == CameraMode.Follow)
+                _player.Camera.LockToSprite(_sprite);
+        }
+
+        if (_player.Camera.CameraMode != CameraMode.Follow)
+        {
+            if (InputHandler.KeyReleased(Keys.C) || InputHandler.ButtonReleased(Buttons.LeftStick, PlayerIndex.One))
+            {
+                _player.Camera.LockToSprite(_sprite);
+            }
+        }
+
         base.Update(gameTime);
     }
 
