@@ -1,4 +1,6 @@
 ﻿
+using MGRpgLibrary.SpriteClasses;
+
 namespace EyesOfTheDragon.GameScreens;
 internal class GamePlayScreen : BaseGameState
 {
@@ -7,6 +9,7 @@ internal class GamePlayScreen : BaseGameState
     private readonly Engine _engine = new(32, 32);
     private readonly Player _player;
     private TileMap _map = null!;
+    private AnimatedSprite _sprite = null!;
 
     #endregion
 
@@ -28,6 +31,16 @@ internal class GamePlayScreen : BaseGameState
 
     protected override void LoadContent()
     {
+        var spriteSheet = Game.Content.Load<Texture2D>(@"PlayerSprites\malefighter");
+        var animations = new Dictionary<AnimationKey, Animation>
+        {
+            { AnimationKey.Down,  new Animation(3, 32, 32, 0, 0) },
+            { AnimationKey.Left,  new Animation(3, 32, 32, 0, 32) },
+            { AnimationKey.Right, new Animation(3, 32, 32, 0, 64) },
+            { AnimationKey.Up,    new Animation(3, 32, 32, 0, 96) },
+        };
+        _sprite = new AnimatedSprite(spriteSheet, animations);
+
         base.LoadContent();
 
         var tileset1 = new Tileset(Game.Content.Load<Texture2D>(@"Tilesets\tileset1"), 8, 8, 32, 32);
@@ -60,6 +73,7 @@ internal class GamePlayScreen : BaseGameState
     public override void Update(GameTime gameTime)
     {
         _player.Update(gameTime);
+        _sprite.Update(gameTime);
         base.Update(gameTime);
     }
 
@@ -68,6 +82,7 @@ internal class GamePlayScreen : BaseGameState
         GameRef.SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, transformMatrix: Matrix.Identity);
 
         _map.Draw(GameRef.SpriteBatch, _player.Camera);
+        _sprite.Draw(gameTime, GameRef.SpriteBatch, _player.Camera);
         base.Draw(gameTime);
 
         GameRef.SpriteBatch.End();
