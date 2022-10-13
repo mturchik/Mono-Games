@@ -3,16 +3,9 @@ public class Armor : BaseItem
 {
     #region Fields and Properties
 
-    //TODO: Try to set this to an auto property
-    int defenseModifier;
-
     public ArmorLocation Location { get; protected set; }
     public int DefenseValue { get; protected set; }
-    public int DefenseModifier
-    {
-        get { return defenseModifier; }
-        protected set { defenseModifier = value; }
-    }
+    public int DefenseModifier { get; protected set; }
 
     #endregion
 

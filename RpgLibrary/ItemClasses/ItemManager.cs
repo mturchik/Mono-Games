@@ -12,8 +12,8 @@ public class ItemManager
     private readonly Dictionary<string, Shield> _shields = new();
     public Dictionary<string, Shield>.KeyCollection ShieldKeys => _shields.Keys;
 
-
     #endregion
+
     #region Constructor Region
 
     public ItemManager() { }
