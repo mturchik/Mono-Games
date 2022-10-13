@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:RpgEditor.Pages.ViewModels"
+             x:Class="RpgEditor.Pages.MainPage"
+             Title="RPG Editor">
+    <ContentPage.BindingContext>
+        <vm:MainPageViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.MenuBarItems >
+        <MenuBarItem Text="Game">
+            <MenuFlyoutItem Text="New Game" Command="{Binding NavigationCommand}" CommandParameter="//NewGamePage"></MenuFlyoutItem>
+            <MenuFlyoutItem Text="Open Game"></MenuFlyoutItem>
+            <MenuFlyoutItem Text="Save Game"></MenuFlyoutItem>
+            <MenuFlyoutItem Text="Exit Game"></MenuFlyoutItem>
+        </MenuBarItem>
+        <MenuBarItem Text="Classes" IsEnabled="False">
+        </MenuBarItem>
+    </ContentPage.MenuBarItems>
+
+    <ScrollView>
+        <VerticalStackLayout
+            Spacing="25"
+            Padding="30,0"
+            VerticalOptions="StartAndExpand">
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
