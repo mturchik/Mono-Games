@@ -1,6 +1,6 @@
 ﻿namespace MGRpgLibrary.SpriteClasses;
 public enum AnimationKey { Down, Left, Right, Up }
-public class Animation : ICloneable
+public class Animation
 {
     #region Fields and Properties
 

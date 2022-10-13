@@ -3,7 +3,7 @@ public class EntityData
 {
     #region Fields
 
-    public string ClassName;
+    public string EntityName;
 
     public int Strength;
     public int Dexterity;
@@ -22,19 +22,61 @@ public class EntityData
 
     private EntityData() { }
 
+    public EntityData(
+        string entityName,
+        int strength,
+        int dexterity,
+        int cunning,
+        int willpower,
+        int magic,
+        int constitution,
+        string health,
+        string stamina,
+        string mana)
+    {
+        EntityName = entityName;
+        Strength = strength;
+        Dexterity = dexterity;
+        Cunning = cunning;
+        Willpower = willpower;
+        Cunning = cunning;
+        Willpower = willpower;
+        Magic = magic;
+        Constitution = constitution;
+        HealthFormula = health;
+        StaminaFormula = stamina;
+        MagicFormula = mana;
+    }
+
     #endregion
 
     #region Static Methods
 
-    public static void ToFile(string filename)
-    {
-    }
+    public override string ToString()
+        => $"Name = {EntityName}, "
+         + $"Strength = {Strength}, "
+         + $"Dexterity = {Dexterity}, "
+         + $"Cunning = {Cunning}, "
+         + $"Willpower = {Willpower}, "
+         + $"Magic = {Magic}, "
+         + $"Constitution = {Constitution}, "
+         + $"Health Formula = {HealthFormula}, "
+         + $"Stamina Formula = {StaminaFormula}, "
+         + $"Magic Formula = {MagicFormula}";
 
-    public static EntityData FromFile(string filename)
+    public object Clone() => new EntityData
     {
-        EntityData entity = new EntityData();
-        return entity;
-    }
+        EntityName = EntityName,
+        Strength = Strength,
+        Dexterity = Dexterity,
+        Cunning = Cunning,
+        Willpower = Willpower,
+        Magic = Magic,
+        Constitution = Constitution,
+        HealthFormula = HealthFormula,
+        StaminaFormula = StaminaFormula,
+        MagicFormula = MagicFormula
+    };
 
     #endregion
 }

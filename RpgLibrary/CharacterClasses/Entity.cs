@@ -1,70 +1,75 @@
 ﻿namespace RpgLibrary.CharacterClasses;
 public enum EntityGender { Male, Female, NonBinary, Unknown }
+public enum EntityType { Character, NPC, Monster, Creature }
 public abstract class Entity
 {
     #region Vital Field and Property Region
 
-    protected string _entityName;
+    private string _entityName;
     public string EntityName => _entityName;
 
-    protected string _entityType;
-    public string EntityType => _entityType;
+    private string _entityClass;
+    public string EntityClass => _entityClass;
 
-    public EntityGender Gender { get; protected set; }
+    private EntityType _entityType;
+    public EntityType EntityType => _entityType;
+
+    private EntityGender _entityGender;
+    public EntityGender Gender => _entityGender;
 
     #endregion
 
     #region Basic Attribute and Property Region
 
-    protected int _strength;
-    protected int _strengthModifier;
+    private int _strength;
+    private int _strengthModifier;
     public int Strength => _strength + _strengthModifier;
 
-    protected int _dexterity;
-    protected int _dexterityModifier;
+    private int _dexterity;
+    private int _dexterityModifier;
     public int Dexterity => _dexterity + _dexterityModifier;
 
-    protected int _cunning;
-    protected int _cunningModifier;
+    private int _cunning;
+    private int _cunningModifier;
     public int Cunning => _cunning + _cunningModifier;
 
-    protected int _willpower;
-    protected int _willpowerModifier;
+    private int _willpower;
+    private int _willpowerModifier;
     public int Willpower => _willpower + _willpowerModifier;
 
-    protected int _magic;
-    protected int _magicModifier;
+    private int _magic;
+    private int _magicModifier;
     public int Magic => _magic + _magicModifier;
 
-    protected int _constitution;
-    protected int _constitutionModifier;
+    private int _constitution;
+    private int _constitutionModifier;
     public int Constitution => _constitution + _constitutionModifier;
 
     #endregion
 
     #region Calculated Attribute Field and Property Region
 
-    protected AttributePair _health;
+    private AttributePair _health;
     public AttributePair Health => _health;
 
-    protected AttributePair _stamina;
+    private AttributePair _stamina;
     public AttributePair Stamina => _stamina;
 
-    protected AttributePair _mana;
+    private AttributePair _mana;
     public AttributePair Mana => _mana;
 
-    protected int _attack;
-    protected int _damage;
-    protected int _defense;
+    private int _attack;
+    private int _damage;
+    private int _defense;
 
     #endregion
 
     #region Level Field and Property Region
 
-    protected int _level;
+    private int _level;
     public int Level => _level;
 
-    protected long _experience;
+    private long _experience;
     public long Experience => _experience;
 
     #endregion
@@ -84,18 +89,21 @@ public abstract class Entity
         _mana = AttributePair.Zero;
     }
 
-    public Entity(EntityData entityData)
+    public Entity(string name, EntityData entityData, EntityGender gender, EntityType type)
     {
-        _entityType = entityData.ClassName;
+        _entityName = name;
+        _entityClass = entityData.EntityName;
+        _entityGender = gender;
+        _entityType = type;
         _strength = entityData.Strength;
         _dexterity = entityData.Dexterity;
         _cunning = entityData.Cunning;
         _willpower = entityData.Willpower;
         _magic = entityData.Magic;
         _cunning = entityData.Constitution;
-        _health = new AttributePair(0);
-        _stamina = new AttributePair(0);
-        _mana = new AttributePair(0);
+        _health = AttributePair.Zero;
+        _stamina = AttributePair.Zero;
+        _mana = AttributePair.Zero;
     }
 
     #endregion
