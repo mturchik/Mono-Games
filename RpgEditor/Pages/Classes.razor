@@ -1,26 +1,111 @@
 ﻿@page "/Classes"
 @using System.ComponentModel.DataAnnotations
 @using RpgLibrary
+@using RpgLibrary.CharacterClasses
 
 <h3>Classes</h3>
-@*
+
 <div class="container-fluid">
-    @if (GameForm != null)
+    @if (EntityDataForm != null)
     {
         <div class="row">
             <div class="col-sm-6">
 
-                <EditForm Model="GameForm" OnValidSubmit="SubmitForm">
+                <EditForm Model="EntityDataForm" OnValidSubmit="SubmitForm">
                     <DataAnnotationsValidator />
 
-                    <div class="form-label">Name:</div>
-                    <InputText class="form-control" DisplayName="Name" @bind-Value="GameForm.Name"></InputText>
+                    <div class="row mb-2">
+                        <div class="col-3 text-end">
+                            <div class="form-label">Name:</div>
+                        </div>
+                        <div class="col-9">
+                            <InputText class="form-control" DisplayName="Name" @bind-Value="EntityDataForm.Name"></InputText>
+                        </div>
+                    </div>
 
-                    <div class="form-label mt-3">Description:</div>
-                    <InputTextArea class="form-control" DisplayName="Description" @bind-Value="GameForm.Description"></InputTextArea>
+                    <div class="row mb-2">
+                        <div class="col-3 text-end">
+                            <div class="form-label">Strength:</div>
+                        </div>
+                        <div class="col-3">
+                            <InputNumber class="form-control" DisplayName="Strength" @bind-Value="EntityDataForm.Strength"></InputNumber>
+                        </div>
+                    </div>
 
-                    <button class="btn btn-primary mt-3 mb-3" type="submit">Create</button>
-                    <button class="btn btn-outline-secondary ml-2" type="button" @onclick="() => GameForm = null">Cancel</button>
+                    <div class="row mb-2">
+                        <div class="col-3 text-end">
+                            <div class="form-label">Dexterity:</div>
+                        </div>
+                        <div class="col-3">
+                            <InputNumber class="form-control" DisplayName="Dexterity" @bind-Value="EntityDataForm.Dexterity"></InputNumber>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-3 text-end">
+                            <div class="form-label">Cunning:</div>
+                        </div>
+                        <div class="col-3">
+                            <InputNumber class="form-control" DisplayName="Cunning" @bind-Value="EntityDataForm.Cunning"></InputNumber>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-3 text-end">
+                            <div class="form-label">Willpower:</div>
+                        </div>
+                        <div class="col-3">
+                            <InputNumber class="form-control" DisplayName="Willpower" @bind-Value="EntityDataForm.Willpower"></InputNumber>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-3 text-end">
+                            <div class="form-label">Magic:</div>
+                        </div>
+                        <div class="col-3">
+                            <InputNumber class="form-control" DisplayName="Magic" @bind-Value="EntityDataForm.Magic"></InputNumber>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-3 text-end">
+                            <div class="form-label">Constitution:</div>
+                        </div>
+                        <div class="col-3">
+                            <InputNumber class="form-control" DisplayName="Constitution" @bind-Value="EntityDataForm.Constitution"></InputNumber>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-3 text-end">
+                            <div class="form-label">Health Formula:</div>
+                        </div>
+                        <div class="col-9">
+                            <InputText class="form-control" DisplayName="Health Formula" @bind-Value="EntityDataForm.HealthFormula"></InputText>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-3 text-end">
+                            <div class="form-label">Stamina Formula:</div>
+                        </div>
+                        <div class="col-9">
+                            <InputText class="form-control" DisplayName="Stamina Formula" @bind-Value="EntityDataForm.StaminaFormula"></InputText>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-3 text-end">
+                            <div class="form-label">Mana Formula:</div>
+                        </div>
+                        <div class="col-9">
+                            <InputText class="form-control" DisplayName="Mana Formula" @bind-Value="EntityDataForm.ManaFormula"></InputText>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary mb-2 me-2" type="submit">Create</button>
+                    <button class="btn btn-outline-secondary" type="button" @onclick="() => EntityDataForm = null">Cancel</button>
 
                     <ValidationSummary />
 
@@ -32,9 +117,9 @@
     }
     <div class="row mt-3">
         <div class="col-sm-12 mb-3">
-            @if (GameForm == null)
+            @if (EntityDataForm == null)
             {
-                <button class="btn btn-primary" @onclick="() => GameForm = new()">Create New</button>
+                <button class="btn btn-primary" @onclick="() => EntityDataForm = new()">Create New</button>
             }
         </div>
         <div class="col-sm-12">
@@ -42,15 +127,13 @@
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Description</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var rpg in RpgList)
+                    @foreach (var entityData in EntityDataList)
                     {
                         <tr>
-                            <td>@rpg.Name</td>
-                            <td>@rpg.Description</td>
+                            <td>@entityData.EntityName</td>
                         </tr>
                     }
                 </tbody>
@@ -60,22 +143,50 @@
 </div>
 
 @code {
-    Form? GameForm { get; set; }
-    List<RolePlayingGame> RpgList = new();
+    Form? EntityDataForm { get; set; }
+    List<EntityData> EntityDataList = new();
 
     void SubmitForm()
     {
-        var rpg = new RolePlayingGame(GameForm.Name, GameForm.Description);
-        RpgList.Add(rpg);
-        GameForm = null;
+        if (EntityDataForm is null) return;
+
+        var entity = new EntityData(
+            EntityDataForm.Name,
+            EntityDataForm.Strength,
+            EntityDataForm.Dexterity,
+            EntityDataForm.Cunning,
+            EntityDataForm.Willpower,
+            EntityDataForm.Magic,
+            EntityDataForm.Constitution,
+            EntityDataForm.HealthFormula,
+            EntityDataForm.StaminaFormula,
+            EntityDataForm.ManaFormula
+        );
+        EntityDataList.Add(entity);
+        EntityDataForm = null;
     }
 
     class Form
     {
         [Required, StringLength(100, MinimumLength = 3)]
-        public string Name { get; set; }
-        [Required, StringLength(500, MinimumLength = 3)]
-        public string Description { get; set; }
+        public string Name { get; set; } = "";
+        [Required]
+        public int Strength { get; set; }
+        [Required]
+        public int Dexterity { get; set; }
+        [Required]
+        public int Cunning { get; set; }
+        [Required]
+        public int Willpower { get; set; }
+        [Required]
+        public int Magic { get; set; }
+        [Required]
+        public int Constitution { get; set; }
+        [Required, StringLength(100)]
+        public string HealthFormula { get; set; } = "";
+        [Required, StringLength(100)]
+        public string StaminaFormula { get; set; } = "";
+        [Required, StringLength(100)]
+        public string ManaFormula { get; set; } = "";
     }
 }
-*@
