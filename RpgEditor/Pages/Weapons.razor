@@ -1,0 +1,204 @@
+﻿@page "/Weapons"
+@using System.ComponentModel.DataAnnotations
+@using RpgLibrary
+@using RpgLibrary.CharacterClasses
+@using RpgLibrary.ItemClasses
+
+<h3>Weapons</h3>
+
+<div class="container-fluid">
+    @if (WeaponForm != null)
+    {
+
+        <EditForm Model="WeaponForm" OnValidSubmit="SubmitForm">
+            <DataAnnotationsValidator />
+
+            <div class="row">
+                <div class="col-6">
+                    <div class="row mb-2">
+                        <div class="col-3 text-end">
+                            <div class="form-label">Name:</div>
+                        </div>
+                        <div class="col-3">
+                            <InputText class="form-control" @bind-Value="WeaponForm.Name"></InputText>
+                        </div>
+                        <div class="col-3 text-end">
+                            <div class="form-label">Type:</div>
+                        </div>
+                        <div class="col-3">
+                            <InputText class="form-control" @bind-Value="WeaponForm.Type"></InputText>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-3 text-end">
+                            <div class="form-label">Price:</div>
+                        </div>
+                        <div class="col-3">
+                            <InputNumber class="form-control" @bind-Value="WeaponForm.Price"></InputNumber>
+                        </div>
+                        <div class="col-3 text-end">
+                            <div class="form-label">Weight:</div>
+                        </div>
+                        <div class="col-3">
+                            <InputNumber class="form-control" @bind-Value="WeaponForm.Weight"></InputNumber>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-3 text-end">
+                            <div class="form-label">Attack Value:</div>
+                        </div>
+                        <div class="col-3">
+                            <InputNumber class="form-control" @bind-Value="WeaponForm.AttackValue"></InputNumber>
+                        </div>
+                        <div class="col-3 text-end">
+                            <div class="form-label">Attack Modifier:</div>
+                        </div>
+                        <div class="col-3">
+                            <InputNumber class="form-control" @bind-Value="WeaponForm.AttackModifier"></InputNumber>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-3 text-end">
+                            <div class="form-label">Damage Value:</div>
+                        </div>
+                        <div class="col-3">
+                            <InputNumber class="form-control" @bind-Value="WeaponForm.DamageValue"></InputNumber>
+                        </div>
+                        <div class="col-3 text-end">
+                            <div class="form-label">Damage Modifier:</div>
+                        </div>
+                        <div class="col-3">
+                            <InputNumber class="form-control" @bind-Value="WeaponForm.DamageModifier"></InputNumber>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-6">
+                    <div class="row mb-2">
+                        <div class="col-3 text-end">
+                            <div class="form-label">Hands:</div>
+                        </div>
+                        <div class="col-3">
+                            <InputSelect class="form-control" @bind-Value="WeaponForm.AllowableHands">
+                                @foreach (var hand in Enum.GetValues<Hands>())
+                                {
+                                    <option value="@hand">@hand</option>
+                                }
+                            </InputSelect>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-3">
+                            <div class="form-label text-end">Allowable Classes:</div>
+                        </div>
+                        <div class="col-3">
+                            <InputSelect class="form-control" @bind-Value="WeaponForm.AllowableClasses">
+                                @foreach (var className in ClassNameList)
+                                {
+                                    <option value="@className">@className</option>
+                                }
+                            </InputSelect>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <button class="btn btn-primary me-2" type="submit">Create</button>
+            <button class="btn btn-outline-secondary" type="button" @onclick="() => WeaponForm = null">Cancel</button>
+
+            <ValidationSummary />
+
+        </EditForm>
+
+        <hr />
+    }
+    <div class="row mt-3">
+        <div class="col-sm-12 mb-3">
+            @if (WeaponForm == null)
+            {
+                <button class="btn btn-primary" @onclick="() => WeaponForm = new()">Create New</button>
+            }
+        </div>
+        <div class="col-sm-12">
+            <table class="table table-bordered table-primary table-responsive table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Price</th>
+                        <th>Weight</th>
+                        <th>Hands</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var weapon in WeaponList)
+                    {
+                        <tr>
+                            <td>@weapon.Name</td>
+                            <td>@weapon.Type</td>
+                            <td>@weapon.Price</td>
+                            <td>@weapon.Weight</td>
+                            <td>@weapon.NumberHands</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@code {
+    Form? WeaponForm { get; set; }
+    List<Weapon> WeaponList = new();
+    List<string> ClassNameList = new() { "Warrior", "Rogue", "Priest", "Wizard" };
+
+    void SubmitForm()
+    {
+        if (WeaponForm is null) return;
+
+        var weapon = new Weapon(
+            WeaponForm.Name,
+            WeaponForm.Type,
+            WeaponForm.Price,
+            WeaponForm.Weight,
+            WeaponForm.AllowableHands,
+            WeaponForm.AttackValue,
+            WeaponForm.AttackModifier,
+            WeaponForm.DamageValue,
+            WeaponForm.DamageModifier,
+            WeaponForm.AllowableClasses
+        );
+        WeaponList.Add(weapon);
+        WeaponForm = null;
+    }
+
+    class Form
+    {
+        [Required, StringLength(100, MinimumLength = 3)]
+        public string Name { get; set; } = "";
+        [Required, StringLength(100, MinimumLength = 3)]
+        public string Type { get; set; } = "";
+        [Required]
+        public int Price { get; set; }
+        [Required]
+        public float Weight { get; set; }
+        [Required]
+        public Hands AllowableHands { get; set; }
+        [Required]
+        public int AttackValue { get; set; }
+        [Required]
+        public int AttackModifier { get; set; }
+        [Required]
+        public int DamageValue { get; set; }
+        [Required]
+        public int DamageModifier { get; set; }
+        [Required]
+        public string[] AllowableClasses { get; set; } = new string[] { };
+    }
+}

@@ -14,7 +14,7 @@ public class EntityData
 
     public string HealthFormula;
     public string StaminaFormula;
-    public string MagicFormula;
+    public string ManaFormula;
 
     #endregion
 
@@ -45,7 +45,7 @@ public class EntityData
         Constitution = constitution;
         HealthFormula = health;
         StaminaFormula = stamina;
-        MagicFormula = mana;
+        ManaFormula = mana;
     }
 
     #endregion
@@ -62,7 +62,7 @@ public class EntityData
          + $"Constitution = {Constitution}, "
          + $"Health Formula = {HealthFormula}, "
          + $"Stamina Formula = {StaminaFormula}, "
-         + $"Magic Formula = {MagicFormula}";
+         + $"Mana Formula = {ManaFormula}";
 
     public object Clone() => new EntityData
     {
@@ -75,7 +75,7 @@ public class EntityData
         Constitution = Constitution,
         HealthFormula = HealthFormula,
         StaminaFormula = StaminaFormula,
-        MagicFormula = MagicFormula
+        ManaFormula = ManaFormula
     };
 
     #endregion

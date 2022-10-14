@@ -15,7 +15,7 @@ public class Weapon : BaseItem
 
     public Weapon(string weaponName, string weaponType, int price, float weight,
         Hands hands, int attackValue, int attackModifier, int damageValue, int damageModifier,
-        params Type[] allowableClasses)
+        params string[] allowableClasses)
         : base(weaponName, weaponType, price, weight, allowableClasses)
     {
         NumberHands = hands;
@@ -37,7 +37,7 @@ public class Weapon : BaseItem
     {
         var weaponString = $"{base.ToString()}, {NumberHands}, {AttackValue}, {AttackModifier}, {DamageValue}, {DamageModifier}";
         if (AllowableClasses.Count > 0)
-            weaponString += ", " + string.Join(", ", AllowableClasses.Select(t => t.Name));
+            weaponString += ", " + string.Join(", ", AllowableClasses);
         return weaponString;
     }
 

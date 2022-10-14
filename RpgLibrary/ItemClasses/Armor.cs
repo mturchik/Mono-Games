@@ -13,7 +13,7 @@ public class Armor : BaseItem
 
     public Armor(string armorName, string armorType, int price, float weight,
         ArmorLocation location, int defenseValue, int defenseModifier,
-        params Type[] allowableClasses)
+        params string[] allowableClasses)
         : base(armorName, armorType, price, weight, allowableClasses)
     {
         Location = location;
@@ -33,7 +33,7 @@ public class Armor : BaseItem
     {
         var weaponString = $"{base.ToString()}, {Location}, {DefenseValue}, {DefenseModifier}";
         if (AllowableClasses.Count > 0)
-            weaponString += ", " + string.Join(", ", AllowableClasses.Select(t => t.Name));
+            weaponString += ", " + string.Join(", ", AllowableClasses);
         return weaponString;
     }
 

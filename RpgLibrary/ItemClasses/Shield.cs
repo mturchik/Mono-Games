@@ -12,7 +12,7 @@ public class Shield : BaseItem
 
     public Shield(string shieldName, string shieldType, int price, float weight,
         int defenseValue, int defenseModifier,
-        params Type[] allowableClasses)
+        params string[] allowableClasses)
         : base(shieldName, shieldType, price, weight, allowableClasses)
     {
         DefenseValue = defenseValue;
@@ -31,7 +31,7 @@ public class Shield : BaseItem
     {
         var weaponString = $"{base.ToString()}, {DefenseValue}, {DefenseModifier}";
         if (AllowableClasses.Count > 0)
-            weaponString += ", " + string.Join(", ", AllowableClasses.Select(t => t.Name));
+            weaponString += ", " + string.Join(", ", AllowableClasses);
         return weaponString;
     }
 

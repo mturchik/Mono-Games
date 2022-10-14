@@ -19,7 +19,7 @@
                             <div class="form-label">Name:</div>
                         </div>
                         <div class="col-9">
-                            <InputText class="form-control" DisplayName="Name" @bind-Value="EntityDataForm.Name"></InputText>
+                            <InputText class="form-control" @bind-Value="EntityDataForm.Name"></InputText>
                         </div>
                     </div>
 
@@ -28,7 +28,7 @@
                             <div class="form-label">Strength:</div>
                         </div>
                         <div class="col-3">
-                            <InputNumber class="form-control" DisplayName="Strength" @bind-Value="EntityDataForm.Strength"></InputNumber>
+                            <InputNumber class="form-control" @bind-Value="EntityDataForm.Strength"></InputNumber>
                         </div>
                     </div>
 
@@ -37,7 +37,7 @@
                             <div class="form-label">Dexterity:</div>
                         </div>
                         <div class="col-3">
-                            <InputNumber class="form-control" DisplayName="Dexterity" @bind-Value="EntityDataForm.Dexterity"></InputNumber>
+                            <InputNumber class="form-control" @bind-Value="EntityDataForm.Dexterity"></InputNumber>
                         </div>
                     </div>
 
@@ -46,7 +46,7 @@
                             <div class="form-label">Cunning:</div>
                         </div>
                         <div class="col-3">
-                            <InputNumber class="form-control" DisplayName="Cunning" @bind-Value="EntityDataForm.Cunning"></InputNumber>
+                            <InputNumber class="form-control" @bind-Value="EntityDataForm.Cunning"></InputNumber>
                         </div>
                     </div>
 
@@ -55,7 +55,7 @@
                             <div class="form-label">Willpower:</div>
                         </div>
                         <div class="col-3">
-                            <InputNumber class="form-control" DisplayName="Willpower" @bind-Value="EntityDataForm.Willpower"></InputNumber>
+                            <InputNumber class="form-control" @bind-Value="EntityDataForm.Willpower"></InputNumber>
                         </div>
                     </div>
 
@@ -64,7 +64,7 @@
                             <div class="form-label">Magic:</div>
                         </div>
                         <div class="col-3">
-                            <InputNumber class="form-control" DisplayName="Magic" @bind-Value="EntityDataForm.Magic"></InputNumber>
+                            <InputNumber class="form-control" @bind-Value="EntityDataForm.Magic"></InputNumber>
                         </div>
                     </div>
 
@@ -73,7 +73,7 @@
                             <div class="form-label">Constitution:</div>
                         </div>
                         <div class="col-3">
-                            <InputNumber class="form-control" DisplayName="Constitution" @bind-Value="EntityDataForm.Constitution"></InputNumber>
+                            <InputNumber class="form-control" @bind-Value="EntityDataForm.Constitution"></InputNumber>
                         </div>
                     </div>
 
@@ -82,7 +82,7 @@
                             <div class="form-label">Health Formula:</div>
                         </div>
                         <div class="col-9">
-                            <InputText class="form-control" DisplayName="Health Formula" @bind-Value="EntityDataForm.HealthFormula"></InputText>
+                            <InputText class="form-control" @bind-Value="EntityDataForm.HealthFormula"></InputText>
                         </div>
                     </div>
 
@@ -91,7 +91,7 @@
                             <div class="form-label">Stamina Formula:</div>
                         </div>
                         <div class="col-9">
-                            <InputText class="form-control" DisplayName="Stamina Formula" @bind-Value="EntityDataForm.StaminaFormula"></InputText>
+                            <InputText class="form-control" @bind-Value="EntityDataForm.StaminaFormula"></InputText>
                         </div>
                     </div>
 
@@ -100,7 +100,7 @@
                             <div class="form-label">Mana Formula:</div>
                         </div>
                         <div class="col-9">
-                            <InputText class="form-control" DisplayName="Mana Formula" @bind-Value="EntityDataForm.ManaFormula"></InputText>
+                            <InputText class="form-control" @bind-Value="EntityDataForm.ManaFormula"></InputText>
                         </div>
                     </div>
 
@@ -127,6 +127,15 @@
                 <thead>
                     <tr>
                         <th>Name</th>
+                        <th>Strength</th>
+                        <th>Dexterity</th>
+                        <th>Cunning</th>
+                        <th>Willpower</th>
+                        <th>Magic</th>
+                        <th>Constitution</th>
+                        <th>Health Formula</th>
+                        <th>Stamina Formula</th>
+                        <th>Mana Formula</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -134,6 +143,15 @@
                     {
                         <tr>
                             <td>@entityData.EntityName</td>
+                            <td>@entityData.Strength</td>
+                            <td>@entityData.Dexterity</td>
+                            <td>@entityData.Cunning</td>
+                            <td>@entityData.Willpower</td>
+                            <td>@entityData.Magic</td>
+                            <td>@entityData.Constitution</td>
+                            <td>@entityData.HealthFormula</td>
+                            <td>@entityData.StaminaFormula</td>
+                            <td>@entityData.ManaFormula</td>
                         </tr>
                     }
                 </tbody>

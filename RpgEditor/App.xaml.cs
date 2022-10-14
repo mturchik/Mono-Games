@@ -9,11 +9,10 @@ public partial class App : Application
         MainPage = new MainPage();
     }
 
-    protected override Window CreateWindow(IActivationState activationState)
+    protected override Window CreateWindow(IActivationState? activationState)
     {
         var window = base.CreateWindow(activationState);
-        if (window != null) window.Title = "RPG Editor";
-
+        window.Title = "RPG Editor";
         return window;
     }
 }
