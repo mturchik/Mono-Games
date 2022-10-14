@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate;
 using System.Xml;
 
-namespace RpgEditor;
+namespace RpgEditor.Helpers;
 static class XnaSerializer
 {
     public static void Serialize<T>(string filename, T data)

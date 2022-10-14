@@ -1,9 +1,9 @@
-﻿namespace RpgEditor.Pages;
+﻿namespace RpgEditor;
+
 public partial class MainPage : ContentPage
 {
     public MainPage()
     {
         InitializeComponent();
     }
-
 }
