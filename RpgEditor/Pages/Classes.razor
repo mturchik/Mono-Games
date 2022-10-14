@@ -1,7 +1,5 @@
 ﻿@page "/Classes"
-@using System.ComponentModel.DataAnnotations
-@using RpgLibrary
-@using RpgLibrary.CharacterClasses
+@inject EntityDataManager DataManager
 
 <h3>Classes</h3>
 
@@ -164,23 +162,28 @@
     Form? EntityDataForm { get; set; }
     List<EntityData> EntityDataList = new();
 
+    protected override void OnInitialized()
+    {
+        EntityDataList.AddRange(DataManager.EntityData.Values);
+    }
+
     void SubmitForm()
     {
         if (EntityDataForm is null) return;
 
-        var entity = new EntityData(
-            EntityDataForm.Name,
-            EntityDataForm.Strength,
-            EntityDataForm.Dexterity,
-            EntityDataForm.Cunning,
-            EntityDataForm.Willpower,
-            EntityDataForm.Magic,
-            EntityDataForm.Constitution,
-            EntityDataForm.HealthFormula,
-            EntityDataForm.StaminaFormula,
-            EntityDataForm.ManaFormula
-        );
-        EntityDataList.Add(entity);
+        //var entity = new EntityData(
+        //    EntityDataForm.Name,
+        //    EntityDataForm.Strength,
+        //    EntityDataForm.Dexterity,
+        //    EntityDataForm.Cunning,
+        //    EntityDataForm.Willpower,
+        //    EntityDataForm.Magic,
+        //    EntityDataForm.Constitution,
+        //    EntityDataForm.HealthFormula,
+        //    EntityDataForm.StaminaFormula,
+        //    EntityDataForm.ManaFormula
+        //);
+        //EntityDataList.Add(entity);
         EntityDataForm = null;
     }
 

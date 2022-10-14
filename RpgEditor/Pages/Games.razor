@@ -1,6 +1,5 @@
 ﻿@page "/Games"
-@using System.ComponentModel.DataAnnotations
-@using RpgLibrary
+@inject GameManager GameManager
 
 <h3>Games</h3>
 
@@ -55,6 +54,7 @@
                     <tr>
                         <th>Name</th>
                         <th>Description</th>
+                        <th>Loaded</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -63,6 +63,16 @@
                         <tr>
                             <td>@rpg.Name</td>
                             <td>@rpg.Description</td>
+                            <td>
+                                @if (GameManager.LoadedGame?.Id == rpg.Id)
+                                {
+                                    <button class="btn btn-secondary" @onclick="() => LoadGame(null)">Unload</button>
+                                }
+                                else
+                                {
+                                    <button class="btn btn-secondary" @onclick="() => LoadGame(rpg)">Load</button>
+                                }
+                            </td>
                         </tr>
                     }
                 </tbody>
@@ -74,12 +84,55 @@
 @code {
     Form? GameForm { get; set; }
     List<RolePlayingGame> RpgList = new();
+    RolePlayingGame? LoadedGame;
+
+    protected override void OnInitialized()
+    {
+        var appData = new DirectoryInfo(FileSystem.Current.AppDataDirectory);
+        if (!appData.GetDirectories().Any(d => d.Name == "Games"))
+            appData.CreateSubdirectory("Games");
+
+        var gamesDirectory = new DirectoryInfo(FileSystem.Current.AppDataDirectory + "\\Games");
+        foreach (var gameDir in gamesDirectory.EnumerateDirectories())
+        {
+            RpgList.Add(XnaSerializer.Deserialize<RolePlayingGame>(gameDir.FullName + "/Game.xml"));
+            InitializeDirectories(gameDir);
+        }
+
+        LoadedGame = GameManager.LoadedGame;
+    }
+
+    void LoadGame(RolePlayingGame? rpg)
+    {
+        LoadedGame = rpg;
+        GameManager.LoadedGame = rpg;
+    }
+
+    void InitializeDirectories(DirectoryInfo gameDir)
+    {
+        var subDirs = gameDir.GetDirectories();
+        if (!subDirs.Any(d => d.Name == "Classes")) gameDir.CreateSubdirectory("Classes");
+
+        var itemsDir = subDirs.FirstOrDefault(d => d.Name == "Items");
+        if (itemsDir is null) itemsDir = gameDir.CreateSubdirectory("Items");
+
+        var itemsSubDirs = itemsDir.GetDirectories();
+        if (!itemsSubDirs.Any(d => d.Name == "Armors")) itemsDir.CreateSubdirectory("Armors");
+        if (!itemsSubDirs.Any(d => d.Name == "Shields")) itemsDir.CreateSubdirectory("Shields");
+        if (!itemsSubDirs.Any(d => d.Name == "Weapons")) itemsDir.CreateSubdirectory("Weapons");
+    }
 
     void SubmitForm()
     {
         if (GameForm is null) return;
 
         var rpg = new RolePlayingGame(GameForm.Name, GameForm.Description);
+
+        var gamesDirectory = new DirectoryInfo(FileSystem.Current.AppDataDirectory + "\\Games");
+        var newGameDir = gamesDirectory.CreateSubdirectory($"{rpg.Id}");
+        XnaSerializer.Serialize(newGameDir.FullName + "/Game.xml", rpg);
+        InitializeDirectories(newGameDir);
+
         RpgList.Add(rpg);
         GameForm = null;
     }

@@ -1,15 +1,11 @@
 ﻿@page "/Shields"
-@using System.ComponentModel.DataAnnotations
-@using RpgLibrary
-@using RpgLibrary.CharacterClasses
-@using RpgLibrary.ItemClasses
+@inject ItemDataManager DataManager
 
 <h3>Shields</h3>
 
 <div class="container-fluid">
     @if (ShieldForm != null)
     {
-
         <EditForm Model="ShieldForm" OnValidSubmit="SubmitForm">
             <DataAnnotationsValidator />
 
@@ -88,7 +84,6 @@
             <ValidationSummary />
 
         </EditForm>
-
         <hr />
     }
     <div class="row mt-3">
@@ -126,23 +121,28 @@
 
 @code {
     Form? ShieldForm { get; set; }
-    List<Shield> ShieldList = new();
+    List<ShieldData> ShieldList = new();
     List<string> ClassNameList = new() { "Warrior", "Rogue", "Priest", "Wizard" };
+    
+    protected override void OnInitialized()
+    {
+        ShieldList.AddRange(DataManager.ShieldData.Values);
+    }
 
     void SubmitForm()
     {
         if (ShieldForm is null) return;
 
-        var shield = new Shield(
-            ShieldForm.Name,
-            ShieldForm.Type,
-            ShieldForm.Price,
-            ShieldForm.Weight,
-            ShieldForm.DefenseValue,
-            ShieldForm.DefenseModifier,
-            ShieldForm.AllowableClasses
-        );
-        ShieldList.Add(shield);
+        //var shield = new Shield(
+        //    ShieldForm.Name,
+        //    ShieldForm.Type,
+        //    ShieldForm.Price,
+        //    ShieldForm.Weight,
+        //    ShieldForm.DefenseValue,
+        //    ShieldForm.DefenseModifier,
+        //    ShieldForm.AllowableClasses
+        //);
+        //ShieldList.Add(shield);
         ShieldForm = null;
     }
 

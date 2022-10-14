@@ -3,7 +3,7 @@ public class EntityDataManager
 {
     #region Field Region
 
-    public Dictionary<string, EntityData> EntityData { get; } = new();
+    public Dictionary<string, EntityData> EntityData { get; set; } = new();
 
     #endregion
 

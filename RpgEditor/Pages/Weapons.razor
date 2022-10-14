@@ -1,15 +1,11 @@
 ﻿@page "/Weapons"
-@using System.ComponentModel.DataAnnotations
-@using RpgLibrary
-@using RpgLibrary.CharacterClasses
-@using RpgLibrary.ItemClasses
+@inject ItemDataManager DataManager
 
 <h3>Weapons</h3>
 
 <div class="container-fluid">
     @if (WeaponForm != null)
     {
-
         <EditForm Model="WeaponForm" OnValidSubmit="SubmitForm">
             <DataAnnotationsValidator />
 
@@ -115,7 +111,6 @@
             <ValidationSummary />
 
         </EditForm>
-
         <hr />
     }
     <div class="row mt-3">
@@ -155,26 +150,31 @@
 
 @code {
     Form? WeaponForm { get; set; }
-    List<Weapon> WeaponList = new();
+    List<WeaponData> WeaponList = new();
     List<string> ClassNameList = new() { "Warrior", "Rogue", "Priest", "Wizard" };
+
+    protected override void OnInitialized()
+    {
+        WeaponList.AddRange(DataManager.WeaponData.Values);
+    }
 
     void SubmitForm()
     {
         if (WeaponForm is null) return;
 
-        var weapon = new Weapon(
-            WeaponForm.Name,
-            WeaponForm.Type,
-            WeaponForm.Price,
-            WeaponForm.Weight,
-            WeaponForm.AllowableHands,
-            WeaponForm.AttackValue,
-            WeaponForm.AttackModifier,
-            WeaponForm.DamageValue,
-            WeaponForm.DamageModifier,
-            WeaponForm.AllowableClasses
-        );
-        WeaponList.Add(weapon);
+        //var weapon = new Weapon(
+        //    WeaponForm.Name,
+        //    WeaponForm.Type,
+        //    WeaponForm.Price,
+        //    WeaponForm.Weight,
+        //    WeaponForm.AllowableHands,
+        //    WeaponForm.AttackValue,
+        //    WeaponForm.AttackModifier,
+        //    WeaponForm.DamageValue,
+        //    WeaponForm.DamageModifier,
+        //    WeaponForm.AllowableClasses
+        //);
+        //WeaponList.Add(weapon);
         WeaponForm = null;
     }
 

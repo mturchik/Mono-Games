@@ -3,8 +3,9 @@ public class RolePlayingGame
 {
     #region Fields and Properties
 
-    public string Name { get; set; }
-    public string Description { get; set; }
+    public string Id { get; set; } = "";
+    public string Name { get; set; } = "";
+    public string Description { get; set; } = "";
 
     #endregion
 
@@ -14,6 +15,7 @@ public class RolePlayingGame
 
     public RolePlayingGame(string name, string description)
     {
+        Id = Guid.NewGuid().ToString();
         Name = name;
         Description = description;
     }
