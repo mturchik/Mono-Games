@@ -1,0 +1,22 @@
+﻿<div class="container-fluid">
+	<h4>@AdditionalText</h4>
+	<div class="row">
+		<div class="col-6 text-end">
+			<button class="btn btn-danger mr-2" type="button" @onclick="() => BlazoredModal.CloseAsync(ModalResult.Ok())">Confirm</button>
+		</div>
+		<div class="col-6">
+			<button class="btn btn-outline-primary ml-2" type="button" @onclick="() => BlazoredModal.CancelAsync()">Cancel</button>
+		</div>
+	</div>
+</div>
+
+@code {
+	[CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; } = default!;
+	[Parameter] public string AdditionalText { get; set; } = "";
+
+	public static ModalOptions Options => new()
+		{
+			Position = ModalPosition.Middle,
+			Size = ModalSize.Medium
+		};
+}

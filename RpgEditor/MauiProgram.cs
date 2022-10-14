@@ -1,6 +1,4 @@
-﻿using RpgEditor.Services;
-using RpgLibrary.CharacterClasses;
-using RpgLibrary.ItemClasses;
+﻿using Blazored.Modal;
 
 namespace RpgEditor;
 public static class MauiProgram
@@ -20,7 +18,15 @@ public static class MauiProgram
         builder.Services.AddBlazorWebViewDeveloperTools();
 #endif
 
-        builder.Services.AddSingleton<GameManager>();
+        // Blazored.Modal
+        builder.Services.AddBlazoredModal();
+
+        // Custom
+        builder.Services.AddSingleton<GameDataManagerOptions>(s => new()
+        {
+            GameDirectoryPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\RpgEditor\\Games"
+        });
+        builder.Services.AddSingleton<GameDataManager>();
         builder.Services.AddSingleton<EntityDataManager>();
         builder.Services.AddSingleton<ItemDataManager>();
 

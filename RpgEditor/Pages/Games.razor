@@ -1,147 +1,147 @@
 ﻿@page "/Games"
-@inject GameManager GameManager
+@inject GameDataManager GameDataManager
 
 <h3>Games</h3>
 
 <div class="container-fluid">
-    @if (GameForm != null)
-    {
-        <div class="row">
-            <div class="col-sm-6">
+	@if (GameForm != null)
+	{
+		<div class="row">
+			<div class="col-sm-6">
 
-                <EditForm Model="GameForm" OnValidSubmit="SubmitForm">
-                    <DataAnnotationsValidator />
+				<EditForm Model="GameForm" OnValidSubmit="SubmitForm">
+					<DataAnnotationsValidator />
 
-                    <div class="row mb-2">
-                        <div class="col-3 text-end">
-                            <div class="form-label">Name:</div>
-                        </div>
-                        <div class="col-9">
-                            <InputText class="form-control" @bind-Value="GameForm.Name"></InputText>
-                        </div>
-                    </div>
+					<div class="row mb-2">
+						<div class="col-3 text-end">
+							<div class="form-label">Name:</div>
+						</div>
+						<div class="col-9">
+							<InputText class="form-control" @bind-Value="GameForm.Name"></InputText>
+						</div>
+					</div>
 
-                    <div class="row mb-2">
-                        <div class="col-3 text-end">
-                            <div class="form-label ">Description:</div>
-                        </div>
-                        <div class="col-9">
-                            <InputTextArea class="form-control" @bind-Value="GameForm.Description"></InputTextArea>
-                        </div>
-                    </div>
+					<div class="row mb-2">
+						<div class="col-3 text-end">
+							<div class="form-label ">Description:</div>
+						</div>
+						<div class="col-9">
+							<InputTextArea class="form-control" @bind-Value="GameForm.Description"></InputTextArea>
+						</div>
+					</div>
 
-                    <button class="btn btn-primary mb-2 me-2" type="submit">Create</button>
-                    <button class="btn btn-outline-secondary" type="button" @onclick="() => GameForm = null">Cancel</button>
+					<button class="btn btn-primary me-2" type="submit">@(EditGame == null ? "Edit" : "Create")</button>
+					<button class="btn btn-outline-primary" type="button" @onclick="() => GameForm = null">Cancel</button>
 
-                    <ValidationSummary />
+					<ValidationSummary />
 
-                </EditForm>
+				</EditForm>
 
-            </div>
-            <hr />
-        </div>
-    }
-    <div class="row mt-3">
-        <div class="col-sm-12 mb-3">
-            @if (GameForm == null)
-            {
-                <button class="btn btn-primary" @onclick="() => GameForm = new()">Create New</button>
-            }
-        </div>
-        <div class="col-sm-12">
-            <table class="table table-bordered table-primary table-responsive table-striped">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Loaded</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var rpg in RpgList)
-                    {
-                        <tr>
-                            <td>@rpg.Name</td>
-                            <td>@rpg.Description</td>
-                            <td>
-                                @if (GameManager.LoadedGame?.Id == rpg.Id)
-                                {
-                                    <button class="btn btn-secondary" @onclick="() => LoadGame(null)">Unload</button>
-                                }
-                                else
-                                {
-                                    <button class="btn btn-secondary" @onclick="() => LoadGame(rpg)">Load</button>
-                                }
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-    </div>
+			</div>
+			<hr class="mt-2" />
+		</div>
+	}
+	<div class="row mt-2">
+		@if (GameForm == null)
+		{
+			<div class="col-sm-12 mb-2">
+				<button class="btn btn-primary" @onclick="() => GameForm = new()">Create New</button>
+			</div>
+		}
+		<div class="col-sm-12">
+			<table class="table table-bordered table-primary table-responsive table-striped">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Description</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var rpg in RpgList)
+					{
+						<tr>
+							<td>@rpg.Name</td>
+							<td>@rpg.Description</td>
+							<td>
+								@if (GameDataManager.LoadedGame?.Id == rpg.Id)
+								{
+									<button class="btn btn-secondary" @onclick="() => GameDataManager.LoadGame(null)">Unload</button>
+								}
+								else
+								{
+									<button class="btn btn-outline-secondary" @onclick="() => GameDataManager.LoadGame(rpg)">Load</button>
+									<button class="btn btn-info ml-2" @onclick="() => Edit(rpg)">Edit</button>
+									<button class="btn btn-danger ml-2" @onclick="() => Delete(rpg)">Delete</button>
+								}
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
 </div>
 
 @code {
-    Form? GameForm { get; set; }
-    List<RolePlayingGame> RpgList = new();
-    RolePlayingGame? LoadedGame;
+	[CascadingParameter] public IModalService Modal { get; set; } = default!;
 
-    protected override void OnInitialized()
-    {
-        var appData = new DirectoryInfo(FileSystem.Current.AppDataDirectory);
-        if (!appData.GetDirectories().Any(d => d.Name == "Games"))
-            appData.CreateSubdirectory("Games");
+	Form? GameForm { get; set; }
+	RolePlayingGame? EditGame { get; set; }
+	List<RolePlayingGame> RpgList = new();
 
-        var gamesDirectory = new DirectoryInfo(FileSystem.Current.AppDataDirectory + "\\Games");
-        foreach (var gameDir in gamesDirectory.EnumerateDirectories())
-        {
-            RpgList.Add(XnaSerializer.Deserialize<RolePlayingGame>(gameDir.FullName + "/Game.xml"));
-            InitializeDirectories(gameDir);
-        }
+	protected override void OnInitialized()
+	{
+		RpgList = GameDataManager.GetGames();
+	}
 
-        LoadedGame = GameManager.LoadedGame;
-    }
+	async Task Delete(RolePlayingGame rpg)
+	{
+		var mp = new ModalParameters();
+		mp.Add("AdditionalText", "This will permanently remove all game related data.");
+		var modalRef = Modal.Show<Warning>("Are you sure?", mp, Warning.Options);
+		var modalResult = await modalRef.Result;
+		if (modalResult.Cancelled) return;
 
-    void LoadGame(RolePlayingGame? rpg)
-    {
-        LoadedGame = rpg;
-        GameManager.LoadedGame = rpg;
-    }
+		GameDataManager.DeleteGame(rpg);
+		RpgList.Remove(rpg);
+	}
 
-    void InitializeDirectories(DirectoryInfo gameDir)
-    {
-        var subDirs = gameDir.GetDirectories();
-        if (!subDirs.Any(d => d.Name == "Classes")) gameDir.CreateSubdirectory("Classes");
+	void Edit(RolePlayingGame rpg)
+	{
+		EditGame = rpg;
+		GameForm = new()
+			{
+				Name = rpg.Name,
+				Description = rpg.Description
+			};
+	}
 
-        var itemsDir = subDirs.FirstOrDefault(d => d.Name == "Items");
-        if (itemsDir is null) itemsDir = gameDir.CreateSubdirectory("Items");
+	void SubmitForm()
+	{
+		if (GameForm is null) return;
 
-        var itemsSubDirs = itemsDir.GetDirectories();
-        if (!itemsSubDirs.Any(d => d.Name == "Armors")) itemsDir.CreateSubdirectory("Armors");
-        if (!itemsSubDirs.Any(d => d.Name == "Shields")) itemsDir.CreateSubdirectory("Shields");
-        if (!itemsSubDirs.Any(d => d.Name == "Weapons")) itemsDir.CreateSubdirectory("Weapons");
-    }
+		if (EditGame is null)
+		{
+			var rpg = new RolePlayingGame(GameForm.Name, GameForm.Description);
+			GameDataManager.UpsertGame(rpg);
+			RpgList.Add(rpg);
+		}
+		else
+		{
+			EditGame.Name = GameForm.Name;
+			EditGame.Description = GameForm.Description;
+			GameDataManager.UpsertGame(EditGame);
+		}
+		EditGame = null;
+		GameForm = null;
+	}
 
-    void SubmitForm()
-    {
-        if (GameForm is null) return;
-
-        var rpg = new RolePlayingGame(GameForm.Name, GameForm.Description);
-
-        var gamesDirectory = new DirectoryInfo(FileSystem.Current.AppDataDirectory + "\\Games");
-        var newGameDir = gamesDirectory.CreateSubdirectory($"{rpg.Id}");
-        XnaSerializer.Serialize(newGameDir.FullName + "/Game.xml", rpg);
-        InitializeDirectories(newGameDir);
-
-        RpgList.Add(rpg);
-        GameForm = null;
-    }
-
-    class Form
-    {
-        [Required, StringLength(100, MinimumLength = 3)]
-        public string Name { get; set; } = "";
-        [Required, StringLength(500, MinimumLength = 3)]
-        public string Description { get; set; } = "";
-    }
+	class Form
+	{
+		[Required, StringLength(100, MinimumLength = 3)]
+		public string Name { get; set; } = "";
+		[Required, StringLength(500, MinimumLength = 3)]
+		public string Description { get; set; } = "";
+	}
 }
