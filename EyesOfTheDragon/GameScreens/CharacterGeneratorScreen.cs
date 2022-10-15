@@ -134,8 +134,56 @@ internal class CharacterGeneratorScreen : BaseGameState
     private void OnLinkLabelSelected(object? sender, EventArgs e)
     {
         InputHandler.Flush();
-        StateManager.PopState();
-        StateManager.PushState(GameRef.GamePlayScreen);
+        StateManager.ChangeState(GameRef.GamePlayScreen);
+        CreatePlayer();
+        CreateWorld();
+    }
+
+    private void CreatePlayer()
+    {
+        var animations = new Dictionary<AnimationKey, Animation>
+        {
+            { AnimationKey.Down,  new Animation(3, 32, 32, 0, 0) },
+            { AnimationKey.Left,  new Animation(3, 32, 32, 0, 32) },
+            { AnimationKey.Right, new Animation(3, 32, 32, 0, 64) },
+            { AnimationKey.Up,    new Animation(3, 32, 32, 0, 96) },
+        };
+        var gender = _genderSelector.SelectedIndex < 2 ? _genderSelector.SelectedIndex : 1;
+        var sprite = new AnimatedSprite(_characterImages[gender, _classSelector.SelectedIndex], animations);
+        GamePlayScreen.Player = new Player(GameRef, sprite);
+    }
+
+    private void CreateWorld()
+    {
+        #region Tilesets
+        var tileset1 = new Tileset(Game.Content.Load<Texture2D>(@"Tilesets\tileset1"), 8, 8, 32, 32);
+        var tileset2 = new Tileset(Game.Content.Load<Texture2D>(@"Tilesets\tileset2"), 8, 8, 32, 32);
+        var tilesets = new List<Tileset>() { tileset1, tileset2 };
+        #endregion
+        #region Layers
+        var layer = new MapLayer(100, 100);
+        for (int y = 0; y < layer.Height; y++)
+            for (int x = 0; x < layer.Width; x++)
+                layer.SetTile(x, y, new(0, 0));
+
+        var splatter = new MapLayer(100, 100);
+        var random = new Random();
+        for (int i = 0; i < 100; i++)
+        {
+            int x = random.Next(0, 100);
+            int y = random.Next(0, 100);
+            int index = random.Next(2, 14);
+            splatter.SetTile(x, y, new(index, 0));
+        }
+        splatter.SetTile(1, 0, new(0, 1));
+        splatter.SetTile(2, 0, new(2, 1));
+        splatter.SetTile(3, 0, new(0, 1));
+        var layers = new List<MapLayer>() { layer, splatter };
+        #endregion
+        var world = new World(GameRef, GameRef.ScreenRectangle);
+        world.Levels.Add(new Level(new TileMap(tilesets, layers)));
+        world.CurrentLevel = 0;
+        GamePlayScreen.World = world;
     }
 
     #endregion
