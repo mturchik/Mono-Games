@@ -3,149 +3,129 @@
 
 <h3>Shields</h3>
 
-<div class="container-fluid">
-    @if (Edit != null)
-    {
-        <EditForm Model="Edit" OnValidSubmit="SubmitForm">
-            <DataAnnotationsValidator />
+@if (Edit != null)
+{
+    <EditForm Model="Edit" OnValidSubmit="SubmitForm">
+        <DataAnnotationsValidator />
+        <div class="container-fluid">
 
             <div class="row">
                 <div class="col-6">
-                    <div class="row mb-2">
-                        <div class="col-3 text-end">
-                            <div class="form-label">Name:</div>
+                    <div class="row mb-3">
+                        <div class="col-3">
+                            <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Name</RadzenText>
+                            <RadzenTextBox @bind-Value="Edit.Name" class="w-100" />
                         </div>
                         <div class="col-3">
-                            <InputText class="form-control" @bind-Value="Edit.Name"></InputText>
-                        </div>
-                        <div class="col-3 text-end">
-                            <div class="form-label">Type:</div>
+                            <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Type</RadzenText>
+                            <RadzenTextBox @bind-Value="Edit.Type" class="w-100" />
                         </div>
                         <div class="col-3">
-                            <InputText class="form-control" @bind-Value="Edit.Type"></InputText>
+                            <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Price</RadzenText>
+                            <RadzenNumeric TValue="int" Min="0" Max="2000" @bind-Value="Edit.Price" />
+                        </div>
+                        <div class="col-3">
+                            <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Weight</RadzenText>
+                            <RadzenNumeric TValue="float" Min="0" Max="2000" Step="0.1" @bind-Value="Edit.Weight" />
                         </div>
                     </div>
 
-                    <div class="row mb-2">
-                        <div class="col-3 text-end">
-                            <div class="form-label">Price:</div>
+                    <div class="row mb-3">
+                        <div class="col-3">
+                            <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Defense Value</RadzenText>
+                            <RadzenNumeric TValue="int" Min="0" Max="2000" @bind-Value="Edit.DefenseValue" />
                         </div>
                         <div class="col-3">
-                            <InputNumber class="form-control" @bind-Value="Edit.Price"></InputNumber>
-                        </div>
-                        <div class="col-3 text-end">
-                            <div class="form-label">Weight:</div>
-                        </div>
-                        <div class="col-3">
-                            <InputNumber class="form-control" @bind-Value="Edit.Weight"></InputNumber>
-                        </div>
-                    </div>
-
-                    <div class="row mb-2">
-                        <div class="col-3 text-end">
-                            <div class="form-label">Defense Value:</div>
-                        </div>
-                        <div class="col-3">
-                            <InputNumber class="form-control" @bind-Value="Edit.DefenseValue"></InputNumber>
-                        </div>
-                        <div class="col-3 text-end">
-                            <div class="form-label">Defense Modifier:</div>
-                        </div>
-                        <div class="col-3">
-                            <InputNumber class="form-control" @bind-Value="Edit.DefenseModifier"></InputNumber>
+                            <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Defense Modifier</RadzenText>
+                            <RadzenNumeric TValue="int" Min="0" Max="2000" @bind-Value="Edit.DefenseModifier" />
                         </div>
                     </div>
 
                 </div>
 
                 <div class="col-6">
-
                     <div class="row mb-2">
-                        <div class="col-3">
-                            <div class="form-label text-end">Allowable Classes:</div>
-                        </div>
-                        <div class="col-3">
-                            <InputSelect class="form-control" @bind-Value="Edit.AllowableClasses">
-                                @foreach (var className in ClassNameList)
-                                {
-                                    <option value="@className">@className</option>
-                                }
-                            </InputSelect>
+                        <div class="col-12">
+                            <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Allowable Classes</RadzenText>
+                            <RadzenSelectBar TValue="IEnumerable<string>" @bind-Value="AllowedClasses" Change="OnClassesChanged"
+                                         Multiple="true" Data="@Classes" TextProperty="Name" ValueProperty="Name" />
                         </div>
                     </div>
-
                 </div>
-
             </div>
 
-            <button class="btn btn-primary me-2" type="submit">Create</button>
-            <button class="btn btn-outline-secondary" type="button" @onclick="() => Edit = null">Cancel</button>
+            <RadzenButton ButtonStyle="ButtonStyle.Success" Text="Save" ButtonType="ButtonType.Submit"></RadzenButton>
+            <RadzenButton ButtonStyle="ButtonStyle.Light" Text="Cancel" Click="() => Edit = null"></RadzenButton>
 
             <ValidationSummary />
-
-        </EditForm>
-        <hr />
-    }
-    <div class="row mt-2">
-        <div class="col-sm-12 mb-2">
-            @if (Edit == null)
-            {
-                <button class="btn btn-primary" @onclick="() => Edit = new()">Create New</button>
-            }
         </div>
-        <div class="col-sm-12">
-            <table class="table table-bordered table-primary table-responsive table-striped">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Type</th>
-                        <th>Price</th>
-                        <th>Weight</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var data in Data)
-                    {
-                        <tr>
-                            <td>@data.Name</td>
-                            <td>@data.Type</td>
-                            <td>@data.Price</td>
-                            <td>@data.Weight</td>
-                            <td>
-                                <button class="btn btn-info" @onclick="() => Edit = data.Clone()">Edit</button>
-                                <button class="btn btn-danger ml-2" @onclick="() => Delete(data)">Delete</button>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
+        <hr class="my-3" />
+    </EditForm>
+}
+<RadzenDataGrid Data="@Data" TItem="ShieldData" AllowAlternatingRows="false" AllowSorting="true"
+				PageSize="10" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true">
+	<Columns>
+		<RadzenDataGridColumn TItem="ShieldData" Frozen="true" Width="155px" Sortable="false">
+			<HeaderTemplate>
+				@if (Edit == null)
+				{
+					<RadzenButton ButtonStyle="ButtonStyle.Primary" Text="Create" Click="() => StartEdit(new())"></RadzenButton>
+				}
+			</HeaderTemplate>
+			<Template>
+				<RadzenButton ButtonStyle="ButtonStyle.Secondary" Text="Edit" Click="() => StartEdit(context.Clone())"></RadzenButton>
+				<RadzenButton ButtonStyle="ButtonStyle.Danger" Text="Delete" Click="() =>  Delete(context)"></RadzenButton>
+			</Template>
+		</RadzenDataGridColumn>
+		<RadzenDataGridColumn TItem="ShieldData" Property="Name" Title="Name" Width="250px" Frozen="true" />
+		<RadzenDataGridColumn TItem="ShieldData" Property="Type" Title="Type" Width="100px" />
+		<RadzenDataGridColumn TItem="ShieldData" Property="Price" Title="Price" FormatString="{0:d}" Width="100px" />
+		<RadzenDataGridColumn TItem="ShieldData" Property="Weight" Title="Weight" FormatString="{0:f}" Width="100px" />
+		<RadzenDataGridColumn TItem="ShieldData" Property="DefenseValue" Title="DEF" FormatString="{0:d}" Width="100px" />
+		<RadzenDataGridColumn TItem="ShieldData" Property="DefenseModifier" Title="DEF Mod" FormatString="{0:d}" Width="100px" />
+		<RadzenDataGridColumn TItem="ShieldData" Property="AllowableClasses" Title="Allowable Classes" Sortable="false">
+			<Template>
+				@string.Join(", ", context.AllowableClasses)
+			</Template>
+		</RadzenDataGridColumn>
+	</Columns>
+</RadzenDataGrid>
 
 @code {
-    ShieldData? Edit { get; set; }
-    List<ShieldData> Data = new();
-    List<string> ClassNameList = new() { "Warrior", "Rogue", "Priest", "Wizard" };
-    
-    protected override void OnInitialized()
-    {
-        Data = GameDataManager.Shields.Queryable().ToList();
-    }
-    
-    void Delete(ShieldData data)
-    {
-        GameDataManager.Shields.Delete(data);
-        Data = GameDataManager.Shields.Queryable().ToList();
-        Edit = null;
-    }
+	ShieldData? Edit;
+	IQueryable<ShieldData> Data = default!;
+	IQueryable<ClassData> Classes = default!;
+	IEnumerable<string> AllowedClasses = new List<string>();
 
-    void SubmitForm()
-    {
-        if (Edit is null) return;
-        GameDataManager.Shields.Upsert(Edit);
-        Data = GameDataManager.Shields.Queryable().ToList();
-        Edit = null;
-    }
+	protected override void OnInitialized()
+	{
+		Data = GameDataManager.Shields.Queryable();
+		Classes = GameDataManager.Classes.Queryable();
+	}
+
+	void StartEdit(ShieldData? data)
+	{
+		AllowedClasses = data?.AllowableClasses ?? Array.Empty<string>();
+		Edit = data;
+	}
+
+	void OnClassesChanged()
+	{
+		if (Edit != null) Edit.AllowableClasses = AllowedClasses.ToArray();
+	}
+
+	void Delete(ShieldData data)
+	{
+		GameDataManager.Shields.Delete(data);
+		Data = GameDataManager.Shields.Queryable();
+		Edit = null;
+	}
+
+	void SubmitForm()
+	{
+		if (Edit is null) return;
+		GameDataManager.Shields.Upsert(Edit);
+		Data = GameDataManager.Shields.Queryable();
+		Edit = null;
+	}
 }
