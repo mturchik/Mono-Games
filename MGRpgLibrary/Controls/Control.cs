@@ -50,7 +50,7 @@ public abstract class Control
     }
 
     protected bool _hasFocus;
-    public bool HasFocus
+    public virtual bool HasFocus
     {
         get { return _hasFocus; }
         set { _hasFocus = value; }

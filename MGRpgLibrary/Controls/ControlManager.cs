@@ -9,8 +9,11 @@ public class ControlManager : List<Control>
 
     #region Fields and Properties
 
-    private int _selectedControl = 0;
     public static SpriteFont SpriteFont { get; private set; } = null!;
+
+    private int _selectedControl = 0;
+
+    public bool AcceptInput { get; set; } = true;
 
     #endregion
 
@@ -44,6 +47,8 @@ public class ControlManager : List<Control>
             if (c.Enabled) c.Update(gameTime);
             if (c.HasFocus) c.HandleInput(playerIndex);
         });
+
+        if (!AcceptInput) return;
 
         if (InputHandler.ButtonPressed(Buttons.LeftThumbstickUp, playerIndex)
             || InputHandler.ButtonPressed(Buttons.DPadUp, playerIndex)
