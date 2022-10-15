@@ -4,9 +4,8 @@ internal class GamePlayScreen : BaseGameState
     #region Fields and Properties
 
     private readonly Engine _engine = new(32, 32);
-    private readonly Player _player;
-    private TileMap _map = null!;
-    private AnimatedSprite _sprite = null!;
+    private readonly World _world;
+    private Player _player = default!;
 
     #endregion
 
@@ -14,7 +13,7 @@ internal class GamePlayScreen : BaseGameState
 
     public GamePlayScreen(Game game, GameStateManager stateManager) : base(game, stateManager)
     {
-        _player = new(game);
+        _world = new(game, GameRef.ScreenRectangle);
     }
 
     #endregion
@@ -28,6 +27,7 @@ internal class GamePlayScreen : BaseGameState
 
     protected override void LoadContent()
     {
+        #region Player
         var spriteSheet = Game.Content.Load<Texture2D>(
             @"PlayerSprites\" +
             GameRef.CharacterGeneratorScreen.SelectedGender +
@@ -40,18 +40,20 @@ internal class GamePlayScreen : BaseGameState
             { AnimationKey.Right, new Animation(3, 32, 32, 0, 64) },
             { AnimationKey.Up,    new Animation(3, 32, 32, 0, 96) },
         };
-        _sprite = new AnimatedSprite(spriteSheet, animations);
-
+        var sprite = new AnimatedSprite(spriteSheet, animations);
+        _player = new Player(GameRef, sprite);
+        #endregion
         base.LoadContent();
-
+        #region Tilesets
         var tileset1 = new Tileset(Game.Content.Load<Texture2D>(@"Tilesets\tileset1"), 8, 8, 32, 32);
         var tileset2 = new Tileset(Game.Content.Load<Texture2D>(@"Tilesets\tileset2"), 8, 8, 32, 32);
         var tilesets = new List<Tileset>() { tileset1, tileset2 };
-
+        #endregion
+        #region Layers
         var world = new MapLayer(100, 100);
         for (int y = 0; y < world.Height; y++)
             for (int x = 0; x < world.Width; x++)
-                world.SetTile(x, y, new(1, 0));
+                world.SetTile(x, y, new(0, 0));
 
         var splatter = new MapLayer(100, 100);
         var random = new Random();
@@ -65,84 +67,15 @@ internal class GamePlayScreen : BaseGameState
         splatter.SetTile(1, 0, new(0, 1));
         splatter.SetTile(2, 0, new(2, 1));
         splatter.SetTile(3, 0, new(0, 1));
-
         var layers = new List<MapLayer>() { world, splatter };
-
-        _map = new TileMap(tilesets, layers);
+        #endregion
+        _world.Levels.Add(new Level(new TileMap(tilesets, layers)));
+        _world.CurrentLevel = 0;
     }
 
     public override void Update(GameTime gameTime)
     {
         _player.Update(gameTime);
-        _sprite.Update(gameTime);
-
-        if (InputHandler.KeyReleased(Keys.PageUp) || InputHandler.ButtonReleased(Buttons.LeftShoulder, PlayerIndex.One))
-        {
-            _player.Camera.ZoomIn();
-            if (_player.Camera.CameraMode == CameraMode.Follow)
-                _player.Camera.LockToSprite(_sprite);
-        }
-        else if (InputHandler.KeyReleased(Keys.PageDown) || InputHandler.ButtonReleased(Buttons.RightShoulder, PlayerIndex.One))
-        {
-            _player.Camera.ZoomOut();
-            if (_player.Camera.CameraMode == CameraMode.Follow)
-                _player.Camera.LockToSprite(_sprite);
-        }
-
-        var motion = new Vector2();
-
-        if (InputHandler.KeyDown(Keys.W) || InputHandler.ButtonDown(Buttons.LeftThumbstickUp, PlayerIndex.One))
-        {
-            _sprite.CurrentAnimation = AnimationKey.Up;
-            motion.Y = -1;
-        }
-        else if (InputHandler.KeyDown(Keys.S) || InputHandler.ButtonDown(Buttons.LeftThumbstickDown, PlayerIndex.One))
-        {
-            _sprite.CurrentAnimation = AnimationKey.Down;
-            motion.Y = 1;
-        }
-
-        if (InputHandler.KeyDown(Keys.A) || InputHandler.ButtonDown(Buttons.LeftThumbstickLeft, PlayerIndex.One))
-        {
-            _sprite.CurrentAnimation = AnimationKey.Left;
-            motion.X = -1;
-        }
-        else if (InputHandler.KeyDown(Keys.D) || InputHandler.ButtonDown(Buttons.LeftThumbstickRight, PlayerIndex.One))
-        {
-            _sprite.CurrentAnimation = AnimationKey.Right;
-            motion.X = 1;
-        }
-
-        if (motion != Vector2.Zero)
-        {
-            _sprite.IsAnimating = true;
-            motion.Normalize();
-            _sprite.Position += motion * _sprite.Speed;
-            _sprite.LockToMap();
-
-            if (_player.Camera.CameraMode == CameraMode.Follow)
-                _player.Camera.LockToSprite(_sprite);
-        }
-        else
-        {
-            _sprite.IsAnimating = false;
-        }
-
-        if (InputHandler.KeyReleased(Keys.F) || InputHandler.ButtonReleased(Buttons.RightStick, PlayerIndex.One))
-        {
-            _player.Camera.ToggleCameraMode();
-            if (_player.Camera.CameraMode == CameraMode.Follow)
-                _player.Camera.LockToSprite(_sprite);
-        }
-
-        if (_player.Camera.CameraMode != CameraMode.Follow)
-        {
-            if (InputHandler.KeyReleased(Keys.C) || InputHandler.ButtonReleased(Buttons.LeftStick, PlayerIndex.One))
-            {
-                _player.Camera.LockToSprite(_sprite);
-            }
-        }
-
         base.Update(gameTime);
     }
 
@@ -150,8 +83,8 @@ internal class GamePlayScreen : BaseGameState
     {
         GameRef.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, transformMatrix: _player.Camera.Transformation);
 
-        _map.Draw(GameRef.SpriteBatch, _player.Camera);
-        _sprite.Draw(gameTime, GameRef.SpriteBatch, _player.Camera);
+        _world.DrawLevel(GameRef.SpriteBatch, _player.Camera);
+        _player.Draw(gameTime, GameRef.SpriteBatch);
         base.Draw(gameTime);
 
         GameRef.SpriteBatch.End();
