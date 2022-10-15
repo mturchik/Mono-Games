@@ -1,12 +1,12 @@
 ﻿@page "/Armors"
-@*@inject ItemDataManager DataManager
+@inject GameDataManager GameDataManager
 
 <h3>Armors</h3>
 
 <div class="container-fluid">
-    @if (ArmorForm != null)
+    @if (Edit != null)
     {
-        <EditForm Model="ArmorForm" OnValidSubmit="SubmitForm">
+        <EditForm Model="Edit" OnValidSubmit="SubmitForm">
             <DataAnnotationsValidator />
 
             <div class="row">
@@ -16,13 +16,13 @@
                             <div class="form-label">Name:</div>
                         </div>
                         <div class="col-3">
-                            <InputText class="form-control" @bind-Value="ArmorForm.Name"></InputText>
+                            <InputText class="form-control" @bind-Value="Edit.Name"></InputText>
                         </div>
                         <div class="col-3 text-end">
                             <div class="form-label">Type:</div>
                         </div>
                         <div class="col-3">
-                            <InputText class="form-control" @bind-Value="ArmorForm.Type"></InputText>
+                            <InputText class="form-control" @bind-Value="Edit.Type"></InputText>
                         </div>
                     </div>
 
@@ -31,13 +31,13 @@
                             <div class="form-label">Price:</div>
                         </div>
                         <div class="col-3">
-                            <InputNumber class="form-control" @bind-Value="ArmorForm.Price"></InputNumber>
+                            <InputNumber class="form-control" @bind-Value="Edit.Price"></InputNumber>
                         </div>
                         <div class="col-3 text-end">
                             <div class="form-label">Weight:</div>
                         </div>
                         <div class="col-3">
-                            <InputNumber class="form-control" @bind-Value="ArmorForm.Weight"></InputNumber>
+                            <InputNumber class="form-control" @bind-Value="Edit.Weight"></InputNumber>
                         </div>
                     </div>
 
@@ -46,13 +46,13 @@
                             <div class="form-label">Defense Value:</div>
                         </div>
                         <div class="col-3">
-                            <InputNumber class="form-control" @bind-Value="ArmorForm.DefenseValue"></InputNumber>
+                            <InputNumber class="form-control" @bind-Value="Edit.DefenseValue"></InputNumber>
                         </div>
                         <div class="col-3 text-end">
                             <div class="form-label">Defense Modifier:</div>
                         </div>
                         <div class="col-3">
-                            <InputNumber class="form-control" @bind-Value="ArmorForm.DefenseModifier"></InputNumber>
+                            <InputNumber class="form-control" @bind-Value="Edit.DefenseModifier"></InputNumber>
                         </div>
                     </div>
 
@@ -64,7 +64,7 @@
                             <div class="form-label">Location:</div>
                         </div>
                         <div class="col-3">
-                            <InputSelect class="form-control" @bind-Value="ArmorForm.ArmorLocation">
+                            <InputSelect class="form-control" @bind-Value="Edit.ArmorLocation">
                                 @foreach (var location in Enum.GetValues<ArmorLocation>())
                                 {
                                     <option value="@location">@location</option>
@@ -78,7 +78,7 @@
                             <div class="form-label text-end">Allowable Classes:</div>
                         </div>
                         <div class="col-3">
-                            <InputSelect class="form-control" @bind-Value="ArmorForm.AllowableClasses">
+                            <InputSelect class="form-control" @bind-Value="Edit.AllowableClasses">
                                 @foreach (var className in ClassNameList)
                                 {
                                     <option value="@className">@className</option>
@@ -87,22 +87,20 @@
                         </div>
                     </div>
                 </div>
-
             </div>
 
             <button class="btn btn-primary me-2" type="submit">Create</button>
-            <button class="btn btn-outline-secondary" type="button" @onclick="() => ArmorForm = null">Cancel</button>
+            <button class="btn btn-outline-secondary" type="button" @onclick="() => Edit = null">Cancel</button>
 
             <ValidationSummary />
-
+            <hr class="mt-2" />
         </EditForm>
-        <hr />
     }
-    <div class="row mt-3">
-        <div class="col-sm-12 mb-3">
-            @if (ArmorForm == null)
+    <div class="row mt-2">
+        <div class="col-sm-12 mb-2">
+            @if (Edit == null)
             {
-                <button class="btn btn-primary" @onclick="() => ArmorForm = new()">Create New</button>
+                <button class="btn btn-primary" @onclick="() => Edit = new()">Create New</button>
             }
         </div>
         <div class="col-sm-12">
@@ -113,16 +111,21 @@
                         <th>Type</th>
                         <th>Price</th>
                         <th>Weight</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var armor in ArmorList)
+                    @foreach (var data in Data)
                     {
                         <tr>
-                            <td>@armor.Name</td>
-                            <td>@armor.Type</td>
-                            <td>@armor.Price</td>
-                            <td>@armor.Weight</td>
+                            <td>@data.Name</td>
+                            <td>@data.Type</td>
+                            <td>@data.Price</td>
+                            <td>@data.Weight</td>
+                            <td>
+                                <button class="btn btn-info" @onclick="() => Edit = data.Clone()">Edit</button>
+                                <button class="btn btn-danger ml-2" @onclick="() => Delete(data)">Delete</button>
+                            </td>
                         </tr>
                     }
                 </tbody>
@@ -132,50 +135,27 @@
 </div>
 
 @code {
-    Form? ArmorForm { get; set; }
-    List<ArmorData> ArmorList = new();
+    ArmorData? Edit { get; set; }
+    List<ArmorData> Data = new();
     List<string> ClassNameList = new() { "Warrior", "Rogue", "Priest", "Wizard" };
 
     protected override void OnInitialized()
     {
-        ArmorList.AddRange(DataManager.ArmorData.Values);
+        Data = GameDataManager.Armors.Queryable().ToList();
+    }
+
+    void Delete(ArmorData data)
+    {
+        GameDataManager.Armors.Delete(data);
+        Data = GameDataManager.Armors.Queryable().ToList();
+        Edit = null;
     }
 
     void SubmitForm()
     {
-        if (ArmorForm is null) return;
-
-        //var shield = new ArmorData(
-        //    ArmorForm.Name,
-        //    ArmorForm.Type,
-        //    ArmorForm.Price,
-        //    ArmorForm.Weight,
-        //    ArmorForm.ArmorLocation,
-        //    ArmorForm.DefenseValue,
-        //    ArmorForm.DefenseModifier,
-        //    ArmorForm.AllowableClasses
-        //);
-        //ArmorList.Add(shield);
-        ArmorForm = null;
+        if (Edit is null) return;
+        GameDataManager.Armors.Upsert(Edit);
+        Data = GameDataManager.Armors.Queryable().ToList();
+        Edit = null;
     }
-
-    class Form
-    {
-        [Required, StringLength(100, MinimumLength = 3)]
-        public string Name { get; set; } = "";
-        [Required, StringLength(100, MinimumLength = 3)]
-        public string Type { get; set; } = "";
-        [Required]
-        public int Price { get; set; }
-        [Required]
-        public float Weight { get; set; }
-        [Required]
-        public ArmorLocation ArmorLocation { get; set; }
-        [Required]
-        public int DefenseValue { get; set; }
-        [Required]
-        public int DefenseModifier { get; set; }
-        [Required]
-        public string[] AllowableClasses { get; set; } = new string[] { };
-    }
-}*@
+}

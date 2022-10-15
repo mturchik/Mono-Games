@@ -1,12 +1,12 @@
 ﻿@page "/Shields"
-@*@inject ItemDataManager DataManager
+@inject GameDataManager GameDataManager
 
 <h3>Shields</h3>
 
 <div class="container-fluid">
-    @if (ShieldForm != null)
+    @if (Edit != null)
     {
-        <EditForm Model="ShieldForm" OnValidSubmit="SubmitForm">
+        <EditForm Model="Edit" OnValidSubmit="SubmitForm">
             <DataAnnotationsValidator />
 
             <div class="row">
@@ -16,13 +16,13 @@
                             <div class="form-label">Name:</div>
                         </div>
                         <div class="col-3">
-                            <InputText class="form-control" @bind-Value="ShieldForm.Name"></InputText>
+                            <InputText class="form-control" @bind-Value="Edit.Name"></InputText>
                         </div>
                         <div class="col-3 text-end">
                             <div class="form-label">Type:</div>
                         </div>
                         <div class="col-3">
-                            <InputText class="form-control" @bind-Value="ShieldForm.Type"></InputText>
+                            <InputText class="form-control" @bind-Value="Edit.Type"></InputText>
                         </div>
                     </div>
 
@@ -31,13 +31,13 @@
                             <div class="form-label">Price:</div>
                         </div>
                         <div class="col-3">
-                            <InputNumber class="form-control" @bind-Value="ShieldForm.Price"></InputNumber>
+                            <InputNumber class="form-control" @bind-Value="Edit.Price"></InputNumber>
                         </div>
                         <div class="col-3 text-end">
                             <div class="form-label">Weight:</div>
                         </div>
                         <div class="col-3">
-                            <InputNumber class="form-control" @bind-Value="ShieldForm.Weight"></InputNumber>
+                            <InputNumber class="form-control" @bind-Value="Edit.Weight"></InputNumber>
                         </div>
                     </div>
 
@@ -46,13 +46,13 @@
                             <div class="form-label">Defense Value:</div>
                         </div>
                         <div class="col-3">
-                            <InputNumber class="form-control" @bind-Value="ShieldForm.DefenseValue"></InputNumber>
+                            <InputNumber class="form-control" @bind-Value="Edit.DefenseValue"></InputNumber>
                         </div>
                         <div class="col-3 text-end">
                             <div class="form-label">Defense Modifier:</div>
                         </div>
                         <div class="col-3">
-                            <InputNumber class="form-control" @bind-Value="ShieldForm.DefenseModifier"></InputNumber>
+                            <InputNumber class="form-control" @bind-Value="Edit.DefenseModifier"></InputNumber>
                         </div>
                     </div>
 
@@ -65,7 +65,7 @@
                             <div class="form-label text-end">Allowable Classes:</div>
                         </div>
                         <div class="col-3">
-                            <InputSelect class="form-control" @bind-Value="ShieldForm.AllowableClasses">
+                            <InputSelect class="form-control" @bind-Value="Edit.AllowableClasses">
                                 @foreach (var className in ClassNameList)
                                 {
                                     <option value="@className">@className</option>
@@ -79,18 +79,18 @@
             </div>
 
             <button class="btn btn-primary me-2" type="submit">Create</button>
-            <button class="btn btn-outline-secondary" type="button" @onclick="() => ShieldForm = null">Cancel</button>
+            <button class="btn btn-outline-secondary" type="button" @onclick="() => Edit = null">Cancel</button>
 
             <ValidationSummary />
 
         </EditForm>
         <hr />
     }
-    <div class="row mt-3">
-        <div class="col-sm-12 mb-3">
-            @if (ShieldForm == null)
+    <div class="row mt-2">
+        <div class="col-sm-12 mb-2">
+            @if (Edit == null)
             {
-                <button class="btn btn-primary" @onclick="() => ShieldForm = new()">Create New</button>
+                <button class="btn btn-primary" @onclick="() => Edit = new()">Create New</button>
             }
         </div>
         <div class="col-sm-12">
@@ -101,16 +101,21 @@
                         <th>Type</th>
                         <th>Price</th>
                         <th>Weight</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var shield in ShieldList)
+                    @foreach (var data in Data)
                     {
                         <tr>
-                            <td>@shield.Name</td>
-                            <td>@shield.Type</td>
-                            <td>@shield.Price</td>
-                            <td>@shield.Weight</td>
+                            <td>@data.Name</td>
+                            <td>@data.Type</td>
+                            <td>@data.Price</td>
+                            <td>@data.Weight</td>
+                            <td>
+                                <button class="btn btn-info" @onclick="() => Edit = data.Clone()">Edit</button>
+                                <button class="btn btn-danger ml-2" @onclick="() => Delete(data)">Delete</button>
+                            </td>
                         </tr>
                     }
                 </tbody>
@@ -120,47 +125,27 @@
 </div>
 
 @code {
-    Form? ShieldForm { get; set; }
-    List<ShieldData> ShieldList = new();
+    ShieldData? Edit { get; set; }
+    List<ShieldData> Data = new();
     List<string> ClassNameList = new() { "Warrior", "Rogue", "Priest", "Wizard" };
     
     protected override void OnInitialized()
     {
-        ShieldList.AddRange(DataManager.ShieldData.Values);
+        Data = GameDataManager.Shields.Queryable().ToList();
+    }
+    
+    void Delete(ShieldData data)
+    {
+        GameDataManager.Shields.Delete(data);
+        Data = GameDataManager.Shields.Queryable().ToList();
+        Edit = null;
     }
 
     void SubmitForm()
     {
-        if (ShieldForm is null) return;
-
-        //var shield = new Shield(
-        //    ShieldForm.Name,
-        //    ShieldForm.Type,
-        //    ShieldForm.Price,
-        //    ShieldForm.Weight,
-        //    ShieldForm.DefenseValue,
-        //    ShieldForm.DefenseModifier,
-        //    ShieldForm.AllowableClasses
-        //);
-        //ShieldList.Add(shield);
-        ShieldForm = null;
+        if (Edit is null) return;
+        GameDataManager.Shields.Upsert(Edit);
+        Data = GameDataManager.Shields.Queryable().ToList();
+        Edit = null;
     }
-
-    class Form
-    {
-        [Required, StringLength(100, MinimumLength = 3)]
-        public string Name { get; set; } = "";
-        [Required, StringLength(100, MinimumLength = 3)]
-        public string Type { get; set; } = "";
-        [Required]
-        public int Price { get; set; }
-        [Required]
-        public float Weight { get; set; }
-        [Required]
-        public int DefenseValue { get; set; }
-        [Required]
-        public int DefenseModifier { get; set; }
-        [Required]
-        public string[] AllowableClasses { get; set; } = new string[] { };
-    }
-}*@
+}

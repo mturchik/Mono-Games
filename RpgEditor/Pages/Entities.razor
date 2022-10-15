@@ -155,10 +155,11 @@
         Data = GameDataManager.Entities.Queryable().ToList();
     }
 
-    void Delete(EntityData entity)
+    void Delete(EntityData data)
     {
-        GameDataManager.Entities.Delete(entity);
+        GameDataManager.Entities.Delete(data);
         Data = GameDataManager.Entities.Queryable().ToList();
+        Edit = null;
     }
 
     void SubmitForm()
