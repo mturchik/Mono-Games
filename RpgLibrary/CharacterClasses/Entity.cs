@@ -1,21 +1,15 @@
 ﻿namespace RpgLibrary.CharacterClasses;
-public enum EntityGender { Male, Female, NonBinary, Unknown }
-public enum EntityType { Character, NPC, Monster, Creature }
 public abstract class Entity
 {
     #region Vital Field and Property Region
 
-    private string _entityName;
-    public string EntityName => _entityName;
+    public string EntityName { get; }
 
-    private string _entityClass;
-    public string EntityClass => _entityClass;
+    public string EntityClass { get; }
 
-    private EntityType _entityType;
-    public EntityType EntityType => _entityType;
+    public EntityType EntityType { get; }
 
-    private EntityGender _entityGender;
-    public EntityGender Gender => _entityGender;
+    public EntityGender Gender { get; }
 
     #endregion
 
@@ -49,14 +43,11 @@ public abstract class Entity
 
     #region Calculated Attribute Field and Property Region
 
-    private AttributePair _health;
-    public AttributePair Health => _health;
+    public AttributePair Health { get; }
 
-    private AttributePair _stamina;
-    public AttributePair Stamina => _stamina;
+    public AttributePair Stamina { get; }
 
-    private AttributePair _mana;
-    public AttributePair Mana => _mana;
+    public AttributePair Mana { get; }
 
     private int _attack;
     private int _damage;
@@ -66,11 +57,9 @@ public abstract class Entity
 
     #region Level Field and Property Region
 
-    private int _level;
-    public int Level => _level;
+    public int Level { get; }
 
-    private long _experience;
-    public long Experience => _experience;
+    public long Experience { get; }
 
     #endregion
 
@@ -84,26 +73,26 @@ public abstract class Entity
         _willpower = 0;
         _magic = 0;
         _constitution = 0;
-        _health = AttributePair.Zero;
-        _stamina = AttributePair.Zero;
-        _mana = AttributePair.Zero;
+        Health = AttributePair.Zero;
+        Stamina = AttributePair.Zero;
+        Mana = AttributePair.Zero;
     }
 
-    public Entity(string name, EntityData entityData, EntityGender gender, EntityType type)
+    public Entity(string name, EntityData entityData)
     {
-        _entityName = name;
-        _entityClass = entityData.EntityName;
-        _entityGender = gender;
-        _entityType = type;
+        EntityName = name;
+        EntityClass = entityData.Name;
+        Gender = entityData.Gender;
+        EntityType = entityData.EntityType;
         _strength = entityData.Strength;
         _dexterity = entityData.Dexterity;
         _cunning = entityData.Cunning;
         _willpower = entityData.Willpower;
         _magic = entityData.Magic;
         _cunning = entityData.Constitution;
-        _health = AttributePair.Zero;
-        _stamina = AttributePair.Zero;
-        _mana = AttributePair.Zero;
+        Health = AttributePair.Zero;
+        Stamina = AttributePair.Zero;
+        Mana = AttributePair.Zero;
     }
 
     #endregion

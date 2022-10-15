@@ -4,144 +4,112 @@
 <h3>Games</h3>
 
 <div class="container-fluid">
-	@if (GameForm != null)
-	{
-		<div class="row">
-			<div class="col-sm-6">
+    @if (Edit != null)
+    {
+        <EditForm Model="Edit" OnValidSubmit="SubmitForm">
+            <DataAnnotationsValidator />
 
-				<EditForm Model="GameForm" OnValidSubmit="SubmitForm">
-					<DataAnnotationsValidator />
+            <div class="row mb-2">
+                <div class="col-3 text-end">
+                    <div class="form-label">Id:</div>
+                </div>
+                <div class="col-3">
+                    @Edit.Id
+                </div>
+            </div>
 
-					<div class="row mb-2">
-						<div class="col-3 text-end">
-							<div class="form-label">Name:</div>
-						</div>
-						<div class="col-9">
-							<InputText class="form-control" @bind-Value="GameForm.Name"></InputText>
-						</div>
-					</div>
+            <div class="row mb-2">
+                <div class="col-3 text-end">
+                    <div class="form-label">Name:</div>
+                </div>
+                <div class="col-3">
+                    <InputText class="form-control" @bind-Value="Edit.Name"></InputText>
+                </div>
+            </div>
 
-					<div class="row mb-2">
-						<div class="col-3 text-end">
-							<div class="form-label ">Description:</div>
-						</div>
-						<div class="col-9">
-							<InputTextArea class="form-control" @bind-Value="GameForm.Description"></InputTextArea>
-						</div>
-					</div>
+            <div class="row mb-2">
+                <div class="col-3 text-end">
+                    <div class="form-label ">Description:</div>
+                </div>
+                <div class="col-3">
+                    <InputTextArea class="form-control" @bind-Value="Edit.Description"></InputTextArea>
+                </div>
+            </div>
 
-					<button class="btn btn-primary me-2" type="submit">@(EditGame == null ? "Edit" : "Create")</button>
-					<button class="btn btn-outline-primary" type="button" @onclick="() => GameForm = null">Cancel</button>
+            <div class="row mb-2">
+                <div class="col-12">
+                    <button class="btn btn-primary me-2" type="submit">Save</button>
+                    <button class="btn btn-outline-primary" type="button" @onclick="() => Edit = null">Cancel</button>
+                </div>
+            </div>
 
-					<ValidationSummary />
-
-				</EditForm>
-
-			</div>
-			<hr class="mt-2" />
-		</div>
-	}
-	<div class="row mt-2">
-		@if (GameForm == null)
-		{
-			<div class="col-sm-12 mb-2">
-				<button class="btn btn-primary" @onclick="() => GameForm = new()">Create New</button>
-			</div>
-		}
-		<div class="col-sm-12">
-			<table class="table table-bordered table-primary table-responsive table-striped">
-				<thead>
-					<tr>
-						<th>Name</th>
-						<th>Description</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-					@foreach (var rpg in RpgList)
-					{
-						<tr>
-							<td>@rpg.Name</td>
-							<td>@rpg.Description</td>
-							<td>
-								@if (GameDataManager.LoadedGame?.Id == rpg.Id)
-								{
-									<button class="btn btn-secondary" @onclick="() => GameDataManager.LoadGame(null)">Unload</button>
-								}
-								else
-								{
-									<button class="btn btn-outline-secondary" @onclick="() => GameDataManager.LoadGame(rpg)">Load</button>
-									<button class="btn btn-info ml-2" @onclick="() => Edit(rpg)">Edit</button>
-									<button class="btn btn-danger ml-2" @onclick="() => Delete(rpg)">Delete</button>
-								}
-							</td>
-						</tr>
-					}
-				</tbody>
-			</table>
-		</div>
-	</div>
+            <ValidationSummary />
+            <hr class="mt-2" />
+        </EditForm>
+    }
+    <div class="row mt-2">
+        @if (Edit == null)
+        {
+            <div class="col-sm-12 mb-2">
+                <button class="btn btn-primary" @onclick="() => Edit = new()">Create New</button>
+            </div>
+        }
+        <div class="col-sm-12">
+            <table class="table table-bordered table-primary table-responsive table-striped">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var data in Data)
+                    {
+                        <tr>
+                            <td>@data.Id</td>
+                            <td>@data.Name</td>
+                            <td>@data.Description</td>
+                            <td>
+                                @if (GameDataManager.LoadedGame?.Id == data.Id)
+                                {
+                                    <button class="btn btn-secondary" @onclick="() => Load(null)">Unload</button>
+                                }
+                                else
+                                {
+                                    <button class="btn btn-outline-secondary" @onclick="() => Load(data)">Load</button>
+                                    <button class="btn btn-info ml-2" @onclick="() => Edit = data.Clone()">Edit</button>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
 @code {
-	[CascadingParameter] public IModalService Modal { get; set; } = default!;
+    RolePlayingGame? Edit { get; set; }
+    List<RolePlayingGame> Data { get; set; } = new();
 
-	Form? GameForm { get; set; }
-	RolePlayingGame? EditGame { get; set; }
-	List<RolePlayingGame> RpgList = new();
+    protected override void OnInitialized()
+    {
+        Data = GameDataManager.Games.Queryable().ToList();
+    }
 
-	protected override void OnInitialized()
-	{
-		RpgList = GameDataManager.GetGames();
-	}
+    void Load(RolePlayingGame? rpg)
+    {
+        GameDataManager.LoadGame(rpg);
+        Edit = null;
+    }
 
-	async Task Delete(RolePlayingGame rpg)
-	{
-		var mp = new ModalParameters();
-		mp.Add("AdditionalText", "This will permanently remove all game related data.");
-		var modalRef = Modal.Show<Warning>("Are you sure?", mp, Warning.Options);
-		var modalResult = await modalRef.Result;
-		if (modalResult.Cancelled) return;
-
-		GameDataManager.DeleteGame(rpg);
-		RpgList.Remove(rpg);
-	}
-
-	void Edit(RolePlayingGame rpg)
-	{
-		EditGame = rpg;
-		GameForm = new()
-			{
-				Name = rpg.Name,
-				Description = rpg.Description
-			};
-	}
-
-	void SubmitForm()
-	{
-		if (GameForm is null) return;
-
-		if (EditGame is null)
-		{
-			var rpg = new RolePlayingGame(GameForm.Name, GameForm.Description);
-			GameDataManager.UpsertGame(rpg);
-			RpgList.Add(rpg);
-		}
-		else
-		{
-			EditGame.Name = GameForm.Name;
-			EditGame.Description = GameForm.Description;
-			GameDataManager.UpsertGame(EditGame);
-		}
-		EditGame = null;
-		GameForm = null;
-	}
-
-	class Form
-	{
-		[Required, StringLength(100, MinimumLength = 3)]
-		public string Name { get; set; } = "";
-		[Required, StringLength(500, MinimumLength = 3)]
-		public string Description { get; set; } = "";
-	}
+    void SubmitForm()
+    {
+        if (Edit is null) return;
+        GameDataManager.Games.Upsert(Edit);
+        Data = GameDataManager.Games.Queryable().ToList();
+        Edit = null;
+    }
 }

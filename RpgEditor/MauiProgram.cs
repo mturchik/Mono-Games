@@ -1,4 +1,4 @@
-﻿using Blazored.Modal;
+﻿using Radzen;
 
 namespace RpgEditor;
 public static class MauiProgram
@@ -17,18 +17,14 @@ public static class MauiProgram
 #if DEBUG
         builder.Services.AddBlazorWebViewDeveloperTools();
 #endif
-
-        // Blazored.Modal
-        builder.Services.AddBlazoredModal();
+        // Radzen
+        builder.Services.AddScoped<DialogService>();
+        builder.Services.AddScoped<NotificationService>();
+        builder.Services.AddScoped<TooltipService>();
+        builder.Services.AddScoped<ContextMenuService>();
 
         // Custom
-        builder.Services.AddSingleton<GameDataManagerOptions>(s => new()
-        {
-            GameDirectoryPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\RpgEditor\\Games"
-        });
         builder.Services.AddSingleton<GameDataManager>();
-        builder.Services.AddSingleton<EntityDataManager>();
-        builder.Services.AddSingleton<ItemDataManager>();
 
         return builder.Build();
     }

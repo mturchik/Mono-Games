@@ -1,82 +1,29 @@
 ﻿namespace RpgLibrary.CharacterClasses;
-public class EntityData
+public class EntityData : BaseData
 {
-    #region Fields
-
-    public string EntityName;
-
-    public int Strength;
-    public int Dexterity;
-    public int Cunning;
-    public int Willpower;
-    public int Magic;
-    public int Constitution;
-
-    public string HealthFormula;
-    public string StaminaFormula;
-    public string ManaFormula;
-
-    #endregion
-
-    #region Constructor
-
-    private EntityData() { }
-
-    public EntityData(
-        string entityName,
-        int strength,
-        int dexterity,
-        int cunning,
-        int willpower,
-        int magic,
-        int constitution,
-        string health,
-        string stamina,
-        string mana)
-    {
-        EntityName = entityName;
-        Strength = strength;
-        Dexterity = dexterity;
-        Cunning = cunning;
-        Willpower = willpower;
-        Cunning = cunning;
-        Willpower = willpower;
-        Magic = magic;
-        Constitution = constitution;
-        HealthFormula = health;
-        StaminaFormula = stamina;
-        ManaFormula = mana;
-    }
-
-    #endregion
-
-    #region Static Methods
-
-    public override string ToString()
-        => $"Name = {EntityName}, "
-         + $"Strength = {Strength}, "
-         + $"Dexterity = {Dexterity}, "
-         + $"Cunning = {Cunning}, "
-         + $"Willpower = {Willpower}, "
-         + $"Magic = {Magic}, "
-         + $"Constitution = {Constitution}, "
-         + $"Health Formula = {HealthFormula}, "
-         + $"Stamina Formula = {StaminaFormula}, "
-         + $"Mana Formula = {ManaFormula}";
-
-    public object Clone() => new EntityData
-    {
-        EntityName = EntityName,
-        Strength = Strength,
-        Dexterity = Dexterity,
-        Cunning = Cunning,
-        Willpower = Willpower,
-        Magic = Magic,
-        Constitution = Constitution,
-        HealthFormula = HealthFormula,
-        StaminaFormula = StaminaFormula,
-        ManaFormula = ManaFormula
-    };
-
-    #endregion
+    [Required, StringLength(100, MinimumLength = 3)]
+    public string Name { get; set; } = "";
+    [Required]
+    public EntityType EntityType { get; }
+    [Required]
+    public EntityGender Gender { get; }
+    [Required]
+    public int Strength { get; set; }
+    [Required]
+    public int Dexterity { get; set; }
+    [Required]
+    public int Cunning { get; set; }
+    [Required]
+    public int Willpower { get; set; }
+    [Required]
+    public int Magic { get; set; }
+    [Required]
+    public int Constitution { get; set; }
+    [Required, StringLength(100)]
+    public string HealthFormula { get; set; } = "";
+    [Required, StringLength(100)]
+    public string StaminaFormula { get; set; } = "";
+    [Required, StringLength(100)]
+    public string ManaFormula { get; set; } = "";
+    public override EntityData Clone() => (EntityData)MemberwiseClone();
 }

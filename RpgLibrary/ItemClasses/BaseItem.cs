@@ -1,6 +1,4 @@
 ﻿namespace RpgLibrary.ItemClasses;
-public enum Hands { Main, Off, Both }
-public enum ArmorLocation { Body, Head, Hands, Feet }
 public abstract class BaseItem
 {
     #region Fields and Properties

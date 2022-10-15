@@ -1,6 +1,4 @@
-﻿using RpgLibrary.ItemClasses;
-
-namespace MGRpgLibrary.WorldClasses;
+﻿namespace MGRpgLibrary.WorldClasses;
 public class World
 {
     #region Graphic Field and Property Region
@@ -12,7 +10,6 @@ public class World
 
     #region Item Field and Property Region
 
-    ItemManager itemManager = new ItemManager();
 
     #endregion
 

@@ -3,7 +3,7 @@ public class Weapon : BaseItem
 {
     #region Fields and Properties
 
-    public Hands NumberHands { get; protected set; }
+    public WeaponHands NumberHands { get; protected set; }
     public int AttackValue { get; protected set; }
     public int AttackModifier { get; protected set; }
     public int DamageValue { get; protected set; }
@@ -14,7 +14,7 @@ public class Weapon : BaseItem
     #region Constructor
 
     public Weapon(string weaponName, string weaponType, int price, float weight,
-        Hands hands, int attackValue, int attackModifier, int damageValue, int damageModifier,
+        WeaponHands hands, int attackValue, int attackModifier, int damageValue, int damageModifier,
         params string[] allowableClasses)
         : base(weaponName, weaponType, price, weight, allowableClasses)
     {

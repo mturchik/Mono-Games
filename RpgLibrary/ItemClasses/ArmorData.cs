@@ -1,5 +1,5 @@
 ﻿namespace RpgLibrary.ItemClasses;
-public class ArmorData
+public class ArmorData : BaseData
 {
     public string Name = "";
     public string Type = "";
@@ -10,4 +10,5 @@ public class ArmorData
     public int DefenseValue;
     public int DefenseModifier;
     public string[] AllowableClasses = Array.Empty<string>();
+    public override ArmorData Clone() => (ArmorData)MemberwiseClone();
 }

@@ -1,24 +1,9 @@
 ﻿namespace RpgLibrary;
-public class RolePlayingGame
+public class RolePlayingGame : BaseData
 {
-    #region Fields and Properties
-
-    public string Id { get; set; } = "";
-    public string Name { get; set; } = "";
-    public string Description { get; set; } = "";
-
-    #endregion
-
-    #region Constructor Region
-
-    private RolePlayingGame() { }
-
-    public RolePlayingGame(string name, string description)
-    {
-        Id = Guid.NewGuid().ToString();
-        Name = name;
-        Description = description;
-    }
-
-    #endregion
+    [Required, StringLength(100, MinimumLength = 3)]
+    public string Name = "";
+    [Required, StringLength(500, MinimumLength = 3)]
+    public string Description = "";
+    public override RolePlayingGame Clone() => (RolePlayingGame)MemberwiseClone();
 }

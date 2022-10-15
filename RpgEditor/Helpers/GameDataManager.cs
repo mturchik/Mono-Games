@@ -1,29 +1,64 @@
 ﻿namespace RpgEditor.Helpers;
-public class GameDataManagerOptions
-{
-    public string GameDirectoryPath { get; set; } = "";
-}
 public class GameDataManager
 {
+    #region Events
+
     public event EventHandler? GameLoaded;
 
-    private readonly DirectoryInfo _gamesDirectory;
-    private readonly Dictionary<string, RolePlayingGame> _gameData = new();
+    #endregion
+
+    #region Fields and Properties
 
     public RolePlayingGame? LoadedGame { get; private set; }
 
+    public GameDataSet<RolePlayingGame> Games { get; private set; }
+
+    public GameDataSet<EntityData> Entities { get; private set; } = default!;
+    public GameDataSet<ArmorData> Armors { get; private set; } = default!;
+    public GameDataSet<ShieldData> Shields { get; private set; } = default!;
+    public GameDataSet<WeaponData> Weapons { get; private set; } = default!;
+
+    #endregion
+
     #region Constructor
 
-    public GameDataManager(GameDataManagerOptions opts)
+    public GameDataManager()
     {
-        _gamesDirectory = GetOrCreateDirectory(opts.GameDirectoryPath);
-        foreach (var gameDir in _gamesDirectory.EnumerateDirectories())
-        {
-            var rpg = XnaSerializer.Deserialize<RolePlayingGame>(gameDir.FullName + "/Game.xml");
-            _gameData.Add(rpg.Id, rpg);
-            CreateSubGameDirectories(gameDir);
-        }
+        Games = new GameDataSet<RolePlayingGame>(
+            GetOrCreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\RpgEditor\\Games")
+        );
     }
+
+    #endregion
+
+    #region Game Manager
+
+    public void LoadGame(RolePlayingGame? rpg)
+    {
+        LoadedGame = rpg;
+        if (rpg != null) InitializeSubDirectories(rpg);
+        GameLoaded?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void InitializeSubDirectories(RolePlayingGame rpg)
+    {
+        Entities = new GameDataSet<EntityData>(
+            GetOrCreateDirectory(Games.DirectoryPath() + $"\\{rpg.Id}\\Entities")
+        );
+        Armors = new GameDataSet<ArmorData>(
+            GetOrCreateDirectory(Games.DirectoryPath() + $"\\{rpg.Id}\\Items\\Armors")
+        );
+        Shields = new GameDataSet<ShieldData>(
+            GetOrCreateDirectory(Games.DirectoryPath() + $"\\{rpg.Id}\\Items\\Shields")
+        );
+        Weapons = new GameDataSet<WeaponData>(
+            GetOrCreateDirectory(Games.DirectoryPath() + $"\\{rpg.Id}\\Items\\Weapons")
+        );
+    }
+
+    #endregion
+
+    #region Static Helpers
 
     private static DirectoryInfo GetOrCreateDirectory(string path)
     {
@@ -32,39 +67,5 @@ public class GameDataManager
         return directory;
     }
 
-    private static void CreateSubGameDirectories(DirectoryInfo gameDir)
-    {
-        _ = GetOrCreateDirectory(gameDir.FullName + "\\Classes");
-        var itemsDir = GetOrCreateDirectory(gameDir.FullName + "\\Items");
-        _ = GetOrCreateDirectory(itemsDir.FullName + "\\Armors");
-        _ = GetOrCreateDirectory(itemsDir.FullName + "\\Shields");
-        _ = GetOrCreateDirectory(itemsDir.FullName + "\\Weapons");
-    }
-
     #endregion
-
-    public void LoadGame(RolePlayingGame? rpg)
-    {
-        LoadedGame = rpg;
-        GameLoaded?.Invoke(this, EventArgs.Empty);
-    }
-
-    public List<RolePlayingGame> GetGames() => _gameData.Values.ToList();
-
-    public RolePlayingGame? GetGame(string id) => _gameData.GetValueOrDefault(id);
-
-    public void UpsertGame(RolePlayingGame rpg)
-    {
-        var gameDir = GetOrCreateDirectory(_gamesDirectory.FullName + "\\" + rpg.Id);
-        XnaSerializer.Serialize(gameDir.FullName + "/Game.xml", rpg);
-        _gameData.TryAdd(rpg.Id, rpg);
-        CreateSubGameDirectories(gameDir);
-    }
-
-    public void DeleteGame(RolePlayingGame rpg)
-    {
-        var gameDir = GetOrCreateDirectory(_gamesDirectory.FullName + "\\" + rpg.Id);
-        gameDir.Delete();
-        _gameData.Remove(rpg.Id);
-    }
 }
