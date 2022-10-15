@@ -13,7 +13,7 @@ public class GameDataManager
 
     public GameDataSet<RolePlayingGame> Games { get; private set; }
 
-    public GameDataSet<EntityData> Entities { get; private set; } = default!;
+    public GameDataSet<ClassData> Classes { get; private set; } = default!;
     public GameDataSet<ArmorData> Armors { get; private set; } = default!;
     public GameDataSet<ShieldData> Shields { get; private set; } = default!;
     public GameDataSet<WeaponData> Weapons { get; private set; } = default!;
@@ -42,8 +42,8 @@ public class GameDataManager
 
     private void InitializeSubDirectories(RolePlayingGame rpg)
     {
-        Entities = new GameDataSet<EntityData>(
-            GetOrCreateDirectory(Games.DirectoryPath() + $"\\{rpg.Id}\\Entities")
+        Classes = new GameDataSet<ClassData>(
+            GetOrCreateDirectory(Games.DirectoryPath() + $"\\{rpg.Id}\\Classes")
         );
         Armors = new GameDataSet<ArmorData>(
             GetOrCreateDirectory(Games.DirectoryPath() + $"\\{rpg.Id}\\Items\\Armors")

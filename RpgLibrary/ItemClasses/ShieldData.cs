@@ -2,18 +2,18 @@
 public class ShieldData : BaseData
 {
     [Required, StringLength(100, MinimumLength = 3)]
-    public string Name = "";
+    public string Name { get; set; } = "";
     [Required, StringLength(100, MinimumLength = 3)]
-    public string Type = "";
+    public string Type { get; set; } = "";
     [Required]
-    public int Price;
+    public int Price { get; set; }
     [Required]
-    public float Weight;
+    public float Weight { get; set; }
     [Required]
-    public int DefenseValue;
+    public int DefenseValue { get; set; }
     [Required]
-    public int DefenseModifier;
+    public int DefenseModifier { get; set; }
     [Required]
-    public string[] AllowableClasses = Array.Empty<string>();
+    public string[] AllowableClasses { get; set; } = Array.Empty<string>();
     public override ShieldData Clone() => (ShieldData)MemberwiseClone();
 }

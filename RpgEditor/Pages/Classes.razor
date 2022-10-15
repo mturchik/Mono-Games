@@ -1,0 +1,120 @@
+﻿@page "/Classes"
+@inject GameDataManager GameDataManager
+
+<h3>Classes</h3>
+
+@if (Edit != null)
+{
+    <EditForm Model="Edit" OnValidSubmit="SubmitForm">
+        <DataAnnotationsValidator />
+        <div class="container-fluid">
+
+            <div class="row mb-3">
+                <div class="col-6">
+                    <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Name</RadzenText>
+                    <RadzenTextBox @bind-Value="Edit.Name" class="w-100" />
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-1">
+                    <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">STR</RadzenText>
+                    <RadzenNumeric TValue="int" Min="0" Max="20" @bind-Value="Edit.Strength" />
+                </div>
+                <div class="col-1">
+                    <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">DEX</RadzenText>
+                    <RadzenNumeric TValue="int" Min="0" Max="20" @bind-Value="Edit.Dexterity" />
+                </div>
+                <div class="col-1">
+                    <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">CUN</RadzenText>
+                    <RadzenNumeric TValue="int" Min="0" Max="20" @bind-Value="Edit.Cunning" />
+                </div>
+                <div class="col-1">
+                    <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">WIL</RadzenText>
+                    <RadzenNumeric TValue="int" Min="0" Max="20" @bind-Value="Edit.Willpower" />
+                </div>
+                <div class="col-1">
+                    <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">MAG</RadzenText>
+                    <RadzenNumeric TValue="int" Min="0" Max="20" @bind-Value="Edit.Magic" />
+                </div>
+                <div class="col-1">
+                    <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">CON</RadzenText>
+                    <RadzenNumeric TValue="int" Min="0" Max="20" @bind-Value="Edit.Constitution" />
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-2">
+                    <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Health Formula</RadzenText>
+                    <RadzenTextBox @bind-Value="Edit.HealthFormula" class="w-100" />
+                </div>
+                <div class="col-2">
+                    <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Stamina Formula</RadzenText>
+                    <RadzenTextBox @bind-Value="Edit.StaminaFormula" class="w-100" />
+                </div>
+                <div class="col-2">
+                    <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Mana Formula</RadzenText>
+                    <RadzenTextBox @bind-Value="Edit.ManaFormula" class="w-100" />
+                </div>
+            </div>
+
+            <RadzenButton ButtonStyle="ButtonStyle.Success" Text="Save" ButtonType="ButtonType.Submit"></RadzenButton>
+            <RadzenButton ButtonStyle="ButtonStyle.Light" Text="Cancel" Click="() => Edit = null"></RadzenButton>
+
+            <ValidationSummary />
+        </div>
+        <hr class="my-3" />
+    </EditForm>
+}
+<RadzenDataGrid Data="@Data" TItem="ClassData" AllowAlternatingRows="false" AllowSorting="true"
+                PageSize="10" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true">
+    <Columns>
+        <RadzenDataGridColumn TItem="ClassData" Frozen="true" Width="155px" Sortable="false">
+            <HeaderTemplate>
+                @if (Edit == null)
+                {
+                    <RadzenButton ButtonStyle="ButtonStyle.Primary" Text="Create" Click="() => Edit = new()"></RadzenButton>
+                }
+            </HeaderTemplate>
+            <Template>
+                <RadzenButton ButtonStyle="ButtonStyle.Secondary" Text="Edit" Click="() => Edit = context.Clone()"></RadzenButton>
+                <RadzenButton ButtonStyle="ButtonStyle.Danger" Text="Delete" Click="() =>  Delete(context)"></RadzenButton>
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="ClassData" Property="Name" Title="Name" Frozen="true" />
+        <RadzenDataGridColumn TItem="ClassData" Property="Strength" Title="STR" FormatString="{0:d}" Width="75px" />
+        <RadzenDataGridColumn TItem="ClassData" Property="Dexterity" Title="DEX" FormatString="{0:d}" Width="75px" />
+        <RadzenDataGridColumn TItem="ClassData" Property="Cunning" Title="CUN" FormatString="{0:d}" Width="75px" />
+        <RadzenDataGridColumn TItem="ClassData" Property="Willpower" Title="WIL" FormatString="{0:d}" Width="75px" />
+        <RadzenDataGridColumn TItem="ClassData" Property="Magic" Title="MAG" FormatString="{0:d}" Width="75px" />
+        <RadzenDataGridColumn TItem="ClassData" Property="Constitution" Title="CON" FormatString="{0:d}" Width="75px" />
+        <RadzenDataGridColumn TItem="ClassData" Property="HealthFormula" Title="Health Formula" />
+        <RadzenDataGridColumn TItem="ClassData" Property="StaminaFormula" Title="Stamina Formula" />
+        <RadzenDataGridColumn TItem="ClassData" Property="ManaFormula" Title="Mana Formula" />
+    </Columns>
+</RadzenDataGrid>
+
+@code {
+    ClassData? Edit;
+    IQueryable<ClassData> Data = default!;
+
+    protected override void OnInitialized()
+    {
+        Data = GameDataManager.Classes.Queryable();
+    }
+
+    void Delete(ClassData data)
+    {
+        GameDataManager.Classes.Delete(data);
+        Data = GameDataManager.Classes.Queryable();
+        Edit = null;
+    }
+
+    void SubmitForm()
+    {
+        if (Edit is null) return;
+        GameDataManager.Classes.Upsert(Edit);
+        Data = GameDataManager.Classes.Queryable();
+        Edit = null;
+    }
+}

@@ -78,12 +78,12 @@ public abstract class Entity
         Mana = AttributePair.Zero;
     }
 
-    public Entity(string name, EntityData entityData)
+    public Entity(string name, ClassData entityData)
     {
         EntityName = name;
         EntityClass = entityData.Name;
-        Gender = entityData.Gender;
-        EntityType = entityData.EntityType;
+        Gender = EntityGender.Male;
+        EntityType = EntityType.Character;
         _strength = entityData.Strength;
         _dexterity = entityData.Dexterity;
         _cunning = entityData.Cunning;

@@ -2,8 +2,8 @@
 public class RolePlayingGame : BaseData
 {
     [Required, StringLength(100, MinimumLength = 3)]
-    public string Name = "";
+    public string Name { get; set; } = "";
     [Required, StringLength(500, MinimumLength = 3)]
-    public string Description = "";
+    public string Description { get; set; } = "";
     public override RolePlayingGame Clone() => (RolePlayingGame)MemberwiseClone();
 }
