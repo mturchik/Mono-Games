@@ -17,6 +17,11 @@ public class GameDataManager
     public GameDataSet<ArmorData> Armors { get; private set; } = default!;
     public GameDataSet<ShieldData> Shields { get; private set; } = default!;
     public GameDataSet<WeaponData> Weapons { get; private set; } = default!;
+    public GameDataSet<ReagentData> Reagents { get; private set; } = default!;
+    public GameDataSet<SkillData> Skills { get; private set; } = default!;
+    public GameDataSet<Recipe> Recipes { get; private set; } = default!;
+    public GameDataSet<SpellData> Spells { get; private set; } = default!;
+    public GameDataSet<TalentData> Talents { get; private set; } = default!;
 
     #endregion
 
@@ -43,7 +48,7 @@ public class GameDataManager
     private void InitializeSubDirectories(RolePlayingGame rpg)
     {
         Classes = new GameDataSet<ClassData>(
-            GetOrCreateDirectory(Games.DirectoryPath() + $"\\{rpg.Id}\\Classes")
+            GetOrCreateDirectory(Games.DirectoryPath() + $"\\{rpg.Id}\\Entities\\Classes")
         );
         Armors = new GameDataSet<ArmorData>(
             GetOrCreateDirectory(Games.DirectoryPath() + $"\\{rpg.Id}\\Items\\Armors")
@@ -53,6 +58,21 @@ public class GameDataManager
         );
         Weapons = new GameDataSet<WeaponData>(
             GetOrCreateDirectory(Games.DirectoryPath() + $"\\{rpg.Id}\\Items\\Weapons")
+        );
+        Reagents = new GameDataSet<ReagentData>(
+            GetOrCreateDirectory(Games.DirectoryPath() + $"\\{rpg.Id}\\Items\\Reagents")
+        );
+        Skills = new GameDataSet<SkillData>(
+            GetOrCreateDirectory(Games.DirectoryPath() + $"\\{rpg.Id}\\Abilities\\Skills")
+        );
+        Recipes = new GameDataSet<Recipe>(
+            GetOrCreateDirectory(Games.DirectoryPath() + $"\\{rpg.Id}\\Abilities\\Recipes")
+        );
+        Spells = new GameDataSet<SpellData>(
+            GetOrCreateDirectory(Games.DirectoryPath() + $"\\{rpg.Id}\\Abilities\\Spells")
+        );
+        Talents = new GameDataSet<TalentData>(
+            GetOrCreateDirectory(Games.DirectoryPath() + $"\\{rpg.Id}\\Abilities\\Talents")
         );
     }
 
