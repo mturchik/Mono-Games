@@ -40,7 +40,7 @@ internal class GamePlayScreen : BaseGameState
     {
         GameRef.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, transformMatrix: Player.Camera.Transformation);
 
-        World.DrawLevel(GameRef.SpriteBatch, Player.Camera);
+        World.DrawLevel(gameTime, GameRef.SpriteBatch, Player.Camera);
         Player.Draw(gameTime, GameRef.SpriteBatch);
         base.Draw(gameTime);
 

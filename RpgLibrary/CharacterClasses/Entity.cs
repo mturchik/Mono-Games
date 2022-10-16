@@ -1,4 +1,8 @@
-﻿namespace RpgLibrary.CharacterClasses;
+﻿using RpgLibrary.SkillClasses;
+using RpgLibrary.SpellClasses;
+using RpgLibrary.TalentClasses;
+
+namespace RpgLibrary.CharacterClasses;
 public abstract class Entity
 {
     #region Vital Field and Property Region
@@ -63,36 +67,73 @@ public abstract class Entity
 
     #endregion
 
+    #region Skill Field and Property Region
+
+    public Dictionary<string, Skill> Skills { get; }
+    public List<Modifier> SkillModifiers { get; }
+
+    #endregion
+
+    #region Spell Field and Property Region
+
+    public Dictionary<string, Spell> Spells { get; }
+    public List<Modifier> SpellModifiers { get; }
+
+    #endregion
+
+    #region Talent Field and Property Region
+
+    public Dictionary<string, Talent> Talents { get; }
+    public List<Modifier> TalentModifiers { get; }
+
+    #endregion
+
     #region Constructor Region
 
     private Entity()
     {
-        _strength = 0;
-        _dexterity = 0;
-        _cunning = 0;
-        _willpower = 0;
-        _magic = 0;
-        _constitution = 0;
+        Gender = EntityGender.Unknown;
+        EntityType = EntityType.Character;
+        _strength = 10;
+        _dexterity = 10;
+        _cunning = 10;
+        _willpower = 10;
+        _magic = 10;
+        _constitution = 10;
         Health = AttributePair.Zero;
         Stamina = AttributePair.Zero;
         Mana = AttributePair.Zero;
+        Skills = new();
+        Spells = new();
+        Talents = new();
+        SkillModifiers = new();
+        SpellModifiers = new();
+        TalentModifiers = new();
     }
 
-    public Entity(string name, ClassData entityData)
+    public Entity(string name, ClassData classData, EntityGender gender, EntityType entityType) : this()
     {
         EntityName = name;
-        EntityClass = entityData.Name;
-        Gender = EntityGender.Male;
-        EntityType = EntityType.Character;
-        _strength = entityData.Strength;
-        _dexterity = entityData.Dexterity;
-        _cunning = entityData.Cunning;
-        _willpower = entityData.Willpower;
-        _magic = entityData.Magic;
-        _cunning = entityData.Constitution;
-        Health = AttributePair.Zero;
-        Stamina = AttributePair.Zero;
-        Mana = AttributePair.Zero;
+        EntityClass = classData.Name;
+        Gender = gender;
+        EntityType = entityType;
+        _strength = classData.Strength;
+        _dexterity = classData.Dexterity;
+        _cunning = classData.Cunning;
+        _willpower = classData.Willpower;
+        _magic = classData.Magic;
+        _cunning = classData.Constitution;
+    }
+
+    #endregion
+
+    #region Method Region
+
+    public void Update(TimeSpan elapsedTime)
+    {
+        SkillModifiers.ForEach(m => m.Update(elapsedTime));
+        SpellModifiers.ForEach(m => m.Update(elapsedTime));
+        TalentModifiers.ForEach(m => m.Update(elapsedTime));
     }
 
     #endregion

@@ -29,7 +29,7 @@ internal class TitleScreen : BaseGameState
             TabStop = true,
             HasFocus = true
         };
-        _startLabel.Selected += new EventHandler(OnStarLabelSelected);
+        _startLabel.Selected += new EventHandler(OnStartLabelSelected);
 
         ControlManager.Add(_startLabel);
     }
@@ -60,7 +60,7 @@ internal class TitleScreen : BaseGameState
 
     #region TitleScreen Methods
 
-    private void OnStarLabelSelected(object? sender, EventArgs e) => StateManager.PushState(GameRef.StartMenuScreen);
+    private void OnStartLabelSelected(object? sender, EventArgs e) => StateManager.PushState(GameRef.StartMenuScreen);
 
     #endregion
 }

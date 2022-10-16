@@ -45,8 +45,10 @@ public class ControlManager : List<Control>
         ForEach(c =>
         {
             if (c.Enabled) c.Update(gameTime);
-            if (c.HasFocus) c.HandleInput(playerIndex);
         });
+
+        if (this[_selectedControl].HasFocus)
+            this[_selectedControl].HandleInput(playerIndex);
 
         if (!AcceptInput) return;
 

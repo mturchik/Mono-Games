@@ -55,7 +55,7 @@ public class AnimatedSprite
             _animations[CurrentAnimation].Update(gameTime);
     }
 
-    public void Draw(GameTime gameTime, SpriteBatch spriteBatch, Camera camera)
+    public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
         spriteBatch.Draw(
             _texture,

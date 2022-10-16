@@ -44,19 +44,16 @@ internal class LoadGameScreen : BaseGameState
         _exitLinkLabel.Selected += OnExitLinkLabelSelected;
         ControlManager.Add(_exitLinkLabel);
 
-        var data = new Color[300 * 300];
-        for (int i = 0; i < 300 * 300; i++)
-            data[i] = Color.White;
-        var texture = new Texture2D(GraphicsDevice, 300, 300);
-        texture.SetData(data);
-
-        _loadListBox = new ListBox(texture, Game.Content.Load<Texture2D>(@"GUI\rightarrowUp"))
+        _loadListBox = new ListBox(
+            Game.Content.Load<Texture2D>(@"GUI\listBoxImage"),
+            Game.Content.Load<Texture2D>(@"GUI\rightarrowUp")
+        )
         {
             Position = new Vector2(400, 100)
         };
         _loadListBox.Selected += OnLoadListBoxSelected;
         _loadListBox.Leave += OnLoadListBoxLeave;
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < 5; i++)
             _loadListBox.Items.Add("Game number: " + i.ToString());
         ControlManager.Add(_loadListBox);
 

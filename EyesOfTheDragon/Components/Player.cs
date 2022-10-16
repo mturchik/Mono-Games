@@ -97,7 +97,7 @@ internal class Player
 
     public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
-        Sprite.Draw(gameTime, spriteBatch, Camera);
+        Sprite.Draw(gameTime, spriteBatch);
     }
 
     #endregion

@@ -52,9 +52,9 @@ public class World : DrawableGameComponent
     {
     }
 
-    public void DrawLevel(SpriteBatch spriteBatch, Camera camera)
+    public void DrawLevel(GameTime gameTime, SpriteBatch spriteBatch, Camera camera)
     {
-        Levels[_currentLevel].Draw(spriteBatch, camera);
+        Levels[_currentLevel].Draw(gameTime, spriteBatch, camera);
     }
 
     #endregion
