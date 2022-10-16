@@ -1,4 +1,7 @@
-﻿namespace EyesOfTheDragon.GameScreens;
+﻿using MGRpgLibrary.ItemClasses;
+using RpgLibrary.ItemClasses;
+
+namespace EyesOfTheDragon.GameScreens;
 internal class CharacterGeneratorScreen : BaseGameState
 {
     #region Fields and Properties
@@ -9,6 +12,7 @@ internal class CharacterGeneratorScreen : BaseGameState
     private PictureBox _backgroundImage = null!;
     private PictureBox _characterImage = null!;
     private Texture2D[,] _characterImages = null!;
+    private Texture2D _containers = null!;
     private readonly string[] _genderItems = { "Male", "Female", "Non-Binary" };
     private readonly string[] _classItems = { "Fighter", "Wizard", "Rogue", "Priest" };
     private readonly string[] _maleName = { "Balthazar", "Logan", "Alfred", "Johnson" };
@@ -38,6 +42,7 @@ internal class CharacterGeneratorScreen : BaseGameState
         base.LoadContent();
         LoadImages();
         CreateControls();
+        _containers = Game.Content.Load<Texture2D>(@"ObjectSprites\containers");
     }
 
     public override void Update(GameTime gameTime)
@@ -180,8 +185,19 @@ internal class CharacterGeneratorScreen : BaseGameState
         splatter.SetTile(3, 0, new(0, 1));
         var layers = new List<MapLayer>() { layer, splatter };
         #endregion
+        #region Level
+        var level = new Level(new TileMap(tilesets, layers));
+        var chest = new Chest(new ChestData
+        {
+            Name = "Some Chest",
+            MinGold = 10,
+            MaxGold = 101
+        });
+        var chestSprite = new BaseSprite(_containers, new Rectangle(0, 0, 32, 32), new Point(10, 10));
+        level.Chests.Add(new ItemSprite(chest, chestSprite));
+        #endregion
         var world = new World(GameRef, GameRef.ScreenRectangle);
-        world.Levels.Add(new Level(new TileMap(tilesets, layers)));
+        world.Levels.Add(level);
         world.CurrentLevel = 0;
         GamePlayScreen.World = world;
     }
