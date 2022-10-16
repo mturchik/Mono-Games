@@ -25,9 +25,14 @@ public class Armor : BaseItem
 
     #region Abstract Methods
 
-    public override object Clone() => new Armor(Name, Type, Price, Weight,
+    public override object Clone()
+    {
+        var classes = new List<string>();
+        foreach (var ac in AllowableClasses) classes.Add(ac);
+        return new Armor(Name, Type, Price, Weight,
             Location, DefenseValue, DefenseModifier,
-            AllowableClasses.ToArray());
+            classes.ToArray());
+    }
 
     public override string ToString()
     {

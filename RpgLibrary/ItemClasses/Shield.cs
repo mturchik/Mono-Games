@@ -23,9 +23,14 @@ public class Shield : BaseItem
 
     #region Abstract Methods
 
-    public override object Clone() => new Shield(Name, Type, Price, Weight,
+    public override object Clone()
+    {
+        var classes = new List<string>();
+        foreach (var ac in AllowableClasses) classes.Add(ac);
+        return new Shield(Name, Type, Price, Weight,
             DefenseValue, DefenseModifier,
-            AllowableClasses.ToArray());
+            classes.ToArray());
+    }
 
     public override string ToString()
     {

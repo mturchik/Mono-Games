@@ -29,9 +29,14 @@ public class Weapon : BaseItem
 
     #region Abstract Methods
 
-    public override object Clone() => new Weapon(Name, Type, Price, Weight,
+    public override object Clone()
+    {
+        var classes = new List<string>();
+        foreach (var ac in AllowableClasses) classes.Add(ac);
+        return new Weapon(Name, Type, Price, Weight,
         NumberHands, AttackValue, AttackModifier, DamageValue, DamageModifier,
-        AllowableClasses.ToArray());
+        classes.ToArray());
+    }
 
     public override string ToString()
     {

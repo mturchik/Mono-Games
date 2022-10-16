@@ -38,7 +38,9 @@ public class Recipe : BaseData
     public Recipe(string name, params Reagents[] reagents)
     {
         Name = name;
-        Reagents = (Reagents[])reagents.Clone();
+        var list = new List<Reagents>();
+        foreach (var reagent in reagents) list.Add(reagent);
+        Reagents = list.ToArray();
     }
 
     #endregion
@@ -48,7 +50,17 @@ public class Recipe : BaseData
 
     #region Virtual Methods
 
-    public override SkillData Clone() => (SkillData)MemberwiseClone();
+    public override Recipe Clone()
+    {
+        var reagents = new List<Reagents>();
+        foreach (var reagent in Reagents) reagents.Add(reagent);
+        return new()
+        {
+            Id = Id,
+            Name = Name,
+            Reagents = reagents.ToArray()
+        };
+    }
 
     #endregion
 }

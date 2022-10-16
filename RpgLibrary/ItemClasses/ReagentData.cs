@@ -5,5 +5,15 @@ public class ReagentData : BaseData
     public string Type { get; set; } = "";
     public int Price { get; set; }
     public float Weight { get; set; }
-    public override ReagentData Clone() => (ReagentData)MemberwiseClone();
+    public override ReagentData Clone()
+    {
+        return new()
+        {
+            Id = Id,
+            Name = Name,
+            Type = Type,
+            Price = Price,
+            Weight = Weight
+        };
+    }
 }

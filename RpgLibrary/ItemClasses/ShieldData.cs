@@ -15,5 +15,20 @@ public class ShieldData : BaseData
     public int DefenseModifier { get; set; }
     [Required]
     public string[] AllowableClasses { get; set; } = Array.Empty<string>();
-    public override ShieldData Clone() => (ShieldData)MemberwiseClone();
+    public override ShieldData Clone()
+    {
+        var classes = new List<string>();
+        foreach (var ac in AllowableClasses) classes.Add(ac);
+        return new()
+        {
+            Id = Id,
+            Name = Name,
+            Type = Type,
+            Price = Price,
+            Weight = Weight,
+            DefenseValue = DefenseValue,
+            DefenseModifier = DefenseModifier,
+            AllowableClasses = classes.ToArray(),
+        };
+    }
 }

@@ -21,5 +21,21 @@ public class ClassData : BaseData
     public string StaminaFormula { get; set; } = "";
     [Required, StringLength(100)]
     public string ManaFormula { get; set; } = "";
-    public override ClassData Clone() => (ClassData)MemberwiseClone();
+    public override ClassData Clone()
+    {
+        return new()
+        {
+            Id = Id,
+            Name = Name,
+            Strength = Strength,
+            Dexterity = Dexterity,
+            Cunning = Cunning,
+            Willpower = Willpower,
+            Magic = Magic,
+            Constitution = Constitution,
+            HealthFormula = HealthFormula,
+            StaminaFormula = StaminaFormula,
+            ManaFormula = ManaFormula,
+        };
+    }
 }

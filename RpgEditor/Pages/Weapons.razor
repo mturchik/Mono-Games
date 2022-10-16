@@ -136,7 +136,7 @@
 
     void OnClassesChanged()
     {
-        if (Edit != null) Edit.AllowableClasses = AllowedClasses.ToArray();
+        if (Edit != null) Edit.AllowableClasses = AllowedClasses.OrderBy(c => c).ToArray();
     }
 
     void Delete(WeaponData data)

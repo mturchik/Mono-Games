@@ -21,5 +21,23 @@ public class WeaponData : BaseData
     public int DamageModifier { get; set; }
     [Required]
     public string[] AllowableClasses { get; set; } = Array.Empty<string>();
-    public override WeaponData Clone() => (WeaponData)MemberwiseClone();
+    public override WeaponData Clone()
+    {
+        var classes = new List<string>();
+        foreach (var ac in AllowableClasses) classes.Add(ac);
+        return new()
+        {
+            Id = Id,
+            Name = Name,
+            Type = Type,
+            Price = Price,
+            Weight = Weight,
+            WeaponHands = WeaponHands,
+            AttackValue = AttackValue,
+            AttackModifier = AttackModifier,
+            DamageValue = DamageValue,
+            DamageModifier = DamageModifier,
+            AllowableClasses = classes.ToArray(),
+        };
+    }
 }

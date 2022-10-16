@@ -18,7 +18,10 @@ public class Reagent : BaseItem
 
     #region Virtual Methods
 
-    public override object Clone() => MemberwiseClone();
+    public override Reagent Clone()
+    {
+        return new(Name, Type, Price, Weight);
+    }
 
     #endregion
 }

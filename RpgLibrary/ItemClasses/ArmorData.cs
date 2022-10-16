@@ -17,5 +17,21 @@ public class ArmorData : BaseData
     public int DefenseModifier { get; set; }
     [Required]
     public string[] AllowableClasses { get; set; } = Array.Empty<string>();
-    public override ArmorData Clone() => (ArmorData)MemberwiseClone();
+    public override ArmorData Clone()
+    {
+        var classes = new List<string>();
+        foreach (var ac in AllowableClasses) classes.Add(ac);
+        return new()
+        {
+            Id = Id,
+            Name = Name,
+            Type = Type,
+            Price = Price,
+            Weight = Weight,
+            ArmorLocation = ArmorLocation,
+            DefenseValue = DefenseValue,
+            DefenseModifier = DefenseModifier,
+            AllowableClasses = classes.ToArray(),
+        };
+    }
 }
