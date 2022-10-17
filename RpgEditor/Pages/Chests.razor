@@ -1,0 +1,132 @@
+﻿@page "/Chests"
+@inject GameDataManager GameDataManager
+
+<h3>Chests</h3>
+
+@if (Edit != null)
+{
+    <EditForm Model="Edit" OnValidSubmit="SubmitForm">
+        <DataAnnotationsValidator />
+        <div class="container-fluid">
+
+            <div class="row mb-3">
+                <div class="col-3">
+                    <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Name</RadzenText>
+                    <RadzenTextBox @bind-Value="Edit.Name" class="w-100" />
+                </div>
+                <div class="col-3">
+                    <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Difficulty</RadzenText>
+                    <RadzenSelectBar TValue="DifficultyLevel" @bind-Value="Edit.DifficultyLevel" class="w-100">
+                        <Items>
+                            @foreach (var level in DifficultyLevels)
+                            {
+                                <RadzenSelectBarItem Text="@level.ToString()" Value="level" />
+                            }
+                        </Items>
+                    </RadzenSelectBar>
+                </div>
+                <div class="col-1">
+                    <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Min Gold</RadzenText>
+                    <RadzenNumeric TValue="int" Min="0" Max="2000" @bind-Value="Edit.MinGold" class="w-100" />
+                </div>
+                <div class="col-1">
+                    <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Max Gold</RadzenText>
+                    <RadzenNumeric TValue="int" Min="0" Max="2000" Step="0.1" @bind-Value="Edit.MaxGold" class="w-100" />
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-1">
+                    <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Is Locked?</RadzenText>
+                    <RadzenSwitch @bind-Value="Edit.IsLocked" />
+                </div>
+                <div class="col-2">
+                    <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Key Name</RadzenText>
+                    <RadzenDropDown TValue="string" Data="Keys.Select(k => k.Name)" AllowClear="true"
+                                @bind-Value="Edit.KeyName" class="w-100" />
+                </div>
+                <div class="col-2">
+                    <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Key Type</RadzenText>
+                    <RadzenDropDown TValue="string" Data="Keys.Select(k => k.Type)" AllowClear="true"
+                                @bind-Value="Edit.KeyType" class="w-100" />
+                </div>
+                <div class="col-1">
+                    <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Keys Required</RadzenText>
+                    <RadzenNumeric TValue="int" Min="0" Max="2000" @bind-Value="Edit.KeysRequired" class="w-100" />
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-1">
+                    <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Is Trapped?</RadzenText>
+                    <RadzenSwitch @bind-Value="Edit.IsTrapped" />
+                </div>
+                <div class="col-2">
+                    <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Trap Name</RadzenText>
+                    <RadzenTextBox @bind-Value="Edit.TrapName" class="w-100" />
+                </div>
+            </div>
+
+            <RadzenButton ButtonStyle="ButtonStyle.Success" Text="Save" ButtonType="ButtonType.Submit"></RadzenButton>
+            <RadzenButton ButtonStyle="ButtonStyle.Light" Text="Cancel" Click="() => Edit = null"></RadzenButton>
+
+            <ValidationSummary />
+        </div>
+        <hr class="my-3" />
+    </EditForm>
+}
+<RadzenDataGrid Data="@Data" TItem="ChestData" AllowAlternatingRows="false" AllowSorting="true"
+                PageSize="10" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true">
+    <Columns>
+        <RadzenDataGridColumn TItem="ChestData" Frozen="true" Width="155px" Sortable="false">
+            <HeaderTemplate>
+                @if (Edit == null)
+                {
+                    <RadzenButton ButtonStyle="ButtonStyle.Primary" Text="Create" Click="() => Edit = new()"></RadzenButton>
+                }
+            </HeaderTemplate>
+            <Template>
+                <RadzenButton ButtonStyle="ButtonStyle.Secondary" Text="Edit" Click="() => Edit = context.Clone()"></RadzenButton>
+                <RadzenButton ButtonStyle="ButtonStyle.Danger" Text="Delete" Click="() =>  Delete(context)"></RadzenButton>
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="ChestData" Property="Name" Title="Name" Width="250px" Frozen="true" />
+        <RadzenDataGridColumn TItem="ChestData" Property="DifficultyLevel" Title="Difficulty" Width="100px" />
+        <RadzenDataGridColumn TItem="ChestData" Property="MinGold" Title="Min Gold" FormatString="{0:d}" Width="100px" />
+        <RadzenDataGridColumn TItem="ChestData" Property="MaxGold" Title="Max Gold" FormatString="{0:d}" Width="100px" />
+        <RadzenDataGridColumn TItem="ChestData" Property="IsLocked" Title="Locked" Width="100px" />
+        <RadzenDataGridColumn TItem="ChestData" Property="KeyName" Title="Key Name" Width="100px" />
+        <RadzenDataGridColumn TItem="ChestData" Property="KeyType" Title="Key Type" Width="100px" />
+        <RadzenDataGridColumn TItem="ChestData" Property="KeysRequired" Title="Keys Req" Width="100px" />
+        <RadzenDataGridColumn TItem="ChestData" Property="IsTrapped" Title="Trapped" Width="100px" />
+        <RadzenDataGridColumn TItem="ChestData" Property="TrapName" Title="Trap Name" Width="100px" />
+    </Columns>
+</RadzenDataGrid>
+
+@code {
+    ChestData? Edit;
+    IQueryable<ChestData> Data = default!;
+    IQueryable<KeyData> Keys = default!;
+    IEnumerable<DifficultyLevel> DifficultyLevels = Enum.GetValues<DifficultyLevel>().OrderByDescending(d => (int)d);
+
+    protected override void OnInitialized()
+    {
+        Data = GameDataManager.Chests.Queryable();
+        Keys = GameDataManager.Keys.Queryable();
+    }
+
+    void Delete(ChestData data)
+    {
+        GameDataManager.Chests.Delete(data);
+        Data = GameDataManager.Chests.Queryable();
+        Edit = null;
+    }
+
+    void SubmitForm()
+    {
+        if (Edit is null) return;
+        GameDataManager.Chests.Upsert(Edit);
+        Data = GameDataManager.Chests.Queryable();
+        Edit = null;
+    }
+}

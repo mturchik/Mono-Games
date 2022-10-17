@@ -1,0 +1,77 @@
+﻿@page "/Keys"
+@inject GameDataManager GameDataManager
+
+<h3>Keys</h3>
+
+@if (Edit != null)
+{
+    <EditForm Model="Edit" OnValidSubmit="SubmitForm">
+        <DataAnnotationsValidator />
+        <div class="container-fluid">
+
+            <div class="row mb-3">
+                <div class="col-6">
+                    <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Name</RadzenText>
+                    <RadzenTextBox @bind-Value="Edit.Name" class="w-100" />
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-6">
+                    <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Type</RadzenText>
+                    <RadzenTextBox @bind-Value="Edit.Type" class="w-100" />
+                </div>
+            </div>
+
+            <RadzenButton ButtonStyle="ButtonStyle.Success" Text="Save" ButtonType="ButtonType.Submit"></RadzenButton>
+            <RadzenButton ButtonStyle="ButtonStyle.Light" Text="Cancel" Click="() => Edit = null"></RadzenButton>
+
+            <ValidationSummary />
+        </div>
+        <hr class="my-3" />
+    </EditForm>
+}
+<RadzenDataGrid Data="@Data" TItem="KeyData" AllowAlternatingRows="false" AllowSorting="true"
+                PageSize="10" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true">
+    <Columns>
+        <RadzenDataGridColumn TItem="KeyData" Frozen="true" Width="155px" Sortable="false">
+            <HeaderTemplate>
+                @if (Edit == null)
+                {
+                    <RadzenButton ButtonStyle="ButtonStyle.Primary" Text="Create" Click="() => Edit = new()"></RadzenButton>
+                }
+            </HeaderTemplate>
+            <Template>
+                <RadzenButton ButtonStyle="ButtonStyle.Secondary" Text="Edit" Click="() => Edit = context.Clone()"></RadzenButton>
+                <RadzenButton ButtonStyle="ButtonStyle.Danger" Text="Delete" Click="() =>  Delete(context)"></RadzenButton>
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="KeyData" Property="Name" Title="Name"  />
+        <RadzenDataGridColumn TItem="KeyData" Property="Type" Title="Type" />
+    </Columns>
+</RadzenDataGrid>
+
+@code {
+    KeyData? Edit;
+    IQueryable<KeyData> Data = default!;
+
+    protected override void OnInitialized()
+    {
+        Data = GameDataManager.Keys.Queryable();
+    }
+
+    void Delete(KeyData data)
+    {
+        GameDataManager.Keys.Delete(data);
+        Data = GameDataManager.Keys.Queryable();
+        Edit = null;
+    }
+
+    void SubmitForm()
+    {
+        if (Edit is null) return;
+        GameDataManager.Keys.Upsert(Edit);
+        Data = GameDataManager.Keys.Queryable();
+        Edit = null;
+    }
+}

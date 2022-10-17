@@ -38,7 +38,7 @@ public class Chest : BaseItem
 
     #region Virtual Method region
 
-    public override object Clone()
+    public override Chest Clone()
     {
         return new Chest(_chestData.Clone());
     }

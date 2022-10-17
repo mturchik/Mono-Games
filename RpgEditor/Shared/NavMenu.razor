@@ -1,64 +1,74 @@
 ﻿@inject GameDataManager GameDataManager
 
 <div class="top-row ps-3 navbar navbar-light">
-	<div class="container-fluid">
-		<a class="navbar-brand" href="">RPG Editor</a>
-		<button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-	</div>
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">RPG Editor</a>
+        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
 </div>
 
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-	<nav class="flex-column">
-		<div class="nav-item px-3">
-			<NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-				<i class="fa fa-house me-2" aria-hidden="true"></i> Home
-			</NavLink>
-		</div>
-		<div class="nav-item px-3">
-			<NavLink class="nav-link" href="Games">
-				<i class="fa fa-gamepad me-2" aria-hidden="true"></i> Games
-			</NavLink>
-		</div>
-		@if (GameDataManager.LoadedGame != null)
-		{
-			<div class="nav-item px-3">
-				<NavLink class="nav-link" href="Classes">
-					<i class="fa fa-user-tag me-2" aria-hidden="true"></i> Classes
-				</NavLink>
-			</div>
-			<div class="nav-item px-3">
-				<NavLink class="nav-link" href="Weapons">
-					<i class="fa fa-wand-sparkles me-2" aria-hidden="true"></i> Weapons
-				</NavLink>
-			</div>
-			<div class="nav-item px-3">
-				<NavLink class="nav-link" href="Shields">
-					<i class="fa fa-shield me-2" aria-hidden="true"></i> Shields
-				</NavLink>
-			</div>
-			<div class="nav-item px-3">
-				<NavLink class="nav-link" href="Armors">
-					<i class="fa fa-hat-wizard me-2" aria-hidden="true"></i> Armors
-				</NavLink>
-			</div>
-		}
-	</nav>
+    <nav class="flex-column">
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <i class="fa fa-house me-2" aria-hidden="true"></i> Home
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="Games">
+                <i class="fa fa-gamepad me-2" aria-hidden="true"></i> Games
+            </NavLink>
+        </div>
+        @if (GameDataManager.LoadedGame != null)
+        {
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="Classes">
+                    <i class="fa fa-user-tag me-2" aria-hidden="true"></i> Classes
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="Weapons">
+                    <i class="fa fa-wand-sparkles me-2" aria-hidden="true"></i> Weapons
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="Shields">
+                    <i class="fa fa-shield me-2" aria-hidden="true"></i> Shields
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="Armors">
+                    <i class="fa fa-hat-wizard me-2" aria-hidden="true"></i> Armors
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="Keys">
+                    <i class="fa fa-key me-2" aria-hidden="true"></i> Keys
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="Chests">
+                    <i class="fa fa-box me-2" aria-hidden="true"></i> Chests
+                </NavLink>
+            </div>
+        }
+    </nav>
 </div>
 
 @code {
-	private bool collapseNavMenu = true;
-	private string NavMenuCssClass => collapseNavMenu ? "collapse" : string.Empty;
-	private void ToggleNavMenu() => collapseNavMenu = !collapseNavMenu;
+    private bool collapseNavMenu = true;
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : string.Empty;
+    private void ToggleNavMenu() => collapseNavMenu = !collapseNavMenu;
 
-	protected override void OnInitialized()
-	{
-		GameDataManager.GameLoaded += OnGameLoaded;
-	}
+    protected override void OnInitialized()
+    {
+        GameDataManager.GameLoaded += OnGameLoaded;
+    }
 
-	private void OnGameLoaded(object? caller, EventArgs args)
-	{
-		StateHasChanged();
-	}
+    private void OnGameLoaded(object? caller, EventArgs args)
+    {
+        StateHasChanged();
+    }
 }

@@ -2,13 +2,15 @@
 public class ChestData : BaseData
 {
     public string Name { get; set; } = "";
-    public string TextureName { get; set; } = "";
-    public bool IsTrapped { get; set; }
-    public bool IsLocked { get; set; }
-    public string TrapName { get; set; } = "";
-    public string KeyName { get; set; } = "";
+    public DifficultyLevel DifficultyLevel { get; set; }
     public int MinGold { get; set; }
     public int MaxGold { get; set; }
+    public bool IsLocked { get; set; }
+    public string KeyName { get; set; } = "";
+    public string KeyType { get; set; } = "";
+    public int KeysRequired { get; set; }
+    public bool IsTrapped { get; set; }
+    public string TrapName { get; set; } = "";
     public Dictionary<string, string> ItemCollection { get; set; } = new();
     public override ChestData Clone()
     {
@@ -18,11 +20,13 @@ public class ChestData : BaseData
         {
             Id = Id,
             Name = Name,
-            TextureName = TextureName,
+            DifficultyLevel = DifficultyLevel,
             IsTrapped = IsTrapped,
-            IsLocked = IsLocked,
             TrapName = TrapName,
+            IsLocked = IsLocked,
             KeyName = KeyName,
+            KeyType = KeyType,
+            KeysRequired = KeysRequired,
             MinGold = MinGold,
             MaxGold = MaxGold,
             ItemCollection = items
