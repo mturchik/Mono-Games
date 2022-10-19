@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:CharacterClasses="RpgLibrary.CharacterClasses">
+  <Asset Type="CharacterClasses:ClassData">
+    <Id>575a26b2-0e68-48c7-8d7e-0c1f3663e4a5</Id>
+    <Name>Priest</Name>
+    <Strength>12</Strength>
+    <Dexterity>10</Dexterity>
+    <Cunning>12</Cunning>
+    <Willpower>12</Willpower>
+    <Magic>12</Magic>
+    <Constitution>12</Constitution>
+    <HealthFormula>12|CON12</HealthFormula>
+    <StaminaFormula>0|0|0</StaminaFormula>
+    <ManaFormula>10|WIL|10</ManaFormula>
+  </Asset>
+</XnaContent>

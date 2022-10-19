@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:CharacterClasses="RpgLibrary.CharacterClasses">
+  <Asset Type="CharacterClasses:ClassData">
+    <Id>31ff76f1-fad8-4736-883f-28f93e615254</Id>
+    <Name>Wizard</Name>
+    <Strength>10</Strength>
+    <Dexterity>10</Dexterity>
+    <Cunning>12</Cunning>
+    <Willpower>14</Willpower>
+    <Magic>14</Magic>
+    <Constitution>10</Constitution>
+    <HealthFormula>10|CON|10</HealthFormula>
+    <StaminaFormula>0|0|0</StaminaFormula>
+    <ManaFormula>20|WIL|12</ManaFormula>
+  </Asset>
+</XnaContent>

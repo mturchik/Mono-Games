@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:ItemClasses="RpgLibrary.ItemClasses">
+  <Asset Type="ItemClasses:WeaponData">
+    <Id>1bcccf8d-1455-44fb-acf2-92236d94c26c</Id>
+    <Name>Flail</Name>
+    <Type>Crushing</Type>
+    <Price>20</Price>
+    <Weight>14</Weight>
+    <WeaponHands>Main</WeaponHands>
+    <AttackValue>8</AttackValue>
+    <AttackModifier>0</AttackModifier>
+    <DamageValue>10</DamageValue>
+    <DamageModifier>0</DamageModifier>
+    <AllowableClasses>
+      <Item>Fighter</Item>
+      <Item>Priest</Item>
+    </AllowableClasses>
+  </Asset>
+</XnaContent>

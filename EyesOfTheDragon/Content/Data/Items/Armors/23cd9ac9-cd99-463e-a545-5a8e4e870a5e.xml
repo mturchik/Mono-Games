@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:ItemClasses="RpgLibrary.ItemClasses">
+  <Asset Type="ItemClasses:ArmorData">
+    <Id>23cd9ac9-cd99-463e-a545-5a8e4e870a5e</Id>
+    <Name>Chain Mail Gloves</Name>
+    <Type>Gloves</Type>
+    <Price>30</Price>
+    <Weight>5</Weight>
+    <ArmorLocation>Hands</ArmorLocation>
+    <DefenseValue>10</DefenseValue>
+    <DefenseModifier>0</DefenseModifier>
+    <AllowableClasses>
+      <Item>Fighter</Item>
+      <Item>Priest</Item>
+    </AllowableClasses>
+  </Asset>
+</XnaContent>

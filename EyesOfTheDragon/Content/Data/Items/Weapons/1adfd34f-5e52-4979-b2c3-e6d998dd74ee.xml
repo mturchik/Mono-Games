@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:ItemClasses="RpgLibrary.ItemClasses">
+  <Asset Type="ItemClasses:WeaponData">
+    <Id>1adfd34f-5e52-4979-b2c3-e6d998dd74ee</Id>
+    <Name>Dagger</Name>
+    <Type>Piercing</Type>
+    <Price>10</Price>
+    <Weight>3</Weight>
+    <WeaponHands>Off</WeaponHands>
+    <AttackValue>4</AttackValue>
+    <AttackModifier>0</AttackModifier>
+    <DamageValue>6</DamageValue>
+    <DamageModifier>0</DamageModifier>
+    <AllowableClasses>
+      <Item>Fighter</Item>
+      <Item>Rogue</Item>
+    </AllowableClasses>
+  </Asset>
+</XnaContent>

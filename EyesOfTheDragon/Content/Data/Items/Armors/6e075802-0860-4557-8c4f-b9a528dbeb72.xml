@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:ItemClasses="RpgLibrary.ItemClasses">
+  <Asset Type="ItemClasses:ArmorData">
+    <Id>6e075802-0860-4557-8c4f-b9a528dbeb72</Id>
+    <Name>Medium Robes</Name>
+    <Type>Robes</Type>
+    <Price>20</Price>
+    <Weight>8</Weight>
+    <ArmorLocation>Body</ArmorLocation>
+    <DefenseValue>5</DefenseValue>
+    <DefenseModifier>0</DefenseModifier>
+    <AllowableClasses>
+      <Item>Wizard</Item>
+    </AllowableClasses>
+  </Asset>
+</XnaContent>

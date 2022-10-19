@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:ItemClasses="RpgLibrary.ItemClasses">
+  <Asset Type="ItemClasses:WeaponData">
+    <Id>5cae7d0f-9705-4d98-bac3-bb62ef2a6d29</Id>
+    <Name>Club</Name>
+    <Type>Crushing</Type>
+    <Price>8</Price>
+    <Weight>10</Weight>
+    <WeaponHands>Main</WeaponHands>
+    <AttackValue>4</AttackValue>
+    <AttackModifier>0</AttackModifier>
+    <DamageValue>6</DamageValue>
+    <DamageModifier>0</DamageModifier>
+    <AllowableClasses>
+      <Item>Fighter</Item>
+      <Item>Priest</Item>
+      <Item>Rogue</Item>
+    </AllowableClasses>
+  </Asset>
+</XnaContent>

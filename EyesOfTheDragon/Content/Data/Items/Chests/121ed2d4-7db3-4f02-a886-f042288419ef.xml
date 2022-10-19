@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:ItemClasses="RpgLibrary.ItemClasses">
+  <Asset Type="ItemClasses:ChestData">
+    <Id>121ed2d4-7db3-4f02-a886-f042288419ef</Id>
+    <Name>Plain Chest</Name>
+    <DifficultyLevel>Easy</DifficultyLevel>
+    <MinGold>10</MinGold>
+    <MaxGold>50</MaxGold>
+    <IsLocked>true</IsLocked>
+    <KeyName></KeyName>
+    <KeyType></KeyType>
+    <KeysRequired>0</KeysRequired>
+    <IsTrapped>false</IsTrapped>
+    <TrapName></TrapName>
+    <ItemCollection />
+  </Asset>
+</XnaContent>

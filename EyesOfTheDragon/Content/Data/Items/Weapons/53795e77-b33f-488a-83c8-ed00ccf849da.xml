@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:ItemClasses="RpgLibrary.ItemClasses">
+  <Asset Type="ItemClasses:WeaponData">
+    <Id>53795e77-b33f-488a-83c8-ed00ccf849da</Id>
+    <Name>Maul</Name>
+    <Type>Crushing</Type>
+    <Price>90</Price>
+    <Weight>28</Weight>
+    <WeaponHands>Both</WeaponHands>
+    <AttackValue>10</AttackValue>
+    <AttackModifier>16</AttackModifier>
+    <DamageValue>0</DamageValue>
+    <DamageModifier>0</DamageModifier>
+    <AllowableClasses>
+      <Item>Fighter</Item>
+    </AllowableClasses>
+  </Asset>
+</XnaContent>

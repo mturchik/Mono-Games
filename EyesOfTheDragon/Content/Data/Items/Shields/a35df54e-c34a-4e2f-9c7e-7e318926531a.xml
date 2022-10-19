@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:ItemClasses="RpgLibrary.ItemClasses">
+  <Asset Type="ItemClasses:ShieldData">
+    <Id>a35df54e-c34a-4e2f-9c7e-7e318926531a</Id>
+    <Name>Medium Wooden Shield</Name>
+    <Type>Medium</Type>
+    <Price>10</Price>
+    <Weight>8</Weight>
+    <DefenseValue>8</DefenseValue>
+    <DefenseModifier>0</DefenseModifier>
+    <AllowableClasses>
+      <Item>Fighter</Item>
+      <Item>Priest</Item>
+    </AllowableClasses>
+  </Asset>
+</XnaContent>

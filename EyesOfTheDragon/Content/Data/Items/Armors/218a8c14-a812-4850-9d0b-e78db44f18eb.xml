@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:ItemClasses="RpgLibrary.ItemClasses">
+  <Asset Type="ItemClasses:ArmorData">
+    <Id>218a8c14-a812-4850-9d0b-e78db44f18eb</Id>
+    <Name>Studded Leather Gloves</Name>
+    <Type>Gloves</Type>
+    <Price>15</Price>
+    <Weight>2</Weight>
+    <ArmorLocation>Hands</ArmorLocation>
+    <DefenseValue>7</DefenseValue>
+    <DefenseModifier>0</DefenseModifier>
+    <AllowableClasses>
+      <Item>Fighter</Item>
+      <Item>Priest</Item>
+      <Item>Rogue</Item>
+    </AllowableClasses>
+  </Asset>
+</XnaContent>

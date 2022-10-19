@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:ItemClasses="RpgLibrary.ItemClasses">
+  <Asset Type="ItemClasses:ArmorData">
+    <Id>d44305f5-ccfe-4198-87c4-ea4212d669a3</Id>
+    <Name>Studded Leather Boots</Name>
+    <Type>Boots</Type>
+    <Price>15</Price>
+    <Weight>2</Weight>
+    <ArmorLocation>Feet</ArmorLocation>
+    <DefenseValue>7</DefenseValue>
+    <DefenseModifier>0</DefenseModifier>
+    <AllowableClasses>
+      <Item>Fighter</Item>
+      <Item>Priest</Item>
+      <Item>Rogue</Item>
+    </AllowableClasses>
+  </Asset>
+</XnaContent>

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:ItemClasses="RpgLibrary.ItemClasses">
+  <Asset Type="ItemClasses:ShieldData">
+    <Id>3f7d61d9-f198-4855-9782-f44fefc6a48d</Id>
+    <Name>Large Wooden Shield</Name>
+    <Type>Large</Type>
+    <Price>20</Price>
+    <Weight>12</Weight>
+    <DefenseValue>15</DefenseValue>
+    <DefenseModifier>0</DefenseModifier>
+    <AllowableClasses>
+      <Item>Fighter</Item>
+    </AllowableClasses>
+  </Asset>
+</XnaContent>

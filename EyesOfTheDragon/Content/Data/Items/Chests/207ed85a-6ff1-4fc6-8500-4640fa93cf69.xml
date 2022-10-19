@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:ItemClasses="RpgLibrary.ItemClasses">
+  <Asset Type="ItemClasses:ChestData">
+    <Id>207ed85a-6ff1-4fc6-8500-4640fa93cf69</Id>
+    <Name>Rusty Chest</Name>
+    <DifficultyLevel>Normal</DifficultyLevel>
+    <MinGold>100</MinGold>
+    <MaxGold>150</MaxGold>
+    <IsLocked>true</IsLocked>
+    <KeyName>Rusty Key</KeyName>
+    <KeyType></KeyType>
+    <KeysRequired>1</KeysRequired>
+    <IsTrapped>false</IsTrapped>
+    <TrapName></TrapName>
+    <ItemCollection />
+  </Asset>
+</XnaContent>

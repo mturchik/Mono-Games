@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:ItemClasses="RpgLibrary.ItemClasses">
+  <Asset Type="ItemClasses:WeaponData">
+    <Id>43900828-99fc-4eb1-af31-8cb1c6f9d9ac</Id>
+    <Name>Long Sword</Name>
+    <Type>Slashing</Type>
+    <Price>40</Price>
+    <Weight>15</Weight>
+    <WeaponHands>Main</WeaponHands>
+    <AttackValue>10</AttackValue>
+    <AttackModifier>0</AttackModifier>
+    <DamageValue>12</DamageValue>
+    <DamageModifier>0</DamageModifier>
+    <AllowableClasses>
+      <Item>Fighter</Item>
+      <Item>Rogue</Item>
+    </AllowableClasses>
+  </Asset>
+</XnaContent>

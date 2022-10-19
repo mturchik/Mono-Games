@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:ItemClasses="RpgLibrary.ItemClasses">
+  <Asset Type="ItemClasses:ArmorData">
+    <Id>c066d7a5-ef0b-4a33-b650-df78c0179d01</Id>
+    <Name>Studded Leather Helm</Name>
+    <Type>Helm</Type>
+    <Price>15</Price>
+    <Weight>3</Weight>
+    <ArmorLocation>Head</ArmorLocation>
+    <DefenseValue>7</DefenseValue>
+    <DefenseModifier>0</DefenseModifier>
+    <AllowableClasses>
+      <Item>Fighter</Item>
+      <Item>Priest</Item>
+      <Item>Rogue</Item>
+    </AllowableClasses>
+  </Asset>
+</XnaContent>

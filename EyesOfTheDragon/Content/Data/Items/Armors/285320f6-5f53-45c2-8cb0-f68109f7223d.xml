@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:ItemClasses="RpgLibrary.ItemClasses">
+  <Asset Type="ItemClasses:ArmorData">
+    <Id>285320f6-5f53-45c2-8cb0-f68109f7223d</Id>
+    <Name>Leather Boots</Name>
+    <Type>Boots</Type>
+    <Price>10</Price>
+    <Weight>1</Weight>
+    <ArmorLocation>Feet</ArmorLocation>
+    <DefenseValue>5</DefenseValue>
+    <DefenseModifier>0</DefenseModifier>
+    <AllowableClasses>
+      <Item>Fighter</Item>
+      <Item>Wizard</Item>
+      <Item>Priest</Item>
+      <Item>Rogue</Item>
+    </AllowableClasses>
+  </Asset>
+</XnaContent>

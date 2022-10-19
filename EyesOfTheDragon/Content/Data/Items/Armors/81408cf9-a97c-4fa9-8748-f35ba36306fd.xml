@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:ItemClasses="RpgLibrary.ItemClasses">
+  <Asset Type="ItemClasses:ArmorData">
+    <Id>81408cf9-a97c-4fa9-8748-f35ba36306fd</Id>
+    <Name>Chain Mail Boots</Name>
+    <Type>Boots</Type>
+    <Price>30</Price>
+    <Weight>5</Weight>
+    <ArmorLocation>Feet</ArmorLocation>
+    <DefenseValue>10</DefenseValue>
+    <DefenseModifier>0</DefenseModifier>
+    <AllowableClasses>
+      <Item>Fighter</Item>
+      <Item>Priest</Item>
+    </AllowableClasses>
+  </Asset>
+</XnaContent>

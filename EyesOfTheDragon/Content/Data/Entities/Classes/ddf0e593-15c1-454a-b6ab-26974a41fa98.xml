@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:CharacterClasses="RpgLibrary.CharacterClasses">
+  <Asset Type="CharacterClasses:ClassData">
+    <Id>ddf0e593-15c1-454a-b6ab-26974a41fa98</Id>
+    <Name>Rogue</Name>
+    <Strength>10</Strength>
+    <Dexterity>14</Dexterity>
+    <Cunning>14</Cunning>
+    <Willpower>12</Willpower>
+    <Magic>10</Magic>
+    <Constitution>10</Constitution>
+    <HealthFormula>10|CON|10</HealthFormula>
+    <StaminaFormula>10|WIL|10</StaminaFormula>
+    <ManaFormula>0|0|0</ManaFormula>
+  </Asset>
+</XnaContent>

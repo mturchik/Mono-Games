@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:ItemClasses="RpgLibrary.ItemClasses">
+  <Asset Type="ItemClasses:WeaponData">
+    <Id>1ff38e02-bf48-44d5-ad2f-9a7e12b8c368</Id>
+    <Name>Halberd</Name>
+    <Type>Slashing</Type>
+    <Price>100</Price>
+    <Weight>30</Weight>
+    <WeaponHands>Both</WeaponHands>
+    <AttackValue>16</AttackValue>
+    <AttackModifier>0</AttackModifier>
+    <DamageValue>20</DamageValue>
+    <DamageModifier>0</DamageModifier>
+    <AllowableClasses>
+      <Item>Fighter</Item>
+    </AllowableClasses>
+  </Asset>
+</XnaContent>

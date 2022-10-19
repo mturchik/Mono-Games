@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:ItemClasses="RpgLibrary.ItemClasses">
+  <Asset Type="ItemClasses:WeaponData">
+    <Id>4c9223b2-8092-4ea7-ba54-26721d0fad85</Id>
+    <Name>Mace</Name>
+    <Type>Crushing</Type>
+    <Price>16</Price>
+    <Weight>12</Weight>
+    <WeaponHands>Main</WeaponHands>
+    <AttackValue>6</AttackValue>
+    <AttackModifier>0</AttackModifier>
+    <DamageValue>8</DamageValue>
+    <DamageModifier>0</DamageModifier>
+    <AllowableClasses>
+      <Item>Fighter</Item>
+      <Item>Priest</Item>
+      <Item>Rogue</Item>
+    </AllowableClasses>
+  </Asset>
+</XnaContent>
