@@ -2,7 +2,11 @@
 public abstract class BaseData
 {
     public string Id { get; set; } = Guid.NewGuid().ToString();
+    [Required, StringLength(100, MinimumLength = 3)]
+    public string Name { get; set; } = "";
+
     public BaseData() { }
+
     public abstract object Clone();
 
     public override string ToString()

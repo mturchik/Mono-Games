@@ -7,7 +7,7 @@ public class Reagent : BaseItem
     #region Constructor Region
 
     public Reagent(string reagentName, string reagentType, int price, float weight)
-        : base(reagentName, reagentType, price, weight, null)
+        : base(reagentName, reagentType, price, weight, Array.Empty<string>())
     {
     }
 

@@ -1,5 +1,5 @@
 ﻿@page "/Chests"
-@inject GameDataManager GameDataManager
+@inherits DataManagerBase<ChestData>
 
 <h3>Chests</h3>
 
@@ -104,29 +104,11 @@
 </RadzenDataGrid>
 
 @code {
-    ChestData? Edit;
-    IQueryable<ChestData> Data = default!;
     IQueryable<KeyData> Keys = default!;
     IEnumerable<DifficultyLevel> DifficultyLevels = Enum.GetValues<DifficultyLevel>().OrderByDescending(d => (int)d);
 
     protected override void OnInitialized()
     {
-        Data = GameDataManager.Chests.Queryable();
         Keys = GameDataManager.Keys.Queryable();
-    }
-
-    void Delete(ChestData data)
-    {
-        GameDataManager.Chests.Delete(data);
-        Data = GameDataManager.Chests.Queryable();
-        Edit = null;
-    }
-
-    void SubmitForm()
-    {
-        if (Edit is null) return;
-        GameDataManager.Chests.Upsert(Edit);
-        Data = GameDataManager.Chests.Queryable();
-        Edit = null;
     }
 }

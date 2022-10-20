@@ -1,5 +1,5 @@
 ﻿@page "/Keys"
-@inject GameDataManager GameDataManager
+@inherits DataManagerBase<KeyData>
 
 <h3>Keys</h3>
 
@@ -52,26 +52,4 @@
 </RadzenDataGrid>
 
 @code {
-    KeyData? Edit;
-    IQueryable<KeyData> Data = default!;
-
-    protected override void OnInitialized()
-    {
-        Data = GameDataManager.Keys.Queryable();
-    }
-
-    void Delete(KeyData data)
-    {
-        GameDataManager.Keys.Delete(data);
-        Data = GameDataManager.Keys.Queryable();
-        Edit = null;
-    }
-
-    void SubmitForm()
-    {
-        if (Edit is null) return;
-        GameDataManager.Keys.Upsert(Edit);
-        Data = GameDataManager.Keys.Queryable();
-        Edit = null;
-    }
 }

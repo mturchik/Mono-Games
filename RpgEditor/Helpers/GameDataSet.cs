@@ -14,7 +14,8 @@ public class GameDataSet<T> where T : BaseData
                 foreach (var file in _directory.GetFiles())
                 {
                     var data = XnaSerializer.Deserialize<T>(file.FullName);
-                    _data.Add(data.Id, data);
+                    var added = _data.TryAdd(data.Id, data);
+                    if (!added) throw new ApplicationException("Failed to add data to dictionary");
                 }
             }
             return _data;
@@ -34,14 +35,14 @@ public class GameDataSet<T> where T : BaseData
 
     public void Upsert(T data)
     {
-        XnaSerializer.Serialize($"{DirectoryPath()}\\{data.Id}.xml", data);
+        XnaSerializer.Serialize($"{DirectoryPath()}\\{data.FormatFileName()}.xml", data);
         Data[data.Id] = data;
     }
 
     public void Delete(T data)
     {
-        if (File.Exists($"{DirectoryPath()}\\{data.Id}.xml"))
-            File.Delete($"{DirectoryPath()}\\{data.Id}.xml");
+        if (File.Exists($"{DirectoryPath()}\\{data.FormatFileName()}.xml"))
+            File.Delete($"{DirectoryPath()}\\{data.FormatFileName()}.xml");
         Data.Remove(data.Id);
     }
 }

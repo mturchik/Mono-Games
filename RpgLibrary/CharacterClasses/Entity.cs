@@ -92,6 +92,8 @@ public abstract class Entity
 
     private Entity()
     {
+        EntityName = "";
+        EntityClass = "";
         Gender = EntityGender.Unknown;
         EntityType = EntityType.Character;
         _strength = 10;

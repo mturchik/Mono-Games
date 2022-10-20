@@ -2,8 +2,6 @@
 public class WeaponData : BaseData
 {
     [Required, StringLength(100, MinimumLength = 3)]
-    public string Name { get; set; } = "";
-    [Required, StringLength(100, MinimumLength = 3)]
     public string Type { get; set; } = "";
     [Required]
     public int Price { get; set; }

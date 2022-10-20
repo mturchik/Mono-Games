@@ -1,5 +1,5 @@
 ﻿@page "/Games"
-@inject GameDataManager GameDataManager
+@inherits DataManagerBase<RolePlayingGame>
 
 <h3>Games</h3>
 
@@ -59,25 +59,9 @@
 </RadzenDataGrid>
 
 @code {
-    RolePlayingGame? Edit;
-    IQueryable<RolePlayingGame> Data = default!;
-
-    protected override void OnInitialized()
-    {
-        Data = GameDataManager.Games.Queryable();
-    }
-
     void Load(RolePlayingGame? rpg)
     {
         GameDataManager.LoadGame(rpg);
-        Edit = null;
-    }
-
-    void SubmitForm()
-    {
-        if (Edit is null) return;
-        GameDataManager.Games.Upsert(Edit);
-        Data = GameDataManager.Games.Queryable();
         Edit = null;
     }
 }

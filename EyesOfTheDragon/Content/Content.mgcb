@@ -27,240 +27,240 @@
 /processorParam:TextureFormat=Color
 /build:Backgrounds/titlescreen.png
 
-#begin Data/Entities/Classes/0308da35-f4c5-4b7d-aa4b-ac3c5d38773f.xml
+#begin Data/Entities/Classes/Fighter.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
-/build:Data/Entities/Classes/0308da35-f4c5-4b7d-aa4b-ac3c5d38773f.xml
+/build:Data/Entities/Classes/Fighter.xml
 
-#begin Data/Entities/Classes/31ff76f1-fad8-4736-883f-28f93e615254.xml
+#begin Data/Entities/Classes/Priest.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
-/build:Data/Entities/Classes/31ff76f1-fad8-4736-883f-28f93e615254.xml
+/build:Data/Entities/Classes/Priest.xml
 
-#begin Data/Entities/Classes/575a26b2-0e68-48c7-8d7e-0c1f3663e4a5.xml
+#begin Data/Entities/Classes/Rogue.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
-/build:Data/Entities/Classes/575a26b2-0e68-48c7-8d7e-0c1f3663e4a5.xml
+/build:Data/Entities/Classes/Rogue.xml
 
-#begin Data/Entities/Classes/ddf0e593-15c1-454a-b6ab-26974a41fa98.xml
+#begin Data/Entities/Classes/Wizard.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
-/build:Data/Entities/Classes/ddf0e593-15c1-454a-b6ab-26974a41fa98.xml
+/build:Data/Entities/Classes/Wizard.xml
 
-#begin Data/Items/Armors/0591ab77-cf6f-41a7-bb86-6d0d649d952d.xml
+#begin Data/Items/Armors/Chain_Mail_Boots.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
-/build:Data/Items/Armors/0591ab77-cf6f-41a7-bb86-6d0d649d952d.xml
+/build:Data/Items/Armors/Chain_Mail_Boots.xml
 
-#begin Data/Items/Armors/1d07952b-d79f-4503-bfa2-a387dbd994cd.xml
+#begin Data/Items/Armors/Chain_Mail_Gloves.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
-/build:Data/Items/Armors/1d07952b-d79f-4503-bfa2-a387dbd994cd.xml
+/build:Data/Items/Armors/Chain_Mail_Gloves.xml
 
-#begin Data/Items/Armors/218a8c14-a812-4850-9d0b-e78db44f18eb.xml
+#begin Data/Items/Armors/Chain_Mail_Helm.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
-/build:Data/Items/Armors/218a8c14-a812-4850-9d0b-e78db44f18eb.xml
+/build:Data/Items/Armors/Chain_Mail_Helm.xml
 
-#begin Data/Items/Armors/23cd9ac9-cd99-463e-a545-5a8e4e870a5e.xml
+#begin Data/Items/Armors/Chain_Mail.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
-/build:Data/Items/Armors/23cd9ac9-cd99-463e-a545-5a8e4e870a5e.xml
+/build:Data/Items/Armors/Chain_Mail.xml
 
-#begin Data/Items/Armors/285320f6-5f53-45c2-8cb0-f68109f7223d.xml
+#begin Data/Items/Armors/Leather_Armor.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
-/build:Data/Items/Armors/285320f6-5f53-45c2-8cb0-f68109f7223d.xml
+/build:Data/Items/Armors/Leather_Armor.xml
 
-#begin Data/Items/Armors/406155ff-35fd-48f4-96b8-48220e9a8a0f.xml
+#begin Data/Items/Armors/Leather_Boots.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
-/build:Data/Items/Armors/406155ff-35fd-48f4-96b8-48220e9a8a0f.xml
+/build:Data/Items/Armors/Leather_Boots.xml
 
-#begin Data/Items/Armors/6e075802-0860-4557-8c4f-b9a528dbeb72.xml
+#begin Data/Items/Armors/Leather_Gloves.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
-/build:Data/Items/Armors/6e075802-0860-4557-8c4f-b9a528dbeb72.xml
+/build:Data/Items/Armors/Leather_Gloves.xml
 
-#begin Data/Items/Armors/81408cf9-a97c-4fa9-8748-f35ba36306fd.xml
+#begin Data/Items/Armors/Leather_Helm.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
-/build:Data/Items/Armors/81408cf9-a97c-4fa9-8748-f35ba36306fd.xml
+/build:Data/Items/Armors/Leather_Helm.xml
 
-#begin Data/Items/Armors/9451fd75-8757-4774-8e2d-66733d586a58.xml
+#begin Data/Items/Armors/Light_Robes.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
-/build:Data/Items/Armors/9451fd75-8757-4774-8e2d-66733d586a58.xml
+/build:Data/Items/Armors/Light_Robes.xml
 
-#begin Data/Items/Armors/b2905940-f6fb-4d14-9f4a-0465bf27771c.xml
+#begin Data/Items/Armors/Medium_Robes.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
-/build:Data/Items/Armors/b2905940-f6fb-4d14-9f4a-0465bf27771c.xml
+/build:Data/Items/Armors/Medium_Robes.xml
 
-#begin Data/Items/Armors/c066d7a5-ef0b-4a33-b650-df78c0179d01.xml
+#begin Data/Items/Armors/Studded_Leather_Armor.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
-/build:Data/Items/Armors/c066d7a5-ef0b-4a33-b650-df78c0179d01.xml
+/build:Data/Items/Armors/Studded_Leather_Armor.xml
 
-#begin Data/Items/Armors/d44305f5-ccfe-4198-87c4-ea4212d669a3.xml
+#begin Data/Items/Armors/Studded_Leather_Boots.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
-/build:Data/Items/Armors/d44305f5-ccfe-4198-87c4-ea4212d669a3.xml
+/build:Data/Items/Armors/Studded_Leather_Boots.xml
 
-#begin Data/Items/Armors/e9326eff-b9be-480e-9514-3fbc0dab29c5.xml
+#begin Data/Items/Armors/Studded_Leather_Gloves.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
-/build:Data/Items/Armors/e9326eff-b9be-480e-9514-3fbc0dab29c5.xml
+/build:Data/Items/Armors/Studded_Leather_Gloves.xml
 
-#begin Data/Items/Armors/fe8f763f-0c82-4638-b1c7-0773da7ed0ee.xml
+#begin Data/Items/Armors/Studded_Leather_Helm.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
-/build:Data/Items/Armors/fe8f763f-0c82-4638-b1c7-0773da7ed0ee.xml
+/build:Data/Items/Armors/Studded_Leather_Helm.xml
 
-#begin Data/Items/Chests/121ed2d4-7db3-4f02-a886-f042288419ef.xml
+#begin Data/Items/Chests/Big_Gold_Chest.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
-/build:Data/Items/Chests/121ed2d4-7db3-4f02-a886-f042288419ef.xml
+/build:Data/Items/Chests/Big_Gold_Chest.xml
 
-#begin Data/Items/Chests/207ed85a-6ff1-4fc6-8500-4640fa93cf69.xml
+#begin Data/Items/Chests/Broken_Crate.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
-/build:Data/Items/Chests/207ed85a-6ff1-4fc6-8500-4640fa93cf69.xml
+/build:Data/Items/Chests/Broken_Crate.xml
 
-#begin Data/Items/Chests/27455a04-74db-408a-8490-2a20cecbdea8.xml
+#begin Data/Items/Chests/Gold_Chest.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
-/build:Data/Items/Chests/27455a04-74db-408a-8490-2a20cecbdea8.xml
+/build:Data/Items/Chests/Gold_Chest.xml
 
-#begin Data/Items/Chests/949dec61-3adb-4759-b303-a10fa3257842.xml
+#begin Data/Items/Chests/Plain_Chest.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
-/build:Data/Items/Chests/949dec61-3adb-4759-b303-a10fa3257842.xml
+/build:Data/Items/Chests/Plain_Chest.xml
 
-#begin Data/Items/Chests/d5524ad9-b2ce-422a-baea-853ff3d65194.xml
+#begin Data/Items/Chests/Rusty_Chest.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
-/build:Data/Items/Chests/d5524ad9-b2ce-422a-baea-853ff3d65194.xml
+/build:Data/Items/Chests/Rusty_Chest.xml
 
-#begin Data/Items/Keys/387b5373-5048-4ed1-856c-e87319c3d9ed.xml
+#begin Data/Items/Keys/Golden_Key.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
-/build:Data/Items/Keys/387b5373-5048-4ed1-856c-e87319c3d9ed.xml
+/build:Data/Items/Keys/Golden_Key.xml
 
-#begin Data/Items/Keys/736f1382-f533-4b20-9e2e-e8f27fa125de.xml
+#begin Data/Items/Keys/Rusty_Key.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
-/build:Data/Items/Keys/736f1382-f533-4b20-9e2e-e8f27fa125de.xml
+/build:Data/Items/Keys/Rusty_Key.xml
 
-#begin Data/Items/Shields/1cf8bd13-af7b-459b-b164-8047a22e300a.xml
+#begin Data/Items/Shields/Heavy_Tower_Shield.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
-/build:Data/Items/Shields/1cf8bd13-af7b-459b-b164-8047a22e300a.xml
+/build:Data/Items/Shields/Heavy_Tower_Shield.xml
 
-#begin Data/Items/Shields/236bf7c9-fdea-4340-b933-7f0bf05fb45c.xml
+#begin Data/Items/Shields/Large_Kite_Shield.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
-/build:Data/Items/Shields/236bf7c9-fdea-4340-b933-7f0bf05fb45c.xml
+/build:Data/Items/Shields/Large_Kite_Shield.xml
 
-#begin Data/Items/Shields/300596ff-7545-4271-af13-d7cef3ce772e.xml
+#begin Data/Items/Shields/Large_Metal_Shield.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
-/build:Data/Items/Shields/300596ff-7545-4271-af13-d7cef3ce772e.xml
+/build:Data/Items/Shields/Large_Metal_Shield.xml
 
-#begin Data/Items/Shields/3f7d61d9-f198-4855-9782-f44fefc6a48d.xml
+#begin Data/Items/Shields/Large_Wooden_Shield.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
-/build:Data/Items/Shields/3f7d61d9-f198-4855-9782-f44fefc6a48d.xml
+/build:Data/Items/Shields/Large_Wooden_Shield.xml
 
-#begin Data/Items/Shields/594c90a2-80c2-4d97-88d9-34a6b74911ee.xml
+#begin Data/Items/Shields/Medium_Metal_Shield.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
-/build:Data/Items/Shields/594c90a2-80c2-4d97-88d9-34a6b74911ee.xml
+/build:Data/Items/Shields/Medium_Metal_Shield.xml
 
-#begin Data/Items/Shields/5e7f1848-6b5b-4ae4-bc79-4dbb0da8fa21.xml
+#begin Data/Items/Shields/Medium_Wooden_Shield.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
-/build:Data/Items/Shields/5e7f1848-6b5b-4ae4-bc79-4dbb0da8fa21.xml
+/build:Data/Items/Shields/Medium_Wooden_Shield.xml
 
-#begin Data/Items/Shields/8106e6ba-e2e8-489d-b53e-69ec63d0be15.xml
+#begin Data/Items/Shields/Small_Metal_Shield.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
-/build:Data/Items/Shields/8106e6ba-e2e8-489d-b53e-69ec63d0be15.xml
+/build:Data/Items/Shields/Small_Metal_Shield.xml
 
-#begin Data/Items/Shields/a35df54e-c34a-4e2f-9c7e-7e318926531a.xml
+#begin Data/Items/Shields/Small_Wooden_Shield.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
-/build:Data/Items/Shields/a35df54e-c34a-4e2f-9c7e-7e318926531a.xml
+/build:Data/Items/Shields/Small_Wooden_Shield.xml
 
-#begin Data/Items/Weapons/1adfd34f-5e52-4979-b2c3-e6d998dd74ee.xml
+#begin Data/Items/Weapons/Acolyte_Staff.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
-/build:Data/Items/Weapons/1adfd34f-5e52-4979-b2c3-e6d998dd74ee.xml
+/build:Data/Items/Weapons/Acolyte_Staff.xml
 
-#begin Data/Items/Weapons/1bcccf8d-1455-44fb-acf2-92236d94c26c.xml
+#begin Data/Items/Weapons/Apprentice_Staff.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
-/build:Data/Items/Weapons/1bcccf8d-1455-44fb-acf2-92236d94c26c.xml
+/build:Data/Items/Weapons/Apprentice_Staff.xml
 
-#begin Data/Items/Weapons/1ff38e02-bf48-44d5-ad2f-9a7e12b8c368.xml
+#begin Data/Items/Weapons/Battle_Axe.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
-/build:Data/Items/Weapons/1ff38e02-bf48-44d5-ad2f-9a7e12b8c368.xml
+/build:Data/Items/Weapons/Battle_Axe.xml
 
-#begin Data/Items/Weapons/23d97184-29b4-427d-9c5b-db4b55f5f5df.xml
+#begin Data/Items/Weapons/Broad_Sword.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
-/build:Data/Items/Weapons/23d97184-29b4-427d-9c5b-db4b55f5f5df.xml
+/build:Data/Items/Weapons/Broad_Sword.xml
 
-#begin Data/Items/Weapons/43900828-99fc-4eb1-af31-8cb1c6f9d9ac.xml
+#begin Data/Items/Weapons/Club.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
-/build:Data/Items/Weapons/43900828-99fc-4eb1-af31-8cb1c6f9d9ac.xml
+/build:Data/Items/Weapons/Club.xml
 
-#begin Data/Items/Weapons/4c9223b2-8092-4ea7-ba54-26721d0fad85.xml
+#begin Data/Items/Weapons/Dagger.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
-/build:Data/Items/Weapons/4c9223b2-8092-4ea7-ba54-26721d0fad85.xml
+/build:Data/Items/Weapons/Dagger.xml
 
-#begin Data/Items/Weapons/53795e77-b33f-488a-83c8-ed00ccf849da.xml
+#begin Data/Items/Weapons/Flail.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
-/build:Data/Items/Weapons/53795e77-b33f-488a-83c8-ed00ccf849da.xml
+/build:Data/Items/Weapons/Flail.xml
 
-#begin Data/Items/Weapons/5cae7d0f-9705-4d98-bac3-bb62ef2a6d29.xml
+#begin Data/Items/Weapons/Great_Sword.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
-/build:Data/Items/Weapons/5cae7d0f-9705-4d98-bac3-bb62ef2a6d29.xml
+/build:Data/Items/Weapons/Great_Sword.xml
 
-#begin Data/Items/Weapons/875bf05f-b26a-4bdc-811f-ea05b80284af.xml
+#begin Data/Items/Weapons/Halberd.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
-/build:Data/Items/Weapons/875bf05f-b26a-4bdc-811f-ea05b80284af.xml
+/build:Data/Items/Weapons/Halberd.xml
 
-#begin Data/Items/Weapons/9a7fb232-4e27-47ce-a624-db107ed16ca6.xml
+#begin Data/Items/Weapons/Long_Sword.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
-/build:Data/Items/Weapons/9a7fb232-4e27-47ce-a624-db107ed16ca6.xml
+/build:Data/Items/Weapons/Long_Sword.xml
 
-#begin Data/Items/Weapons/a5972483-9f94-4f34-b530-9df184947f4d.xml
+#begin Data/Items/Weapons/Mace.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
-/build:Data/Items/Weapons/a5972483-9f94-4f34-b530-9df184947f4d.xml
+/build:Data/Items/Weapons/Mace.xml
 
-#begin Data/Items/Weapons/c3d20422-b356-4349-8b87-6249f2cfbbe1.xml
+#begin Data/Items/Weapons/Maul.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
-/build:Data/Items/Weapons/c3d20422-b356-4349-8b87-6249f2cfbbe1.xml
+/build:Data/Items/Weapons/Maul.xml
 
-#begin Data/Items/Weapons/f670f8cb-f03d-4013-8745-1266d43b570a.xml
+#begin Data/Items/Weapons/Short_Sword.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
-/build:Data/Items/Weapons/f670f8cb-f03d-4013-8745-1266d43b570a.xml
+/build:Data/Items/Weapons/Short_Sword.xml
 
-#begin Data/Items/Weapons/f8681c55-7ef6-4281-9ccf-874a2644089a.xml
+#begin Data/Items/Weapons/War_Axe.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
-/build:Data/Items/Weapons/f8681c55-7ef6-4281-9ccf-874a2644089a.xml
+/build:Data/Items/Weapons/War_Axe.xml
 
 #begin Fonts/ControlFont.spritefont
 /importer:FontDescriptionImporter

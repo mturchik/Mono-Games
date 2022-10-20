@@ -1,5 +1,5 @@
 ﻿@page "/Classes"
-@inject GameDataManager GameDataManager
+@inherits DataManagerBase<ClassData>
 
 <h3>Classes</h3>
 
@@ -95,26 +95,5 @@
 </RadzenDataGrid>
 
 @code {
-    ClassData? Edit;
-    IQueryable<ClassData> Data = default!;
 
-    protected override void OnInitialized()
-    {
-        Data = GameDataManager.Classes.Queryable();
-    }
-
-    void Delete(ClassData data)
-    {
-        GameDataManager.Classes.Delete(data);
-        Data = GameDataManager.Classes.Queryable();
-        Edit = null;
-    }
-
-    void SubmitForm()
-    {
-        if (Edit is null) return;
-        GameDataManager.Classes.Upsert(Edit);
-        Data = GameDataManager.Classes.Queryable();
-        Edit = null;
-    }
 }

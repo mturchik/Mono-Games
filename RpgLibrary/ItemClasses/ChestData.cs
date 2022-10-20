@@ -1,7 +1,6 @@
 ﻿namespace RpgLibrary.ItemClasses;
 public class ChestData : BaseData
 {
-    public string Name { get; set; } = "";
     public DifficultyLevel DifficultyLevel { get; set; }
     public int MinGold { get; set; }
     public int MaxGold { get; set; }

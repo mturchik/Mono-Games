@@ -26,7 +26,6 @@ public class Recipe : BaseData
 
     #region Fields and Properties
 
-    public string Name { get; set; } = "";
     public Reagents[] Reagents { get; set; } = Array.Empty<Reagents>();
 
     #endregion
