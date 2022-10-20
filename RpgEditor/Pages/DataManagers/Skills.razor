@@ -5,90 +5,106 @@
 
 @if (Edit != null)
 {
-	<EditForm Model="Edit" OnValidSubmit="SubmitForm">
-		<DataAnnotationsValidator />
-		<div class="container-fluid">
+    <EditForm Model="Edit" OnValidSubmit="SubmitForm">
+        <DataAnnotationsValidator />
+        <div class="container-fluid">
 
-			<div class="row mb-3">
-				<div class="col-6">
-					<RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Name</RadzenText>
-					<RadzenTextBox @bind-Value="Edit.Name" class="w-100" />
-				</div>
-				<div class="col-6">
-					<RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Primary Attribute</RadzenText>
-					<RadzenSelectBar TValue="string" @bind-Value="Edit.PrimaryAttribute">
-						@*<Items>
-					@foreach (var attr in Attributes)
-					{
-					<RadzenSelectBarItem Text="@location.ToString()" Value="location" />
-					}
-					</Items>*@
-					</RadzenSelectBar>
-				</div>
-			</div>
-			@*
-		<div class="row mb-2">
-		<div class="col-12">
-		<RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Allowable Classes</RadzenText>
-		<RadzenSelectBar TValue="IEnumerable<string>" @bind-Value="AllowedClasses" Change="OnClassesChanged"
-		Multiple="true" Data="@Classes" TextProperty="Name" ValueProperty="Name" />
-		</div>
-		</div>
-		*@
-			<RadzenButton ButtonStyle="ButtonStyle.Success" Text="Save" ButtonType="ButtonType.Submit"></RadzenButton>
-			<RadzenButton ButtonStyle="ButtonStyle.Light" Text="Cancel" Click="() => Edit = null"></RadzenButton>
+            <div class="row mb-3">
+                <div class="col-6">
+                    <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Name</RadzenText>
+                    <RadzenTextBox @bind-Value="Edit.Name" class="w-100" />
+                </div>
+                <div class="col-6">
+                    <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Primary Attribute</RadzenText>
+                    <RadzenSelectBar TValue="string" Data="Attributes" @bind-Value="Edit.PrimaryAttribute" />
+                </div>
+            </div>
 
-			<ValidationSummary />
-		</div>
-		<hr class="my-3" />
-	</EditForm>
+            <div class="row mb-3">
+                <div class="col-2">
+                    <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Class Modifier</RadzenText>
+                    <RadzenDropDown TValue="string" Data="Classes.Select(k => k.Name)" AllowClear="true"
+                                @bind-Value="SelectedClass" class="w-100" />
+                </div>
+                <div class="col-2">
+                    @if (SelectedClass != null)
+                    {
+                        <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Modifier Value</RadzenText>
+                        <RadzenNumeric TValue="int" Min="0" Max="2000" class="w-100" Value="Edit.ClassModifiers.GetValueOrDefault(SelectedClass)"
+                               ValueChanged="OnModifierValueChange" />
+                    }
+                </div>
+                <div class="col-8">
+                    <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Selected Modifiers</RadzenText>
+                    @foreach (var kv in Edit.ClassModifiers)
+                    {
+                        <RadzenText TextStyle="TextStyle.Body1" TagName="TagName.Span" class="me-3">@kv.Key: @kv.Value</RadzenText>
+                    }
+                </div>
+            </div>
+
+            <RadzenButton ButtonStyle="ButtonStyle.Success" Text="Save" ButtonType="ButtonType.Submit"></RadzenButton>
+            <RadzenButton ButtonStyle="ButtonStyle.Light" Text="Cancel" Click="() => Edit = null"></RadzenButton>
+
+            <ValidationSummary />
+        </div>
+        <hr class="my-3" />
+    </EditForm>
 }
 <RadzenDataGrid Data="@Data" TItem="SkillData" AllowAlternatingRows="false" AllowSorting="true"
-				PageSize="10" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true">
-	<Columns>
-		<RadzenDataGridColumn TItem="SkillData" Frozen="true" Width="155px" Sortable="false">
-			<HeaderTemplate>
-				@if (Edit == null)
-				{
-					<RadzenButton ButtonStyle="ButtonStyle.Primary" Text="Create" Click="() => StartEdit(new())"></RadzenButton>
-				}
-			</HeaderTemplate>
-			<Template>
-				<RadzenButton ButtonStyle="ButtonStyle.Secondary" Text="Edit" Click="() => StartEdit(context.Clone())"></RadzenButton>
-				<RadzenButton ButtonStyle="ButtonStyle.Danger" Text="Delete" Click="() =>  Delete(context)"></RadzenButton>
-			</Template>
-		</RadzenDataGridColumn>
-		<RadzenDataGridColumn TItem="SkillData" Property="Name" Title="Name" Width="250px" Frozen="true" />
-		<RadzenDataGridColumn TItem="SkillData" Property="PrimaryAttribute" Title="PrimaryAttribute" Width="100px" />
-		<RadzenDataGridColumn TItem="SkillData" Property="ClassModifiers" Title="Class Modifiers" Sortable="false">
-			<Template>
-				@foreach (var kv in context.ClassModifiers)
-				{
-					<p>@kv.Key: @kv.Value</p>
-				}
-			</Template>
-		</RadzenDataGridColumn>
-	</Columns>
+                PageSize="10" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true">
+    <Columns>
+        <RadzenDataGridColumn TItem="SkillData" Frozen="true" Width="155px" Sortable="false">
+            <HeaderTemplate>
+                @if (Edit == null)
+                {
+                    <RadzenButton ButtonStyle="ButtonStyle.Primary" Text="Create" Click="() => StartEdit(new())"></RadzenButton>
+                }
+            </HeaderTemplate>
+            <Template>
+                <RadzenButton ButtonStyle="ButtonStyle.Secondary" Text="Edit" Click="() => StartEdit(context.Clone())"></RadzenButton>
+                <RadzenButton ButtonStyle="ButtonStyle.Danger" Text="Delete" Click="() =>  Delete(context)"></RadzenButton>
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="SkillData" Property="Name" Title="Name" Width="250px" Frozen="true" />
+        <RadzenDataGridColumn TItem="SkillData" Property="PrimaryAttribute" Title="Primary Attribute" Width="200px" />
+        <RadzenDataGridColumn TItem="SkillData" Property="ClassModifiers" Title="Class Modifiers" Sortable="false">
+            <Template>
+                @foreach (var kv in context.ClassModifiers)
+                {
+                    <RadzenText TextStyle="TextStyle.Body1" TagName="TagName.Span" class="me-3">@kv.Key: @kv.Value</RadzenText>
+                }
+            </Template>
+        </RadzenDataGridColumn>
+    </Columns>
 </RadzenDataGrid>
 
 @code {
-	IQueryable<ClassData> Classes = default!;
-	IDictionary<string, int> ClassModifiers = new Dictionary<string, int>();
-	IEnumerable<string> Attributes = new List<string> { "Strength", "Dexterity", "Cunning", "Willpower", "Magic", "Constitution" };
+    IQueryable<ClassData> Classes = default!;
+    IEnumerable<string> Attributes = new List<string> { "Strength", "Dexterity", "Cunning", "Willpower", "Magic", "Constitution" };
 
-	protected override void OnInitialized()
-	{
-		Classes = GameDataManager.Classes.Queryable();
-	}
+    string? SelectedClass { get; set; }
 
-	protected override void StartEdit(SkillData? data)
-	{
-		ClassModifiers.Clear();
-		Edit = data;
-	}
+    protected override void OnInitialized()
+    {
+        Classes = GameDataManager.Classes.Queryable();
+    }
 
-	//void OnClassesChanged()
-	//{
-	//	if (Edit != null) Edit.AllowableClasses = AllowedClasses.OrderBy(c => c).ToArray();
-	//}
+    protected override void StartEdit(SkillData? data)
+    {
+        SelectedClass = null;
+        Edit = data;
+    }
+
+    void OnModifierValueChange(int value)
+    {
+        if (Edit is null || SelectedClass is null) return;
+
+        if (value == 0)
+            Edit.ClassModifiers.Remove(SelectedClass);
+        else if (Edit.ClassModifiers.ContainsKey(SelectedClass))
+            Edit.ClassModifiers[SelectedClass] = value;
+        else
+            Edit.ClassModifiers.TryAdd(SelectedClass, value);
+    }
 }
