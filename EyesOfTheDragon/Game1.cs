@@ -48,6 +48,7 @@ internal class Game1 : Game
     protected override void LoadContent()
     {
         SpriteBatch = new SpriteBatch(GraphicsDevice);
+        DataManager.Load(Content);
     }
 
     protected override void Update(GameTime gameTime)

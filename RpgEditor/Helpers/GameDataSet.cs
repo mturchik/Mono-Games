@@ -14,7 +14,7 @@ public class GameDataSet<T> where T : BaseData
                 foreach (var file in _directory.GetFiles())
                 {
                     var data = XnaSerializer.Deserialize<T>(file.FullName);
-                    var added = _data.TryAdd(data.Id, data);
+                    var added = _data.TryAdd(data.Name, data);
                     if (!added) throw new ApplicationException("Failed to add data to dictionary");
                 }
             }
@@ -30,8 +30,6 @@ public class GameDataSet<T> where T : BaseData
     public string DirectoryPath() => _directory.FullName;
 
     public IQueryable<T> Queryable() => Data.Values.AsQueryable();
-
-    public T? Get(string id) => Data.GetValueOrDefault(id);
 
     public void Upsert(T data)
     {

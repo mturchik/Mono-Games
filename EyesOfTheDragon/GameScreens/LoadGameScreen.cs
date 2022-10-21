@@ -1,4 +1,7 @@
-﻿namespace EyesOfTheDragon.GameScreens;
+﻿using MGRpgLibrary.CharacterClasses;
+using RpgLibrary.CharacterClasses;
+
+namespace EyesOfTheDragon.GameScreens;
 internal class LoadGameScreen : BaseGameState
 {
     #region Fields and Properties
@@ -115,7 +118,9 @@ internal class LoadGameScreen : BaseGameState
             { AnimationKey.Up,    new Animation(3, 32, 32, 0, 96) },
         };
         var sprite = new AnimatedSprite(GameRef.Content.Load<Texture2D>(@"PlayerSprites\malefighter"), animations);
-        GamePlayScreen.Player = new Player(GameRef, sprite);
+        var entity = new Entity("Incel", DataManager.ClassData["Fighter"], RpgLibrary.EntityGender.Male, RpgLibrary.EntityType.Character);
+        var character = new Character(entity, sprite);
+        GamePlayScreen.Player = new Player(GameRef, character);
     }
 
     private void CreateWorld()

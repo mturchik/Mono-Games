@@ -1,4 +1,7 @@
-﻿using MGRpgLibrary.ItemClasses;
+﻿using MGRpgLibrary.CharacterClasses;
+using MGRpgLibrary.ItemClasses;
+using RpgLibrary;
+using RpgLibrary.CharacterClasses;
 using RpgLibrary.ItemClasses;
 
 namespace EyesOfTheDragon.GameScreens;
@@ -6,15 +9,15 @@ internal class CharacterGeneratorScreen : BaseGameState
 {
     #region Fields and Properties
 
-    private LeftRightSelector _nameSelector = null!;
-    private LeftRightSelector _genderSelector = null!;
-    private LeftRightSelector _classSelector = null!;
-    private PictureBox _backgroundImage = null!;
-    private PictureBox _characterImage = null!;
-    private Texture2D[,] _characterImages = null!;
-    private Texture2D _containers = null!;
+    private LeftRightSelector _nameSelector = default!;
+    private LeftRightSelector _genderSelector = default!;
+    private LeftRightSelector _classSelector = default!;
+    private PictureBox _backgroundImage = default!;
+    private PictureBox _characterImage = default!;
+    private Texture2D[,] _characterImages = default!;
+    private Texture2D _containers = default!;
     private readonly string[] _genderItems = { "Male", "Female", "Non-Binary" };
-    private readonly string[] _classItems = { "Fighter", "Wizard", "Rogue", "Priest" };
+    private string[] _classItems = Array.Empty<string>();
     private readonly string[] _maleName = { "Balthazar", "Logan", "Alfred", "Johnson" };
     private readonly string[] _femaleName = { "Lucinda", "Cynthia", "Ezmarelda", "Millicent" };
     private readonly string[] _nbName = { "Jaime", "Kelly", "Jordan", "Pat" };
@@ -40,6 +43,9 @@ internal class CharacterGeneratorScreen : BaseGameState
     protected override void LoadContent()
     {
         base.LoadContent();
+
+        _classItems = DataManager.ClassData.Keys.Select(k => DataManager.ClassData[k].Name).ToArray();
+
         LoadImages();
         CreateControls();
         _containers = Game.Content.Load<Texture2D>(@"ObjectSprites\containers");
@@ -156,9 +162,20 @@ internal class CharacterGeneratorScreen : BaseGameState
             { AnimationKey.Right, new Animation(3, 32, 32, 0, 64) },
             { AnimationKey.Up,    new Animation(3, 32, 32, 0, 96) },
         };
-        var gender = _genderSelector.SelectedIndex < 2 ? _genderSelector.SelectedIndex : 1;
-        var sprite = new AnimatedSprite(_characterImages[gender, _classSelector.SelectedIndex], animations);
-        GamePlayScreen.Player = new Player(GameRef, sprite);
+        var genderStr = _genderSelector.SelectedIndex < 2 ? _genderSelector.SelectedIndex : 1;
+        var sprite = new AnimatedSprite(_characterImages[genderStr, _classSelector.SelectedIndex], animations);
+
+        var gender = _genderSelector.SelectedIndex switch
+        {
+            0 => EntityGender.Male,
+            1 => EntityGender.Female,
+            2 => EntityGender.NonBinary,
+            _ => EntityGender.Unknown
+        };
+        var entity = new Entity(_nameSelector.SelectedItem, DataManager.ClassData[_classSelector.SelectedItem], gender, EntityType.Character);
+
+        var character = new Character(entity, sprite);
+        GamePlayScreen.Player = new Player(GameRef, character);
     }
 
     private void CreateWorld()

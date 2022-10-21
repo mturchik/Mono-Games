@@ -1,21 +1,24 @@
-﻿namespace EyesOfTheDragon.Components;
+﻿using MGRpgLibrary.CharacterClasses;
+
+namespace EyesOfTheDragon.Components;
 internal class Player
 {
     #region Fields and Properties
 
     private readonly Game1 _gameRef;
-    public AnimatedSprite Sprite { get; }
+    public Character Character { get; }
+    public AnimatedSprite Sprite => Character.Sprite;
     public Camera Camera { get; set; }
 
     #endregion
 
     #region Constructor Region
 
-    public Player(Game game, AnimatedSprite sprite)
+    public Player(Game game, Character character)
     {
         _gameRef = (Game1)game;
         Camera = new Camera(_gameRef.ScreenRectangle);
-        Sprite = sprite;
+        Character = character;
     }
 
     #endregion
@@ -26,7 +29,7 @@ internal class Player
     {
         Camera.Update(gameTime);
         Sprite.Update(gameTime);
-
+        #region Camera Input
         if (InputHandler.KeyReleased(Keys.PageUp) || InputHandler.ButtonReleased(Buttons.LeftShoulder, PlayerIndex.One))
         {
             Camera.ZoomIn();
@@ -39,9 +42,9 @@ internal class Player
             if (Camera.CameraMode == CameraMode.Follow)
                 Camera.LockToSprite(Sprite);
         }
-
+        #endregion
+        #region Movement Input
         var motion = new Vector2();
-
         if (InputHandler.KeyDown(Keys.W) || InputHandler.ButtonDown(Buttons.LeftThumbstickUp, PlayerIndex.One))
         {
             Sprite.CurrentAnimation = AnimationKey.Up;
@@ -78,7 +81,8 @@ internal class Player
         {
             Sprite.IsAnimating = false;
         }
-
+        #endregion
+        #region Camera Manipulation Toggles
         if (InputHandler.KeyReleased(Keys.F) || InputHandler.ButtonReleased(Buttons.RightStick, PlayerIndex.One))
         {
             Camera.ToggleCameraMode();
@@ -93,11 +97,12 @@ internal class Player
                 Camera.LockToSprite(Sprite);
             }
         }
+        #endregion
     }
 
     public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
-        Sprite.Draw(gameTime, spriteBatch);
+        Character.Draw(gameTime, spriteBatch);
     }
 
     #endregion

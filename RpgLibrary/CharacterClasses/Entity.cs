@@ -3,7 +3,7 @@ using RpgLibrary.SpellClasses;
 using RpgLibrary.TalentClasses;
 
 namespace RpgLibrary.CharacterClasses;
-public abstract class Entity
+public class Entity
 {
     #region Vital Field and Property Region
 
