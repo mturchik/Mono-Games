@@ -37,7 +37,7 @@ public class GameDataManager
     public GameDataManager()
     {
         Games = new GameDataSet<RolePlayingGame>(
-            GetOrCreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\RpgEditor\\Games")
+            GetOrCreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\RpgEditor")
         );
         _ = Games.Queryable();
     }
