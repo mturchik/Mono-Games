@@ -4,6 +4,7 @@ public class LinkLabel : Control
     #region Fields and Properties
 
     public Color SelectedColor { get; set; }
+    public Color DisabledColor { get; set; }
 
     #endregion
 
@@ -12,6 +13,7 @@ public class LinkLabel : Control
     public LinkLabel()
     {
         SelectedColor = Color.Red;
+        DisabledColor = Color.DimGray;
         TabStop = true;
         HasFocus = false;
         Position = Vector2.Zero;
@@ -25,7 +27,9 @@ public class LinkLabel : Control
 
     public override void Draw(SpriteBatch spriteBatch)
     {
-        if (HasFocus)
+        if (!Enabled)
+            spriteBatch.DrawString(SpriteFont, Text, Position, DisabledColor);
+        else if (HasFocus)
             spriteBatch.DrawString(SpriteFont, Text, Position, SelectedColor);
         else
             spriteBatch.DrawString(SpriteFont, Text, Position, Color);
@@ -33,7 +37,7 @@ public class LinkLabel : Control
 
     public override void HandleInput(PlayerIndex playerIndex)
     {
-        if (!HasFocus) return;
+        if (!HasFocus || !Enabled) return;
 
         if (InputHandler.KeyReleased(Keys.Enter) || InputHandler.ButtonReleased(Buttons.A, playerIndex))
             OnSelected(EventArgs.Empty);

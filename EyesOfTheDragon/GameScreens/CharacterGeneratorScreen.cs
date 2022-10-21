@@ -139,9 +139,12 @@ internal class CharacterGeneratorScreen : BaseGameState
     private void OnLinkLabelSelected(object? sender, EventArgs e)
     {
         InputHandler.Flush();
-        StateManager.ChangeState(GameRef.GamePlayScreen);
+
         CreatePlayer();
         CreateWorld();
+
+        GameRef.SkillScreen.SkillPoints = 25;
+        StateManager.ChangeState(GameRef.SkillScreen);
     }
 
     private void CreatePlayer()
