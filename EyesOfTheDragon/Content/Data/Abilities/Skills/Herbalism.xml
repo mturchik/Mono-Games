@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:SkillClasses="RpgLibrary.SkillClasses">
+  <Asset Type="SkillClasses:SkillData">
+    <Id>b265283a-b9a1-4665-91d0-9bf0b85119ed</Id>
+    <Name>Herbalism</Name>
+    <PrimaryAttribute>Magic</PrimaryAttribute>
+    <ClassModifiers />
+  </Asset>
+</XnaContent>

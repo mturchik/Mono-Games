@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:SkillClasses="RpgLibrary.SkillClasses">
+  <Asset Type="SkillClasses:SkillData">
+    <Id>738b014f-e030-4d14-b8d5-388ad679344a</Id>
+    <Name>Bartering</Name>
+    <PrimaryAttribute>Cunning</PrimaryAttribute>
+    <ClassModifiers />
+  </Asset>
+</XnaContent>

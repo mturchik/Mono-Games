@@ -14,12 +14,16 @@
                     <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Name</RadzenText>
                     <RadzenTextBox @bind-Value="Edit.Name" class="w-100" />
                 </div>
+                <div class="col-6">
+                    <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Description</RadzenText>
+                    <RadzenTextBox @bind-Value="Edit.Description" class="w-100" />
+                </div>
             </div>
 
             <div class="row mb-3">
                 <div class="col-6">
-                    <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Description</RadzenText>
-                    <RadzenTextBox @bind-Value="Edit.Description" class="w-100" />
+                    <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Folder Path</RadzenText>
+                    <RadzenTextBox @bind-Value="Edit.LocalPath" class="w-100" />
                 </div>
             </div>
 
@@ -53,8 +57,9 @@
                 }
             </Template>
         </RadzenDataGridColumn>
-        <RadzenDataGridColumn TItem="RolePlayingGame" Property="Name" Title="Name" />
-        <RadzenDataGridColumn TItem="RolePlayingGame" Property="Description" Title="Description" />
+        <RadzenDataGridColumn TItem="RolePlayingGame" Property="Name" Title="Name" Width="250px" />
+        <RadzenDataGridColumn TItem="RolePlayingGame" Property="Description" Title="Description" Width="250px" />
+        <RadzenDataGridColumn TItem="RolePlayingGame" Property="LocalPath" Title="Folder Path" />
     </Columns>
 </RadzenDataGrid>
 

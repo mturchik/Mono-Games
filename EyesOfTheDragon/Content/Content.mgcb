@@ -27,6 +27,26 @@
 /processorParam:TextureFormat=Color
 /build:Backgrounds/titlescreen.png
 
+#begin Data/Abilities/Skills/Bartering.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Data/Abilities/Skills/Bartering.xml
+
+#begin Data/Abilities/Skills/Herbalism.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Data/Abilities/Skills/Herbalism.xml
+
+#begin Data/Abilities/Skills/Poison_Making.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Data/Abilities/Skills/Poison_Making.xml
+
+#begin Data/Abilities/Skills/Trap_Making.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Data/Abilities/Skills/Trap_Making.xml
+
 #begin Data/Entities/Classes/Fighter.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
@@ -47,6 +67,11 @@
 /processor:PassThroughProcessor
 /build:Data/Entities/Classes/Wizard.xml
 
+#begin Data/Items/Armors/Chain_Mail.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Data/Items/Armors/Chain_Mail.xml
+
 #begin Data/Items/Armors/Chain_Mail_Boots.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
@@ -61,11 +86,6 @@
 /importer:XmlImporter
 /processor:PassThroughProcessor
 /build:Data/Items/Armors/Chain_Mail_Helm.xml
-
-#begin Data/Items/Armors/Chain_Mail.xml
-/importer:XmlImporter
-/processor:PassThroughProcessor
-/build:Data/Items/Armors/Chain_Mail.xml
 
 #begin Data/Items/Armors/Leather_Armor.xml
 /importer:XmlImporter

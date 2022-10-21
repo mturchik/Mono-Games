@@ -55,44 +55,43 @@ public class GameDataManager
 
     private void InitializeSubDirectories(RolePlayingGame rpg)
     {
-        var gameFolderPath = Games.DirectoryPath() + $"\\{rpg.FormatFileName()}";
         // Classes
         Classes = new GameDataSet<ClassData>(
-            GetOrCreateDirectory($"{gameFolderPath}\\Entities\\Classes")
+            GetOrCreateDirectory($"{rpg.LocalPath}\\Entities\\Classes")
         );
         // Items
         Armors = new GameDataSet<ArmorData>(
-            GetOrCreateDirectory($"{gameFolderPath}\\Items\\Armors")
+            GetOrCreateDirectory($"{rpg.LocalPath}\\Items\\Armors")
         );
         Chests = new GameDataSet<ChestData>(
-            GetOrCreateDirectory($"{gameFolderPath}\\Items\\Chests")
+            GetOrCreateDirectory($"{rpg.LocalPath}\\Items\\Chests")
         );
         Keys = new GameDataSet<KeyData>(
-            GetOrCreateDirectory($"{gameFolderPath}\\Items\\Keys")
+            GetOrCreateDirectory($"{rpg.LocalPath}\\Items\\Keys")
         );
         Reagents = new GameDataSet<ReagentData>(
-            GetOrCreateDirectory($"{gameFolderPath}\\Items\\Reagents")
+            GetOrCreateDirectory($"{rpg.LocalPath}\\Items\\Reagents")
         );
         Shields = new GameDataSet<ShieldData>(
-            GetOrCreateDirectory($"{gameFolderPath}\\Items\\Shields")
+            GetOrCreateDirectory($"{rpg.LocalPath}\\Items\\Shields")
         );
         Weapons = new GameDataSet<WeaponData>(
-            GetOrCreateDirectory($"{gameFolderPath}\\Items\\Weapons")
+            GetOrCreateDirectory($"{rpg.LocalPath}\\Items\\Weapons")
         );
         // Skills
         Skills = new GameDataSet<SkillData>(
-            GetOrCreateDirectory($"{gameFolderPath}\\Abilities\\Skills")
+            GetOrCreateDirectory($"{rpg.LocalPath}\\Abilities\\Skills")
         );
         Recipes = new GameDataSet<Recipe>(
-            GetOrCreateDirectory($"{gameFolderPath}\\Abilities\\Recipes")
+            GetOrCreateDirectory($"{rpg.LocalPath}\\Abilities\\Recipes")
         );
         // Spells
         Spells = new GameDataSet<SpellData>(
-            GetOrCreateDirectory($"{gameFolderPath}\\Abilities\\Spells")
+            GetOrCreateDirectory($"{rpg.LocalPath}\\Abilities\\Spells")
         );
         // Talents
         Talents = new GameDataSet<TalentData>(
-            GetOrCreateDirectory($"{gameFolderPath}\\Abilities\\Talents")
+            GetOrCreateDirectory($"{rpg.LocalPath}\\Abilities\\Talents")
         );
     }
 

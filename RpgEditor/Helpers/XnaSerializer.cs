@@ -2,7 +2,7 @@
 using System.Xml;
 
 namespace RpgEditor.Helpers;
-static class XnaSerializer
+public static class XnaSerializer
 {
     public static void Serialize<T>(string filename, T data)
     {
