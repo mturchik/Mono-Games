@@ -1,6 +1,4 @@
-﻿using Radzen;
-
-namespace RpgEditor;
+﻿namespace RpgEditor;
 public static class MauiProgram
 {
     public static MauiApp CreateMauiApp()

@@ -1,4 +1,6 @@
-﻿global using RpgEditor.Helpers;
+﻿global using Microsoft.AspNetCore.Components;
+global using Radzen;
+global using RpgEditor.Helpers;
 global using RpgLibrary;
 global using RpgLibrary.CharacterClasses;
 global using RpgLibrary.ItemClasses;
