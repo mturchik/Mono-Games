@@ -87,5 +87,7 @@ public class TileMap
         _layers.Add(layer);
     }
 
+    public void AddTileset(Tileset tileset) => _tilesets.Add(tileset);
+
     #endregion
 }

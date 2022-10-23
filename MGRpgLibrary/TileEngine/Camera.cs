@@ -13,7 +13,11 @@ public class Camera
     public Rectangle ViewportRectangle => new(_viewportRectangle.X, _viewportRectangle.Y, _viewportRectangle.Width, _viewportRectangle.Height);
 
     private Vector2 _position;
-    public Vector2 Position => _position;
+    public Vector2 Position
+    {
+        get => _position;
+        set => _position = value;
+    }
 
     private float _speed;
     public float Speed
@@ -99,7 +103,7 @@ public class Camera
         LockCamera();
     }
 
-    private void LockCamera()
+    public void LockCamera()
     {
         _position.X = MathHelper.Clamp(_position.X, 0, TileMap.WidthInPixels * Zoom - _viewportRectangle.Width);
         _position.Y = MathHelper.Clamp(_position.Y, 0, TileMap.HeightInPixels * Zoom - _viewportRectangle.Height);
